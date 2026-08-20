@@ -22,17 +22,17 @@ const INPUTS = ["Chex forms", "Lab markers", "Wearables", "Genomics"];
 const MAX_LOAD = 15;
 
 /**
- * The Dynamic Symptom Chart: four data sources feed seven weighted layers,
+ * The Diamond System of Care: four data sources feed seven weighted layers,
  * which resolve into one healing plan. Connector lines flow behind
  * `prefers-reduced-motion: no-preference`.
  */
 export function LadderDiagram() {
   return (
-    <MockFrame label="The Dynamic Symptom Chart: Chex forms, lab markers, wearables and genomics feeding seven weighted health layers that resolve into a healing plan">
+    <MockFrame label="The Diamond System of Care: Chex forms, lab markers, wearables and genomics feeding seven weighted health layers that resolve into a healing plan">
       <div className="flex min-h-[440px] flex-col">
         <MockHeader>
           <span className="text-[0.8125rem] font-semibold leading-4 text-ink">
-            Dynamic Symptom Chart
+            Diamond System of Care
           </span>
           <MonoLabel>Sarah L. · 20 Apr</MonoLabel>
         </MockHeader>
