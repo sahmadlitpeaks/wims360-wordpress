@@ -1,57 +1,53 @@
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Chip } from "@/components/ui/Chip";
+import { BookingCalendar } from "@/components/mocks/BookingCalendar";
+import { CompanionPhone } from "@/components/mocks/CompanionPhone";
+import { CopilotChat } from "@/components/mocks/CopilotChat";
+import { CrmFunnel } from "@/components/mocks/CrmFunnel";
+import { ExamCatalog } from "@/components/mocks/ExamCatalog";
+import { ReportCompare } from "@/components/mocks/ReportCompare";
+import { ClientExperience } from "@/components/home/ClientExperience";
+import { ComplianceGrid } from "@/components/home/ComplianceGrid";
+import { Hero } from "@/components/home/Hero";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { Methodology } from "@/components/home/Methodology";
+import { ModuleShowcase } from "@/components/home/ModuleShowcase";
+import { PackagesTeaser } from "@/components/home/PackagesTeaser";
+import { Pillars } from "@/components/home/Pillars";
+import { Problem } from "@/components/home/Problem";
+import { ReplaceStack } from "@/components/home/ReplaceStack";
+import { RolesGrid } from "@/components/home/RolesGrid";
+import { StatsBand } from "@/components/home/StatsBand";
+import { TrustStrip } from "@/components/home/TrustStrip";
 import { CtaBand } from "@/components/ui/CtaBand";
-import { Section } from "@/components/ui/Section";
 
+/**
+ * Title and description are inherited from the root layout defaults, which
+ * already carry the homepage positioning line.
+ */
 export default function Home() {
   return (
     <>
-      <Section
-        eyebrow="WIMS 360"
-        title={
-          <>
-            The operating system for{" "}
-            <span className="font-serif italic">integrative</span> wellness
-            clinics.
-          </>
-        }
-        intro="Site under construction — the design system primitives and site chrome are in place."
-      >
-        <div className="flex flex-wrap items-center gap-4">
-          <Button href="/contact" size="lg">
-            Book a demo
-          </Button>
-          <Button href="/packages" variant="outline" size="lg">
-            Request pricing
-          </Button>
-          <Button href="/platform" variant="ghost">
-            Explore the platform
-          </Button>
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-          <Card>
-            <Chip tone="green">Clinical</Chip>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              Intake, diagnostics and care plans in one clinical record.
-            </p>
-          </Card>
-          <Card>
-            <Chip tone="neutral">Operations</Chip>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              Booking, packages and centres run from a single console.
-            </p>
-          </Card>
-          <Card>
-            <Chip tone="amber">Governance</Chip>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              Consent-gated AI, clinician-approved writes, full audit trail.
-            </p>
-          </Card>
-        </div>
-      </Section>
-
+      <Hero />
+      <TrustStrip />
+      <Problem />
+      <ReplaceStack />
+      <Pillars />
+      <Methodology />
+      <ModuleShowcase
+        panels={{
+          assessments: <ExamCatalog />,
+          labs: <ReportCompare />,
+          ai: <CopilotChat />,
+          bookings: <BookingCalendar />,
+          crm: <CrmFunnel />,
+          portal: <CompanionPhone />,
+        }}
+      />
+      <ClientExperience />
+      <StatsBand />
+      <RolesGrid />
+      <ComplianceGrid />
+      <PackagesTeaser />
+      <HowItWorks />
       <CtaBand />
     </>
   );
