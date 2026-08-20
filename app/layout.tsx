@@ -1,0 +1,55 @@
+import type { Metadata } from "next";
+import { Bricolage_Grotesque, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import "./globals.css";
+
+const fontDisplay = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const fontBody = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const fontMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: "WIMS 360 — The operating system for integrative wellness clinics",
+    template: "%s · WIMS 360",
+  },
+  description:
+    "WIMS 360 is the operating system for integrative wellness clinics — unifying intake, diagnostics, care plans, and client engagement in one platform.",
+  openGraph: {
+    title: "WIMS 360 — The operating system for integrative wellness clinics",
+    description:
+      "WIMS 360 is the operating system for integrative wellness clinics — unifying intake, diagnostics, care plans, and client engagement in one platform.",
+    siteName: "WIMS 360",
+    type: "website",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-bg text-ink font-body`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}

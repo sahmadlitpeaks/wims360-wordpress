@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F7F6F1;
+  --surface: #FFFFFF;
+  --ink: #182420;
+  --muted: #5A6B62;
+  --line: #E2E5DD;
+  --green: #0E6B4E;
+  --green-deep: #0A3D2E;
+  --green-soft: #E4EFE8;
+  --amber: #96661D;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.container-site {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
