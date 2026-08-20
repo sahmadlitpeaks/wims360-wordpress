@@ -22,6 +22,22 @@
   color: var(--green);
 }
 
+/* DSC ladder connector flow — the only motion besides the hero live dot. */
+@keyframes ladder-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ladder-flow {
+    animation: ladder-flow 1.4s linear infinite;
+  }
+}
+
 .container-site {
   max-width: 1200px;
   margin-left: auto;
