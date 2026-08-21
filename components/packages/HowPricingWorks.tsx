@@ -1,0 +1,82 @@
+import { Section } from "@/components/ui/Section";
+
+type Factor = {
+  index: string;
+  title: string;
+  body: string;
+};
+
+const FACTORS: Factor[] = [
+  {
+    index: "01",
+    title: "Platform base",
+    body: "Every customer gets a managed cloud tenant with its own database and its own storage bucket, hosted in the region you require. The base carries the unified client record, the document hub, dashboards and the compliance layer — audit logging, consent, retention and two-factor authentication are never a line item you can decline.",
+  },
+  {
+    index: "02",
+    title: "Modules",
+    body: "On top of the base you switch on the modules the clinic actually runs: assessments, labs and genomics, Dr.T AI, bookings, CRM, the client portal. Scope follows what you turn on, and a module added later is a configuration change rather than a migration.",
+  },
+  {
+    index: "03",
+    title: "Practitioner seats",
+    body: "Staff who touch the record hold named accounts scoped by role, so an audit entry always points at a person. Seats follow the size of your clinical team, and someone who covers two sites holds one account with access to both, not two accounts.",
+  },
+  {
+    index: "04",
+    title: "Centers",
+    body: "Centers are first-class in the data model: clients, bookings, staff and reporting are scoped per site, with roll-up reporting for head office. Each additional center adds its own scope, while group-wide settings — consent versions, retention rules, the support desk — stay configured once, centrally.",
+  },
+  {
+    index: "05",
+    title: "One-time onboarding & migration",
+    body: "Configuration, data migration and staff training are scoped once, up front. We start from a sample file, agree the field mapping with you, then run a dry migration you review before anything goes live — and we agree a dated plan before the contract, not after.",
+  },
+];
+
+/**
+ * The five things a proposal is built from. Deliberately no numbers: the page
+ * explains the shape of a quote, not its size.
+ */
+export function HowPricingWorks() {
+  return (
+    <Section
+      id="how-pricing-works"
+      eyebrow="How pricing works"
+      title={
+        <>
+          Five inputs, <span className="font-serif italic">no</span> guesswork.
+        </>
+      }
+      intro="A WIMS 360 proposal is assembled from the same five inputs every time. Tell us where your clinic sits on each and the scope is deterministic — you can see exactly what you are being quoted for, and what you are not."
+    >
+      <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {FACTORS.map((factor) => (
+          <li
+            key={factor.index}
+            className="flex flex-col rounded-xl border border-line bg-surface p-6 md:p-7"
+          >
+            <span className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
+              {factor.index}
+            </span>
+            <h3 className="mt-3 font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+              {factor.title}
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              {factor.body}
+            </p>
+          </li>
+        ))}
+
+        <li className="flex flex-col justify-center rounded-xl border border-dashed border-[color-mix(in_srgb,var(--green)_45%,transparent)] bg-green-soft p-6 md:p-7">
+          <p className="font-display text-lg font-semibold leading-snug tracking-tight text-green-deep">
+            No public price list — every proposal is scoped to your
+            configuration and comes back within one business day.
+          </p>
+        </li>
+      </ul>
+    </Section>
+  );
+}
+
+export default HowPricingWorks;

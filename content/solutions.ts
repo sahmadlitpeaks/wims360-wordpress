@@ -33,7 +33,7 @@ export const SOLUTIONS: Solution[] = [
     problem:
       'Functional practice runs on volume of evidence: long intakes, multi-panel labs, wearable data, sometimes genomics. The evidence arrives in different formats, weeks apart, and the practitioner does the joining by hand. Insight lands late, and protocol decisions rest on whatever was legible that morning.',
     narrative:
-      'WIMS 360 scores the evidence as it arrives. Chex forms, 115 functional markers across 33 lab panels, wearable signals and genomic traits all map onto the same 7-layer Diamond System of Care ladder, so a case can be read in one view. Dr.T Copilot can draft the health insight, the case review or the healing prescription from that record, citing what it used — and a clinician approves before anything is saved. It is consent-gated per client and enabled only after a signed BAA or DPA.',
+      'WIMS 360 scores the evidence as it arrives. Chex forms, 115 functional markers across 33 lab panels, wearable signals and genomic traits all map onto the same 7-layer Diamond System of Care ladder, so a case can be read in one view. Dr.T Copilot can draft the health insight, the case review or the healing prescription from that record, citing what it used — and a clinician approves before anything is saved. It is consent-gated per client and enabled only after a signed BAA or DPA. Most functional practices start on Clinical and add Dr.T Copilot with Precision when they\'re ready.',
     moduleIds: ['assessments', 'labs', 'ai', 'portal'],
     recommendedPackage: 'clinical',
   },

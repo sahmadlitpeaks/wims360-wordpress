@@ -23,6 +23,16 @@ export async function POST(req: Request): Promise<NextResponse> {
     );
   }
 
+  console.info(
+    "[lead:received]",
+    JSON.stringify({
+      source: parsed.data.source,
+      email: parsed.data.contact.email,
+      name: parsed.data.contact.name,
+      at: new Date().toISOString(),
+    }),
+  );
+
   try {
     await sendLeadEmail(parsed.data);
   } catch (error) {

@@ -1,0 +1,311 @@
+"use client";
+
+import { useState, type FormEvent, type ReactNode } from "react";
+import {
+  orgTypeLabel,
+  practitionerBandLabel,
+  siteBandLabel,
+} from "@/components/builder/StepOrg";
+import { Button } from "@/components/ui/Button";
+import { MODULES } from "@/content/modules";
+import { CUSTOMIZATIONS, type BuilderState } from "@/lib/builder";
+
+export type ContactDetails = {
+  name: string;
+  email: string;
+  phone?: string;
+  organization?: string;
+};
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function moduleNames(state: BuilderState): string[] {
+  return state.modules
+    .map((id) => MODULES.find((module) => module.id === id)?.name)
+    .filter((name): name is string => Boolean(name));
+}
+
+function customizationLabels(state: BuilderState): string[] {
+  return state.customizations
+    .map((id) => CUSTOMIZATIONS.find((item) => item.id === id)?.label)
+    .filter((label): label is string => Boolean(label));
+}
+
+function Block({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="border-t border-line pt-5">
+      <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted">
+        {label}
+      </p>
+      <div className="mt-2 text-sm leading-relaxed text-ink">{children}</div>
+    </div>
+  );
+}
+
+function Empty({ children }: { children: ReactNode }) {
+  return <span className="text-muted">{children}</span>;
+}
+
+/**
+ * Read-only restatement of the configuration. Used on the review step and
+ * again on the success screen so the visitor sees exactly what was sent.
+ */
+export function ConfigurationSummary({ state }: { state: BuilderState }) {
+  const orgBits = [
+    orgTypeLabel(state.org.type),
+    siteBandLabel(state.org.sites),
+    practitionerBandLabel(state.org.practitioners),
+  ].filter((bit): bit is string => Boolean(bit));
+
+  const modules = moduleNames(state);
+  const customizations = customizationLabels(state);
+
+  return (
+    <div className="flex flex-col gap-5">
+      <Block label="Your organization">
+        {orgBits.length > 0 ? (
+          orgBits.join(" · ")
+        ) : (
+          <Empty>Not specified</Empty>
+        )}
+        {state.org.currentTools.length > 0 ? (
+          <p className="mt-1.5 text-muted">
+            Currently using: {state.org.currentTools.join(", ")}
+          </p>
+        ) : null}
+      </Block>
+
+      <Block label="Modules switched on">
+        {modules.length > 0 ? (
+          modules.join(" · ")
+        ) : (
+          <Empty>Platform base only</Empty>
+        )}
+        <p className="mt-1.5 text-muted">
+          Always included: Client records · Compliance layer · Dashboards &amp;
+          reporting
+        </p>
+      </Block>
+
+      <Block label="Integrations">
+        {state.integrations.length > 0 ? (
+          state.integrations.join(" · ")
+        ) : (
+          <Empty>None selected</Empty>
+        )}
+        {state.otherSystems.trim() ? (
+          <p className="mt-1.5 text-muted">
+            Other system: {state.otherSystems.trim()}
+          </p>
+        ) : null}
+      </Block>
+
+      <Block label="Customization">
+        {customizations.length > 0 ? (
+          <ul className="flex flex-col gap-1.5">
+            {customizations.map((label) => (
+              <li key={label}>{label}</li>
+            ))}
+          </ul>
+        ) : (
+          <Empty>None selected</Empty>
+        )}
+      </Block>
+
+      {state.notes.trim() ? (
+        <Block label="Your notes">
+          <p className="whitespace-pre-wrap">{state.notes.trim()}</p>
+        </Block>
+      ) : null}
+    </div>
+  );
+}
+
+function Field({
+  id,
+  label,
+  type = "text",
+  value,
+  onChange,
+  error,
+  optional = false,
+  autoComplete,
+}: {
+  id: string;
+  label: string;
+  type?: "text" | "email" | "tel";
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+  optional?: boolean;
+  autoComplete?: string;
+}) {
+  const errorId = `${id}-error`;
+
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted"
+      >
+        {label}
+        {optional ? " (optional)" : ""}
+      </label>
+      <input
+        id={id}
+        type={type}
+        value={value}
+        autoComplete={autoComplete}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+        onChange={(event) => onChange(event.target.value)}
+        className="mt-2 w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted focus-visible:border-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+      />
+      {error ? (
+        <p id={errorId} className="mt-2 text-sm text-amber">
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+export type StepReviewProps = {
+  state: BuilderState;
+  submitting: boolean;
+  /** Server- or network-level failure message; field errors stay local. */
+  error: string | null;
+  onSubmit: (contact: ContactDetails) => void;
+};
+
+/**
+ * Step 5. Restates the configuration, then collects the contact details the
+ * lead endpoint needs. Required fields mirror the server-side lead schema:
+ * a name of at least two characters and a well-formed email address.
+ */
+export function StepReview({
+  state,
+  submitting,
+  error,
+  onSubmit,
+}: StepReviewProps) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{
+    name?: string;
+    email?: string;
+  }>({});
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const nextErrors: { name?: string; email?: string } = {};
+
+    if (name.trim().length < 2) {
+      nextErrors.name = "Please enter your name (at least two characters).";
+    }
+
+    if (!EMAIL_PATTERN.test(email.trim())) {
+      nextErrors.email = "Please enter a valid work email address.";
+    }
+
+    setFieldErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
+    onSubmit({
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim() || undefined,
+      organization: organization.trim() || undefined,
+    });
+  }
+
+  return (
+    <div className="flex flex-col gap-10">
+      <div>
+        <h2 className="font-display text-2xl font-semibold leading-tight tracking-tight text-ink md:text-3xl">
+          Your WIMS 360
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+          This is the configuration we&apos;ll scope against. Send it with your
+          details and a written proposal — modules, seats, centers and
+          onboarding — comes back within one business day.
+        </p>
+
+        <div className="mt-6 rounded-xl border border-line bg-surface p-6 md:p-7">
+          <ConfigurationSummary state={state} />
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} noValidate className="max-w-xl">
+        <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+          Where should the proposal go?
+        </h3>
+
+        <div className="mt-5 flex flex-col gap-5">
+          <Field
+            id="builder-name"
+            label="Your name"
+            value={name}
+            onChange={setName}
+            error={fieldErrors.name}
+            autoComplete="name"
+          />
+          <Field
+            id="builder-email"
+            label="Work email"
+            type="email"
+            value={email}
+            onChange={setEmail}
+            error={fieldErrors.email}
+            autoComplete="email"
+          />
+          <Field
+            id="builder-phone"
+            label="Phone"
+            type="tel"
+            value={phone}
+            onChange={setPhone}
+            optional
+            autoComplete="tel"
+          />
+          <Field
+            id="builder-organization"
+            label="Organization"
+            value={organization}
+            onChange={setOrganization}
+            optional
+            autoComplete="organization"
+          />
+        </div>
+
+        {error ? (
+          <p
+            role="alert"
+            className="mt-6 rounded-xl border border-amber bg-[color-mix(in_srgb,var(--amber)_10%,var(--surface))] px-4 py-3 text-sm leading-relaxed text-amber"
+          >
+            {error}
+          </p>
+        ) : null}
+
+        <div className="mt-7">
+          <Button type="submit" variant="primary" size="lg" disabled={submitting}>
+            {submitting ? "Sending…" : "Send my configuration"}
+          </Button>
+        </div>
+
+        <p className="mt-4 text-sm leading-relaxed text-muted">
+          No pricing is calculated here. We read the configuration, scope it and
+          reply in writing.
+        </p>
+      </form>
+    </div>
+  );
+}
+
+export default StepReview;

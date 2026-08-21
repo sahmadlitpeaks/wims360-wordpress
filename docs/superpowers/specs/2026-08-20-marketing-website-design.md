@@ -66,7 +66,7 @@ Rules: no prices, no fake estimates; escape hatch to `/contact` on every step; e
 
 ## 6. Lead intake (`/api/lead`)
 
-- Accepts JSON: `{ source: 'demo' | 'pricing' | 'builder' | 'security-pack', contact: {...}, payload: {...} }`.
+- Accepts JSON: `{ source: 'demo' | 'pricing' | 'builder' | 'security-pack', contact: {...}, message?: string, configuration?: {...} }`.
 - Validates (zod), rejects malformed input with field errors.
 - Emails a formatted summary to a configured address. Transport: Resend if `RESEND_API_KEY` set, else SMTP via nodemailer envs, else logs to console (dev fallback) and still returns success in dev.
 - Logs every submission server-side. Payload shape is stable so a later forwarder can post it into the WIMS CRM without frontend changes.

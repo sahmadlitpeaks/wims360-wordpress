@@ -30,7 +30,7 @@ export function TrustStrip() {
                 href="/platform"
                 className="inline-block rounded-lg px-2 py-2 font-mono text-[0.75rem] leading-5 tracking-tight text-green transition-colors hover:text-green-deep"
               >
-                + 7 more
+                + more integrations
               </Link>
             </li>
           </ul>

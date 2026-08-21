@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Section } from "@/components/ui/Section";
 import { ROLES } from "@/content/roles";
@@ -32,17 +31,14 @@ export function RolesGrid() {
         ))}
 
         <li>
-          <Link
-            href="/platform"
-            className="flex h-full flex-col justify-center rounded-xl border border-dashed border-[color-mix(in_srgb,var(--green)_40%,transparent)] bg-green-soft p-5 transition-colors hover:border-green"
-          >
+          <div className="flex h-full flex-col justify-center rounded-xl border border-dashed border-[color-mix(in_srgb,var(--green)_40%,transparent)] bg-green-soft p-5">
             <span className="font-display text-base font-semibold leading-snug tracking-tight text-green-deep">
               + {REMAINING} more roles
             </span>
             <span className="mt-2 text-sm leading-relaxed text-green-deep">
               Every one with its own dashboard, permissions and data scope.
             </span>
-          </Link>
+          </div>
         </li>
       </ul>
     </Section>
