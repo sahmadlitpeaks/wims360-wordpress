@@ -8,7 +8,10 @@ const nextConfig: NextConfig = {
    * serving, which surfaces as hydration mismatches against source that is
    * already correct. Separate directories make the two safe to run in any order.
    */
-  distDir: process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
+  distDir:
+    !process.env.VERCEL && process.env.NODE_ENV === "development"
+      ? ".next-dev"
+      : ".next",
 };
 
 export default nextConfig;
