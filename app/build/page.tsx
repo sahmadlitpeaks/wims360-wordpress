@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BuilderWizard } from "@/components/builder/BuilderWizard";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Reveal } from "@/components/ui/Reveal";
 import { PACKAGES, type PackageId } from "@/content/packages";
 
 export const metadata: Metadata = {
@@ -44,24 +45,30 @@ export default async function BuildPage({
   const encoded = firstValue(params.c);
 
   return (
-    <section className="py-12 md:py-16">
-      <div className="container-site">
-        <div className="max-w-2xl">
-          <Eyebrow>Build your package</Eyebrow>
-          <h1 className="mt-3 font-display text-3xl font-semibold leading-[1.15] tracking-tight text-ink md:text-4xl">
-            Configure the WIMS 360 you{" "}
-            <span className="font-serif italic">actually</span> need.
-          </h1>
-          <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
-            Five short steps: tell us the shape of your organization, switch on
-            the modules you want, pick the integrations you run today and note
-            anything custom. Nothing is charged here and nothing is committed —
-            you send us a configuration, we send back a written scope.
-          </p>
+    <>
+      <section className="bg-green-deep pb-20 pt-20 text-cream md:pb-[104px] md:pt-[112px]">
+        <div className="container-site">
+          <Reveal>
+            <Eyebrow tone="dark">Build your package</Eyebrow>
+            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.4rem,5.6vw,68px)] font-normal leading-[1.02] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+              Configure the WIMS 360 you{" "}
+              <em className="italic text-brass">actually</em> need.
+            </h1>
+            <p className="mt-10 max-w-[62ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
+              Five short steps: tell us the shape of your organization, switch on
+              the modules you want, pick the integrations you run today and note
+              anything custom. Nothing is charged here and nothing is committed —
+              you send us a configuration, we send back a written scope.
+            </p>
+          </Reveal>
         </div>
+      </section>
 
-        <BuilderWizard startPackage={startPackage} encoded={encoded} />
-      </div>
-    </section>
+      <section className="bg-bg py-16 md:py-24">
+        <div className="container-site">
+          <BuilderWizard startPackage={startPackage} encoded={encoded} />
+        </div>
+      </section>
+    </>
   );
 }

@@ -16,6 +16,11 @@ export interface Module {
   description: string;
   bullets: string[];
   includedIn: PackageId[];
+  /**
+   * Qualifier appended after the "Included in …" line on the platform page,
+   * for modules that need more than the package list to be accurate.
+   */
+  includedNote?: string;
 }
 
 export const MODULES: Module[] = [
@@ -69,6 +74,7 @@ export const MODULES: Module[] = [
       'Off by default. Enabled per customer after BAA or DPA, and switchable off again from settings',
     ],
     includedIn: ['precision'],
+    includedNote: 'enabled after BAA or DPA',
   },
   {
     id: 'bookings',

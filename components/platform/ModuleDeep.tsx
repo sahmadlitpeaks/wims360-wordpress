@@ -1,40 +1,34 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Reveal } from "@/components/ui/Reveal";
 import type { Module } from "@/content/modules";
 
-/** Eyebrow copy for each half of the platform. The `.eyebrow` class uppercases. */
+/** Which half of the platform the module belongs to, as the artboard labels it. */
 const HALF_LABEL: Record<Module["half"], string> = {
-  clinical: "Clinical intelligence",
-  operations: "Clinic operations",
+  clinical: "Clinical",
+  operations: "Operations",
 };
 
 export type ModuleDeepProps = {
   module: Module;
-  /** The product mock for this module, rendered beside the copy. */
-  mock: ReactNode;
-  /** Puts the mock on the left at `lg`. The page alternates this per section. */
-  reversed?: boolean;
-  /** Optional trailing block under the bullets (e.g. the Dr.T AI link). */
+  /** e.g. "Included in Clinical and Precision" — composed by the page from content. */
+  included: string;
+  /** Optional trailing block under the included line (the Dr.T AI ghost link). */
   footer?: ReactNode;
   /** Section ground — the page alternates `bg-surface` and the page `bg`. */
   className?: string;
 };
 
 /**
- * One deep-dive section per module: half eyebrow, name, tagline, description,
- * every bullet, and the mock. The `id` is the anchor target linked from the
- * homepage module showcase and the solutions pages, so it carries
- * `scroll-mt-24` to clear the sticky header.
- *
- * Both columns are top-aligned: several mocks (the Chex catalog especially)
- * are much taller than their copy, and centering would strand the text in the
- * middle of a column of whitespace.
+ * One deep-dive section per module: the half eyebrow, name, tagline and
+ * description on the left, and every bullet as a numbered hairline row on the
+ * right. The `id` is the anchor target linked from the homepage module
+ * showcase and the solutions pages, so it carries `scroll-mt-24` to clear the
+ * 76px sticky header.
  */
 export function ModuleDeep({
   module,
-  mock,
-  reversed = false,
+  included,
   footer,
   className,
 }: ModuleDeepProps) {
@@ -42,50 +36,51 @@ export function ModuleDeep({
     <section
       id={module.id}
       aria-labelledby={`${module.id}-title`}
-      className={cn("scroll-mt-24 py-20 md:py-28", className)}
+      className={cn(
+        "scroll-mt-24 border-t border-line py-24 md:py-[140px]",
+        className,
+      )}
     >
       <div className="container-site">
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className={cn(reversed && "lg:order-2")}>
-            <Eyebrow>{HALF_LABEL[module.half]}</Eyebrow>
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-20">
+          <Reveal>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
+              {HALF_LABEL[module.half]}
+            </p>
             <h2
               id={`${module.id}-title`}
-              className="mt-3 font-display text-3xl font-semibold leading-[1.15] tracking-tight text-ink md:text-4xl"
+              className="mt-6 font-display text-[clamp(2.1rem,4.4vw,52px)] font-normal leading-[1.04] tracking-[-0.012em] text-ink [text-wrap:pretty]"
             >
               {module.name}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-ink md:text-lg">
+            <p className="mt-6 font-display text-[clamp(1.35rem,2.4vw,26px)] leading-[1.4] text-green">
               {module.tagline}
             </p>
-            <p className="mt-4 text-base leading-relaxed text-muted">
+            <p className="mt-[26px] text-base leading-[1.85] text-muted">
               {module.description}
             </p>
-
-            <ul className="mt-8 flex flex-col gap-3.5">
-              {module.bullets.map((bullet) => (
-                <li key={bullet} className="flex gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-green"
-                  />
-                  <span className="text-sm leading-relaxed text-muted">
-                    {bullet}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <p className="mt-8 font-mono text-[10px] uppercase leading-[1.7] tracking-[0.2em] text-muted">
+              {included}
+            </p>
 
             {footer ? <div className="mt-8">{footer}</div> : null}
-          </div>
+          </Reveal>
 
-          <div
-            className={cn(
-              "mx-auto w-full max-w-[460px] lg:mx-0 lg:max-w-none",
-              reversed && "lg:order-1",
-            )}
-          >
-            {mock}
-          </div>
+          <Reveal as="ul" delay={90} className="list-none border-t border-line">
+            {module.bullets.map((bullet, index) => (
+              <li
+                key={bullet}
+                className="grid grid-cols-[28px_minmax(0,1fr)] gap-4 border-b border-line py-[22px] sm:grid-cols-[36px_minmax(0,1fr)]"
+              >
+                <span className="pt-[5px] font-mono text-[10px] tracking-[0.14em] text-brass">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="text-[15px] leading-[1.8] text-muted">
+                  {bullet}
+                </span>
+              </li>
+            ))}
+          </Reveal>
         </div>
       </div>
     </section>

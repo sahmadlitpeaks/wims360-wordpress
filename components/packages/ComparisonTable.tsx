@@ -19,24 +19,13 @@ function groupRows(rows: ComparisonRow[]): { group: string; rows: ComparisonRow[
   return groups;
 }
 
+/** The artboard's own affordance: a green dot for yes, a pale rule for no. */
 function Included() {
   return (
     <>
-      <svg
-        viewBox="0 0 14 14"
-        aria-hidden="true"
-        focusable="false"
-        className="mx-auto h-4 w-4"
-      >
-        <path
-          d="M2.5 7.4 5.6 10.5 11.5 3.8"
-          fill="none"
-          stroke="var(--green)"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <span aria-hidden="true" className="text-[15px] leading-none text-green">
+        &#9679;
+      </span>
       <span className="sr-only">Included</span>
     </>
   );
@@ -45,7 +34,10 @@ function Included() {
 function NotIncluded() {
   return (
     <>
-      <span aria-hidden="true" className="text-muted">
+      <span
+        aria-hidden="true"
+        className="text-[color-mix(in_srgb,var(--muted)_45%,transparent)]"
+      >
         &mdash;
       </span>
       <span className="sr-only">Not included</span>
@@ -65,15 +57,16 @@ export function ComparisonTable() {
   return (
     <Section
       id="compare"
-      className="bg-surface"
-      eyebrow="Feature by feature"
+      className="scroll-mt-24 bg-bg"
+      revealHeader
+      headerClassName="max-w-[900px]"
+      contentClassName="mt-16 md:mt-[72px]"
+      eyebrow="Compare"
       title={
         <>
-          Everything that <span className="font-serif italic">differs</span>,
-          in one table.
+          Every feature, <em className="italic text-green">tier</em> by tier.
         </>
       }
-      intro="No asterisks and no “contact us for details” rows. Where a package includes something partially, the table says what that partial looks like."
     >
       {/* `relative` keeps the sr-only spans inside the scrollport: without a
           positioned ancestor they resolve against the initial containing block,
@@ -89,7 +82,7 @@ export function ComparisonTable() {
             <tr>
               <th
                 scope="col"
-                className="sticky top-16 z-10 w-[38%] border-b border-line bg-surface px-4 py-4 align-bottom font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted"
+                className="sticky top-[76px] z-10 w-[46%] border-b border-ink bg-bg pb-4 pr-6 align-bottom font-mono text-[10px] font-normal uppercase tracking-[0.2em] text-muted"
               >
                 Feature
               </th>
@@ -97,14 +90,9 @@ export function ComparisonTable() {
                 <th
                   key={pkg.id}
                   scope="col"
-                  className="sticky top-16 z-10 border-b border-line bg-surface px-4 py-4 text-center align-bottom"
+                  className="sticky top-[76px] z-10 w-[132px] border-b border-ink bg-bg pb-4 text-center align-bottom font-display text-[22px] font-normal leading-[1.1] text-ink"
                 >
-                  <span className="block font-display text-base font-semibold leading-snug tracking-tight text-ink">
-                    {pkg.name}
-                  </span>
-                  <span className="mt-1 block font-mono text-[0.62rem] uppercase leading-4 tracking-[0.12em] text-green">
-                    {pkg.audience}
-                  </span>
+                  {pkg.name}
                 </th>
               ))}
             </tr>
@@ -116,7 +104,7 @@ export function ComparisonTable() {
                 <th
                   scope="colgroup"
                   colSpan={COLUMN_COUNT}
-                  className="border-y border-line bg-green-soft px-4 py-2.5 text-left font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green-deep"
+                  className="pb-3.5 pt-10 text-left font-mono text-[10px] font-normal uppercase tracking-[0.2em] text-brass"
                 >
                   {group.group}
                 </th>
@@ -126,7 +114,7 @@ export function ComparisonTable() {
                 <tr key={`${group.group}-${row.feature}`}>
                   <th
                     scope="row"
-                    className="border-b border-line px-4 py-3.5 text-left text-sm font-normal leading-relaxed text-ink"
+                    className="border-t border-line py-[18px] pr-6 text-left text-[14.5px] font-normal leading-[1.6] text-muted"
                   >
                     {row.feature}
                   </th>
@@ -136,7 +124,7 @@ export function ComparisonTable() {
                     return (
                       <td
                         key={pkg.id}
-                        className="border-b border-line px-4 py-3.5 text-center text-sm leading-relaxed text-muted"
+                        className="border-t border-line px-2 py-[18px] text-center font-mono text-[12.5px] leading-[1.5] text-muted"
                       >
                         {typeof value === "string" ? (
                           value
@@ -155,7 +143,7 @@ export function ComparisonTable() {
         </table>
       </div>
 
-      <p className="mt-6 text-sm leading-relaxed text-muted">
+      <p className="mt-10 max-w-[70ch] text-[15px] leading-[1.8] text-muted">
         Dr.T Copilot and the Wellness Companion are consent-gated and
         clinician-approved, and are enabled per customer only after a BAA or DPA
         is signed.

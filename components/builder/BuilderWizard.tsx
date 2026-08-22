@@ -146,22 +146,22 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
 
   if (submitted) {
     return (
-      <div className="mt-10 max-w-2xl md:mt-14">
+      <div className="max-w-2xl border-t border-line pt-10 md:pt-12">
         <Eyebrow>Configuration sent</Eyebrow>
-        <h2 className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight text-ink md:text-3xl">
+        <h2 className="mt-6 font-display text-[clamp(2rem,4vw,52px)] font-normal leading-[1.06] text-ink [text-wrap:pretty]">
           Thank you — this is what we&apos;ll scope against.
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-muted">
+        <p className="mt-7 text-[16.5px] leading-[1.85] text-muted">
           Our team reviews your configuration and comes back within one
           business day.
         </p>
 
-        <div className="mt-8 rounded-xl border border-line bg-surface p-6 md:p-7">
+        <div className="mt-10 border border-line bg-surface p-8 md:p-10">
           <ConfigurationSummary state={state} />
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Button href="/contact" variant="primary" size="lg">
+        <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <Button href="/contact" variant="dark" size="lg">
             Book a demo now
           </Button>
           <Button href="/packages" variant="outline" size="lg">
@@ -173,16 +173,16 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
   }
 
   return (
-    <div className="mt-10 pb-32 md:mt-14 lg:pb-0">
+    <div className="pb-32 lg:pb-0">
       <Stepper current={state.step} onGoTo={goTo} />
 
-      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-12">
+      <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
         <div className="min-w-0">
-          <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
             Step {state.step} of 5 — {STEP_LABELS[state.step]}
           </p>
 
-          <div className="mt-6">
+          <div className="mt-8">
             {state.step === 1 ? (
               <StepOrg
                 org={state.org}
@@ -248,7 +248,7 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
           </div>
 
           {state.step < 5 ? (
-            <div className="mt-10 flex flex-col gap-3 border-t border-line pt-8 sm:flex-row sm:items-center">
+            <div className="mt-12 flex flex-col items-start gap-4 border-t border-line pt-9 sm:flex-row sm:items-center">
               {state.step > 1 ? (
                 <Button
                   variant="outline"
@@ -259,7 +259,7 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
                 </Button>
               ) : null}
               <Button
-                variant="primary"
+                variant="dark"
                 size="lg"
                 onClick={() => goTo((state.step + 1) as StepNumber)}
               >
@@ -267,7 +267,7 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
               </Button>
             </div>
           ) : (
-            <div className="mt-10 border-t border-line pt-8">
+            <div className="mt-12 border-t border-line pt-9">
               <Button
                 variant="outline"
                 size="lg"
@@ -279,11 +279,11 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
             </div>
           )}
 
-          <p className="mt-8 text-sm leading-relaxed text-muted">
+          <p className="mt-9 text-[14.5px] leading-[1.8] text-muted">
             Not sure?{" "}
             <Link
               href="/contact"
-              className="text-green underline underline-offset-4 transition-colors hover:text-green-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+              className="border-b border-line text-green transition-colors duration-300 hover:border-brass hover:text-green-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-bg"
             >
               Book a demo
             </Link>{" "}

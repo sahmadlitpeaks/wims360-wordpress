@@ -1,42 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { BookingCalendar } from "@/components/mocks/BookingCalendar";
-import { CompanionPhone } from "@/components/mocks/CompanionPhone";
-import { CopilotChat } from "@/components/mocks/CopilotChat";
-import { CrmFunnel } from "@/components/mocks/CrmFunnel";
-import { ExamCatalog } from "@/components/mocks/ExamCatalog";
-import { ReportCompare } from "@/components/mocks/ReportCompare";
 import { ModuleDeep } from "@/components/platform/ModuleDeep";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
+import { cn } from "@/lib/cn";
 import { INTEGRATIONS, type Integration } from "@/content/integrations";
-import { LAYERS, MODULES, type Module, type ModuleId } from "@/content/modules";
+import { LAYERS, MODULES, type Module } from "@/content/modules";
+import { PACKAGES } from "@/content/packages";
 
 export const metadata: Metadata = {
   title: "Platform",
   description:
-    "The six modules of WIMS 360 — assessments, labs and Dr.T on the clinical side; bookings, CRM and the client portal on the operations side — with wearables, reporting, compliance and integrations running underneath.",
+    "Two halves, one clinical record. Assessments, labs and Dr.T on the clinical side; bookings, CRM and the client portal on the operations side — with wearables, reporting, compliance and integrations running underneath.",
 };
 
-/** Mocks stay server components, mapped to the module they illustrate. */
-const MOCKS: Record<ModuleId, ReactNode> = {
-  assessments: <ExamCatalog />,
-  labs: <ReportCompare />,
-  ai: <CopilotChat />,
-  bookings: <BookingCalendar />,
-  crm: <CrmFunnel />,
-  portal: <CompanionPhone />,
-};
-
-const HALVES: {
-  id: Module["half"];
-  title: string;
-  blurb: string;
-}[] = [
+const HALVES: { id: Module["half"]; title: string; blurb: string }[] = [
   {
     id: "clinical",
     title: "Clinical Intelligence",
@@ -62,62 +43,86 @@ const INTEGRATION_GROUPS: { category: Integration["category"]; label: string }[]
   ];
 
 /**
- * Section grounds alternate down the page so the six deep-dives read as
- * separate chapters: intro on paper, assessments on white, and so on.
+ * Hairline colour for list dividers sitting on the green-deep ground. Written
+ * out in full so Tailwind's scanner sees the literal class.
  */
-function groundFor(index: number): string {
-  return index % 2 === 0 ? "bg-surface" : "";
+const CREAM_RULE = "border-[rgba(242,239,230,.14)]";
+
+/**
+ * "Included in Clinical and Precision" / "Included in every package", composed
+ * from the package list in `content/` rather than written out per module.
+ */
+function includedLabel(module: Module): string {
+  const names = module.includedIn.map(
+    (id) => PACKAGES.find((pkg) => pkg.id === id)?.name ?? id,
+  );
+
+  const base =
+    names.length >= PACKAGES.length
+      ? "Included in every package"
+      : `Included in ${
+          names.length > 1
+            ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`
+            : names[0]
+        }`;
+
+  return module.includedNote ? `${base} · ${module.includedNote}` : base;
 }
 
 export default function PlatformPage() {
   return (
     <>
-      <section className="py-16 md:py-24">
+      <section className="bg-green-deep pb-24 pt-20 text-cream md:pb-[128px] md:pt-[120px]">
         <div className="container-site">
-          <div className="max-w-2xl">
-            <Eyebrow>The platform</Eyebrow>
-            <h1 className="mt-3 font-display text-3xl font-semibold leading-[1.15] tracking-tight text-ink md:text-4xl">
-              Two halves. <span className="font-serif italic">One</span>{" "}
-              clinical record.
+          <Reveal>
+            <Eyebrow tone="dark">The platform</Eyebrow>
+            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.75rem,6.6vw,82px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+              Two halves. <em className="italic text-brass">One</em> clinical
+              record.
             </h1>
-            <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
+            <p className="mt-10 max-w-[64ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
               WIMS 360 splits into clinical intelligence and clinic operations,
               but not into two databases. Every module below writes to the same
               client, the same calendar and the same audit log — switch on the
               ones your clinic needs and leave the rest dark.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="mt-12 grid grid-cols-1 gap-5 md:mt-14 md:grid-cols-2">
-            {HALVES.map((half) => (
-              <Card key={half.id} as="article" className="flex flex-col">
-                <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">
+          <div className="mt-16 grid grid-cols-1 gap-px bg-[rgba(176,132,68,.28)] md:mt-20 md:grid-cols-2">
+            {HALVES.map((half, index) => (
+              <Reveal
+                key={half.id}
+                as="article"
+                delay={index * 90}
+                className={cn(
+                  "bg-green-deep py-10 md:py-12",
+                  index === 0 ? "md:pr-12" : "md:pl-12",
+                )}
+              >
+                <h2 className="font-display text-[clamp(1.8rem,3.2vw,38px)] font-normal leading-[1.1] text-paper">
                   {half.title}
                 </h2>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
+                <p className="mt-[18px] text-[15.5px] leading-[1.85] text-[rgba(242,239,230,.66)]">
                   {half.blurb}
                 </p>
 
-                <ul className="mt-6 flex flex-col gap-px overflow-hidden rounded-xl border border-line bg-line">
+                <ul
+                  className={cn("mt-9 list-none border-t", CREAM_RULE)}
+                >
                   {MODULES.filter((module) => module.half === half.id).map(
                     (module) => (
-                      <li key={module.id} className="bg-surface">
+                      <li
+                        key={module.id}
+                        className={cn("border-b", CREAM_RULE)}
+                      >
                         <Link
                           href={`#${module.id}`}
-                          className="group block px-5 py-4 transition-colors hover:bg-green-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-green"
+                          className="group block py-5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass"
                         >
-                          <span className="flex items-baseline gap-2">
-                            <span className="text-sm font-semibold leading-5 text-ink">
-                              {module.name}
-                            </span>
-                            <span
-                              aria-hidden="true"
-                              className="text-sm text-green transition-transform duration-200 group-hover:translate-x-0.5"
-                            >
-                              &darr;
-                            </span>
+                          <span className="block font-display text-[24px] leading-[1.2] text-paper transition-colors duration-300 group-hover:text-brass">
+                            {module.name}
                           </span>
-                          <span className="mt-1 block text-sm leading-relaxed text-muted">
+                          <span className="mt-1.5 block text-[13.5px] leading-[1.7] text-[rgba(242,239,230,.6)]">
                             {module.tagline}
                           </span>
                         </Link>
@@ -125,7 +130,7 @@ export default function PlatformPage() {
                     ),
                   )}
                 </ul>
-              </Card>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -135,9 +140,8 @@ export default function PlatformPage() {
         <ModuleDeep
           key={module.id}
           module={module}
-          mock={MOCKS[module.id]}
-          reversed={index % 2 === 1}
-          className={groundFor(index)}
+          included={includedLabel(module)}
+          className={index % 2 === 0 ? "bg-surface" : "bg-bg"}
           footer={
             module.id === "ai" ? (
               <Button href="/ai" variant="ghost">
@@ -149,44 +153,57 @@ export default function PlatformPage() {
       ))}
 
       <Section
-        className="bg-surface"
+        ground="dark"
+        revealHeader
+        headerClassName="max-w-[860px]"
+        contentClassName="mt-16 md:mt-20"
         eyebrow="Underneath the six"
         title={
           <>
             Four layers every module{" "}
-            <span className="font-serif italic">shares</span>.
+            <em className="italic text-brass">shares</em>.
           </>
         }
         intro="These are not add-ons with their own screens. They are the plumbing the six modules run on, which is why a wearable reading, a lab marker and a consent record all behave the same way."
       >
-        <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {LAYERS.map((layer) => (
-            <li
+        <ul className="grid list-none grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0">
+          {LAYERS.map((layer, index) => (
+            <Reveal
               key={layer.name}
-              className="rounded-xl border border-line bg-bg p-6 md:p-7"
+              as="li"
+              delay={index * 90}
+              className={cn(
+                index > 0 && "lg:pl-9",
+                index < LAYERS.length - 1 &&
+                  "lg:border-r lg:border-[rgba(176,132,68,.28)] lg:pr-9",
+              )}
             >
-              <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+              <h3 className="font-display text-[clamp(1.6rem,2.4vw,30px)] font-normal leading-[1.12] text-paper">
                 {layer.name}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+              <p className="mt-[18px] text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.62)]">
                 {layer.description}
               </p>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </Section>
 
       <Section
+        ground="bg"
+        revealHeader
+        headerClassName="max-w-[860px]"
+        contentClassName="mt-16 md:mt-20"
         eyebrow="Integrations"
         title={
           <>
-            Connected to what you{" "}
-            <span className="font-serif italic">already</span> run.
+            Connected to what you <em className="italic text-green">already</em>{" "}
+            run.
           </>
         }
         intro="Supported connections today, grouped by what they do. Anything beyond this list goes through the documented API rather than a one-off script."
       >
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-14 md:gap-16">
           {INTEGRATION_GROUPS.map((group) => {
             const items = INTEGRATIONS.filter(
               (integration) => integration.category === group.category,
@@ -196,32 +213,36 @@ export default function PlatformPage() {
             }
 
             return (
-              <div key={group.category}>
-                <h3 className="font-mono text-[0.72rem] uppercase leading-5 tracking-[0.14em] text-muted">
-                  {group.label}
-                </h3>
-                <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <Reveal key={group.category}>
+                <h3 className="eyebrow">{group.label}</h3>
+                {/*
+                  Each cell carries its own hairline and overlaps its neighbour
+                  by a pixel, so shared edges collapse to one line and a group
+                  of one or two leaves clean parchment beside it — which a
+                  `gap-px` background grid would fill with an empty cell.
+                */}
+                <ul className="mt-7 grid list-none grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                   {items.map((integration) => (
                     <li
                       key={integration.name}
-                      className="rounded-xl border border-line bg-surface px-5 py-4"
+                      className="-mb-px -mr-px border border-line p-8"
                     >
-                      <p className="text-sm font-semibold leading-5 text-ink">
+                      <p className="font-display text-[26px] leading-[1.15] text-ink">
                         {integration.name}
                       </p>
-                      <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                      <p className="mt-3.5 text-sm leading-[1.8] text-muted">
                         {integration.note}
                       </p>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             );
           })}
         </div>
       </Section>
 
-      <CtaBand />
+      <CtaBand ground="surface" />
     </>
   );
 }

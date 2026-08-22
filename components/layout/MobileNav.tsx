@@ -15,8 +15,8 @@ export type MobileNavProps = {
 const PANEL_ID = "site-mobile-nav";
 
 /**
- * The only client component in the site chrome: a hamburger that toggles a
- * full-width panel with every nav item and both CTAs. Hidden from `md` up.
+ * Hamburger that toggles a full-width green-deep panel with every nav item and
+ * the demo CTA. Hidden from `md` up; locks body scroll while open.
  */
 export function MobileNav({ items }: MobileNavProps) {
   const [open, setOpen] = useState(false);
@@ -59,7 +59,7 @@ export function MobileNav({ items }: MobileNavProps) {
         aria-controls={PANEL_ID}
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface text-ink transition-colors hover:border-green hover:text-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+        className="inline-flex h-10 w-10 items-center justify-center border border-[rgba(176,132,68,.4)] text-cream transition-colors hover:border-brass hover:text-brass focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep"
       >
         <svg
           viewBox="0 0 24 24"
@@ -69,8 +69,8 @@ export function MobileNav({ items }: MobileNavProps) {
           focusable="false"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
+          strokeWidth="1.5"
+          strokeLinecap="square"
         >
           {open ? (
             <>
@@ -90,16 +90,16 @@ export function MobileNav({ items }: MobileNavProps) {
       <div
         id={PANEL_ID}
         hidden={!open}
-        className="fixed inset-x-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-line bg-bg"
+        className="fixed inset-x-0 top-[76px] z-40 max-h-[calc(100vh-76px)] overflow-y-auto border-b border-[rgba(176,132,68,.22)] bg-green-deep"
       >
-        <nav aria-label="Mobile" className="container-site py-6">
-          <ul className="flex flex-col gap-1">
+        <nav aria-label="Mobile" className="container-site py-8">
+          <ul className="flex flex-col">
             {items.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   onClick={close}
-                  className="block rounded-lg px-2 py-3 text-base text-ink transition-colors hover:bg-green-soft hover:text-green-deep"
+                  className="block border-b border-[rgba(176,132,68,.18)] py-4 font-mono text-[12px] uppercase tracking-[0.18em] text-cream transition-colors hover:text-brass"
                 >
                   {item.label}
                 </Link>
@@ -107,20 +107,20 @@ export function MobileNav({ items }: MobileNavProps) {
             ))}
           </ul>
 
-          <div className="mt-6 flex flex-col gap-3 border-t border-line pt-6">
-            <Link
-              href="/packages"
-              onClick={close}
-              className="inline-flex items-center justify-center rounded-xl border border-[color-mix(in_srgb,var(--ink)_20%,transparent)] px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-green hover:text-green"
-            >
-              Request pricing
-            </Link>
+          <div className="mt-8 flex flex-col items-start gap-6">
             <Link
               href="/contact"
               onClick={close}
-              className="inline-flex items-center justify-center rounded-xl bg-green-deep px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-green"
+              className="inline-flex w-full items-center justify-center bg-brass px-[34px] py-[18px] font-mono text-[11px] uppercase tracking-[0.18em] text-green-deep transition-colors hover:bg-brass-light"
             >
               Book a demo
+            </Link>
+            <Link
+              href="/packages"
+              onClick={close}
+              className="border-b border-[rgba(176,132,68,.5)] pb-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[rgba(242,239,230,.72)] transition-colors hover:border-brass hover:text-cream"
+            >
+              View packages
             </Link>
           </div>
         </nav>

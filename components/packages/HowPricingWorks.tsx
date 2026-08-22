@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
 type Factor = {
@@ -35,46 +36,51 @@ const FACTORS: Factor[] = [
 ];
 
 /**
- * The five things a proposal is built from. Deliberately no numbers: the page
- * explains the shape of a quote, not its size.
+ * The five things a proposal is built from, as numbered editorial rows.
+ * Deliberately no numbers: the page explains the shape of a quote, not its
+ * size.
  */
 export function HowPricingWorks() {
   return (
     <Section
       id="how-pricing-works"
+      className="scroll-mt-24 border-y border-line bg-surface"
+      revealHeader
+      headerClassName="max-w-[900px]"
+      contentClassName="mt-16 md:mt-20"
       eyebrow="How pricing works"
       title={
         <>
-          Five inputs, <span className="font-serif italic">no</span> guesswork.
+          Five inputs, <em className="italic text-green">no</em> guesswork.
         </>
       }
       intro="A WIMS 360 proposal is assembled from the same five inputs every time. Tell us where your clinic sits on each and the scope is deterministic — you can see exactly what you are being quoted for, and what you are not."
     >
-      <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {FACTORS.map((factor) => (
-          <li
+      <ul className="list-none border-t border-line">
+        {FACTORS.map((factor, index) => (
+          <Reveal
             key={factor.index}
-            className="flex flex-col rounded-xl border border-line bg-surface p-6 md:p-7"
+            as="li"
+            delay={Math.min(index, 4) * 90}
+            className="grid grid-cols-[44px_minmax(0,1fr)] gap-x-6 gap-y-3.5 border-b border-line py-9 md:grid-cols-[64px_minmax(0,0.44fr)_minmax(0,1fr)] md:gap-8 md:py-10"
           >
-            <span className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
+            <span className="font-display text-[34px] leading-none text-brass">
               {factor.index}
             </span>
-            <h3 className="mt-3 font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+            <h3 className="font-display text-[clamp(1.5rem,2.4vw,30px)] font-normal leading-[1.12] text-ink">
               {factor.title}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
+            <p className="col-span-2 text-[15px] leading-[1.8] text-muted md:col-span-1">
               {factor.body}
             </p>
-          </li>
+          </Reveal>
         ))}
-
-        <li className="flex flex-col justify-center rounded-xl border border-dashed border-[color-mix(in_srgb,var(--green)_45%,transparent)] bg-green-soft p-6 md:p-7">
-          <p className="font-display text-lg font-semibold leading-snug tracking-tight text-green-deep">
-            No public price list — every proposal is scoped to your
-            configuration and comes back within one business day.
-          </p>
-        </li>
       </ul>
+
+      <p className="mt-12 max-w-[44ch] font-display text-[clamp(1.5rem,2.6vw,30px)] leading-[1.35] text-green md:mt-14">
+        No public price list — every proposal is scoped to your configuration
+        and comes back within one business day.
+      </p>
     </Section>
   );
 }

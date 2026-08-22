@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Instrument_Serif, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
-const fontDisplay = Bricolage_Grotesque({
+const fontDisplay = Instrument_Serif({
   subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
@@ -50,9 +52,17 @@ export default function RootLayout({
       <body
         className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-bg text-ink font-body`}
       >
+        {/*
+          Reveal ships its hidden state in the server HTML so there is no flash
+          of content before the observer arms. With scripting off nothing would
+          ever reveal it, so unhide every reveal when there is no JS.
+        */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-xl focus:bg-green-deep focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-green-deep focus:px-4 focus:py-2 focus:font-mono focus:text-[11px] focus:uppercase focus:tracking-[0.18em] focus:text-cream"
         >
           Skip to content
         </a>

@@ -1,163 +1,114 @@
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Chip } from "@/components/ui/Chip";
-import { Section } from "@/components/ui/Section";
+import Link from "next/link";
+import { Reveal } from "@/components/ui/Reveal";
 import { PACKAGES, type PackageId } from "@/content/packages";
-import { MODULES } from "@/content/modules";
 import { cn } from "@/lib/cn";
 
-/** The package we point most clinics at first. */
-const POPULAR_ID: PackageId = "clinical";
+/** Precision sits on white so it reads as the emphasised column. */
+const CARD_GROUND: Record<PackageId, string> = {
+  essentials: "bg-bg",
+  clinical: "bg-bg",
+  precision: "bg-surface",
+};
 
-function Tick() {
-  return (
-    <svg
-      viewBox="0 0 12 12"
-      aria-hidden="true"
-      focusable="false"
-      className="mt-1 h-3 w-3 shrink-0"
-    >
-      <path
-        d="M2 6.4 4.6 9 10 3.2"
-        fill="none"
-        stroke="var(--green)"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+const CARD_CLASS = "flex flex-col p-8 md:px-9 md:py-12";
 
-function moduleNames(ids: readonly string[]): string[] {
-  return MODULES.filter((module) => ids.includes(module.id)).map(
-    (module) => module.name,
-  );
-}
+const CARD_LINK =
+  "inline-flex font-mono text-[10px] uppercase tracking-[0.18em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4";
 
 /**
- * The three shipped packages plus a dashed "Custom" card. Every card carries
- * its own pair of calls to action so a visitor can either start a conversation
- * or open the configurator pre-seeded with that package.
+ * The three shipped packages plus the dark "Build your own" column, as one
+ * hairline grid. Each package card keeps both calls to action: a conversation,
+ * or the configurator pre-seeded with that package.
  */
 export function PackageCards() {
   return (
-    <Section
-      id="packages"
-      eyebrow="The three packages"
-      title={
-        <>
-          Three shapes of clinic,{" "}
-          <span className="font-serif italic">one</span> record underneath.
-        </>
-      }
-      intro="Each package is a set of modules switched on over the same platform base — the same client record, the same audit log, the same compliance layer. Move up a package and nothing migrates; the modules simply light up."
-    >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {PACKAGES.map((pkg) => {
-          const popular = pkg.id === POPULAR_ID;
-
-          return (
-            <Card
+    <section id="packages" className="bg-bg py-24 md:py-[140px]">
+      <div className="container-site">
+        <div className="grid grid-cols-1 gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-4">
+          {PACKAGES.map((pkg, index) => (
+            <Reveal
               key={pkg.id}
               as="article"
-              className={cn(
-                "flex flex-col p-6 md:p-6",
-                popular && "border-green ring-1 ring-green",
-              )}
+              delay={Math.min(index, 4) * 90}
+              className={cn(CARD_CLASS, CARD_GROUND[pkg.id])}
             >
-              <div className="flex min-h-[1.75rem] items-start">
-                {popular ? <Chip tone="green">Most popular</Chip> : null}
-              </div>
-
-              <h3 className="mt-3 font-display text-xl font-semibold leading-snug tracking-tight text-ink">
+              <h2 className="font-display text-[clamp(2rem,3.4vw,40px)] font-normal leading-[1.05] text-ink">
                 {pkg.name}
-              </h3>
-              <p className="mt-2 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-green">
+              </h2>
+              <p className="mt-4 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
                 {pkg.audience}
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">
+              <p className="mt-6 text-[14.5px] leading-[1.8] text-muted">
                 {pkg.summary}
               </p>
 
-              <p className="mt-5 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted">
-                What&apos;s included
-              </p>
-              <ul className="mt-3 flex flex-col gap-2">
+              <ul className="mt-8 flex list-none flex-col gap-3 border-t border-line pt-7">
                 {pkg.includes.map((item) => (
-                  <li key={item} className="flex gap-2.5">
-                    <Tick />
-                    <span className="text-sm leading-relaxed text-muted">
-                      {item}
-                    </span>
+                  <li
+                    key={item}
+                    className="text-[13.5px] leading-[1.6] text-muted"
+                  >
+                    {item}
                   </li>
                 ))}
               </ul>
 
-              <p className="mt-6 border-t border-line pt-5 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted">
-                Modules switched on
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-ink">
-                {moduleNames(pkg.moduleIds).join(" · ")}
-              </p>
-
-              <div className="mt-auto flex flex-col gap-3 pt-7">
-                <Button href={`/contact?package=${pkg.id}`} variant="primary">
+              <div className="mt-auto flex flex-col items-start gap-3.5 pt-9">
+                <Link
+                  href={`/contact?package=${pkg.id}`}
+                  className={cn(
+                    CARD_LINK,
+                    "text-green hover:text-brass-deep focus-visible:ring-offset-bg",
+                  )}
+                >
                   Talk to us
-                </Button>
-                <Button href={`/build?start=${pkg.id}`} variant="outline">
+                </Link>
+                <Link
+                  href={`/build?start=${pkg.id}`}
+                  className={cn(
+                    CARD_LINK,
+                    "text-muted hover:text-brass-deep focus-visible:ring-offset-bg",
+                  )}
+                >
                   Customize this package
-                </Button>
+                </Link>
               </div>
-            </Card>
-          );
-        })}
+            </Reveal>
+          ))}
 
-        <article className="flex flex-col rounded-xl border border-dashed border-[color-mix(in_srgb,var(--green)_45%,transparent)] bg-green-soft p-6">
-          <div className="flex min-h-[1.75rem] items-start">
-            <Chip tone="neutral">Custom</Chip>
-          </div>
+          <Reveal
+            as="article"
+            delay={Math.min(PACKAGES.length, 4) * 90}
+            className={cn(CARD_CLASS, "bg-green-deep text-cream")}
+          >
+            <h2 className="font-display text-[clamp(2rem,3.4vw,40px)] font-normal leading-[1.05] text-paper">
+              Build your own
+            </h2>
+            <p className="mt-4 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
+              For clinics that don&apos;t fit a tier
+            </p>
+            <p className="mt-6 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.7)]">
+              Pick the modules, the integrations and the roles your clinic
+              actually runs, and the configurator assembles the scope as you go.
+              Send it to us and we quote against exactly that — nothing you
+              didn&apos;t choose.
+            </p>
 
-          <h3 className="mt-3 font-display text-xl font-semibold leading-snug tracking-tight text-green-deep">
-            Build your own
-          </h3>
-          <p className="mt-2 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-green">
-            For clinics that don&apos;t fit a package
-          </p>
-          <p className="mt-4 text-sm leading-relaxed text-green-deep">
-            Pick the modules, the integrations and the customisations your
-            clinic actually runs, and send us the configuration. We scope
-            against exactly that — nothing you didn&apos;t choose, nothing
-            switched on that you never asked for.
-          </p>
-
-          <p className="mt-5 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green-deep">
-            You choose
-          </p>
-          <ul className="mt-3 flex flex-col gap-2">
-            {[
-              "Any combination of the six modules",
-              "Integrations — wearables, labs, messaging, identity",
-              "Custom Chex forms and branded report templates",
-              "Role scopes and multi-center structure",
-            ].map((item) => (
-              <li key={item} className="flex gap-2.5">
-                <Tick />
-                <span className="text-sm leading-relaxed text-green-deep">
-                  {item}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-auto pt-7">
-            <Button href="/build" variant="primary" className="w-full">
-              Open the configurator
-            </Button>
-          </div>
-        </article>
+            <div className="mt-auto pt-9">
+              <Link
+                href="/build"
+                className={cn(
+                  CARD_LINK,
+                  "text-brass hover:text-paper focus-visible:ring-offset-green-deep",
+                )}
+              >
+                Open the configurator
+              </Link>
+            </div>
+          </Reveal>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }
 

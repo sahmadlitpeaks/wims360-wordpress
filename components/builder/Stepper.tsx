@@ -61,24 +61,24 @@ export function Stepper({ current, onGoTo }: StepperProps) {
                 aria-current={isCurrent ? "step" : undefined}
                 onClick={() => onGoTo(step)}
                 className={cn(
-                  "flex items-center gap-2.5 rounded-full border px-3 py-1.5 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
-                  isCurrent && "border-green bg-green-soft text-green-deep",
+                  "flex items-center gap-2.5 rounded-none border px-3.5 py-2 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-bg",
+                  isCurrent && "border-brass bg-surface text-ink",
                   isComplete &&
-                    "border-line bg-surface text-ink hover:border-green hover:text-green",
-                  !isCurrent && !isComplete && "border-line bg-surface text-muted",
+                    "border-line bg-surface text-ink hover:border-brass hover:text-green",
+                  !isCurrent && !isComplete && "border-line bg-bg text-muted",
                 )}
               >
                 <span
                   className={cn(
-                    "flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-mono text-[0.62rem] leading-none",
-                    isCurrent && "bg-green-deep text-white",
-                    isComplete && "bg-green text-white",
-                    !isCurrent && !isComplete && "bg-green-soft text-green-deep",
+                    "flex h-5 w-5 shrink-0 items-center justify-center rounded-none font-mono text-[10px] leading-none",
+                    isCurrent && "bg-brass text-green-deep",
+                    isComplete && "bg-green-deep text-cream",
+                    !isCurrent && !isComplete && "border border-line text-muted",
                   )}
                 >
                   {isComplete ? <Check /> : step}
                 </span>
-                <span className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em]">
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em]">
                   {STEP_LABELS[step]}
                 </span>
               </button>

@@ -1,10 +1,23 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { cn } from "@/lib/cn";
 import { MODULES, type ModuleId } from "@/content/modules";
+
+/**
+ * Short tab labels so the six tabs sit on one hairline row. The panel heading
+ * still carries the module's full name.
+ */
+const TAB_LABEL: Record<ModuleId, string> = {
+  assessments: "Assessments (Chex)",
+  labs: "Labs & Genomics",
+  ai: "Dr.T AI",
+  bookings: "Bookings",
+  crm: "CRM & Growth",
+  portal: "Client Portal",
+};
 
 /** Dr.T has its own page; everything else deep-links into the platform page. */
 const LEARN_MORE: Record<ModuleId, string> = {
@@ -16,16 +29,8 @@ const LEARN_MORE: Record<ModuleId, string> = {
   portal: "/platform#portal",
 };
 
-export type ModuleShowcaseProps = {
-  /**
-   * Product mocks keyed by module. Passed in from the server page so the mocks
-   * stay server components instead of being pulled into the client bundle.
-   */
-  panels: Record<ModuleId, ReactNode>;
-};
-
 /** The one interactive component on the homepage. */
-export function ModuleShowcase({ panels }: ModuleShowcaseProps) {
+export function ModuleShowcase() {
   const [active, setActive] = useState(0);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -63,10 +68,14 @@ export function ModuleShowcase({ panels }: ModuleShowcaseProps) {
   return (
     <Section
       id="modules"
+      className="bg-bg"
+      revealHeader
+      headerClassName="max-w-[860px]"
+      contentClassName="mt-12 md:mt-16"
       eyebrow="The platform"
       title={
         <>
-          Six modules, <span className="font-serif italic">one</span> record
+          Six modules, <em className="italic text-green">one</em> record
           underneath.
         </>
       }
@@ -76,7 +85,7 @@ export function ModuleShowcase({ panels }: ModuleShowcaseProps) {
         role="tablist"
         aria-label="WIMS 360 modules"
         aria-orientation="horizontal"
-        className="flex flex-wrap gap-2"
+        className="flex flex-wrap border-y border-line"
       >
         {MODULES.map((module, index) => {
           const selected = index === active;
@@ -95,13 +104,13 @@ export function ModuleShowcase({ panels }: ModuleShowcaseProps) {
               onClick={() => setActive(index)}
               onKeyDown={(event) => onKeyDown(event, index)}
               className={cn(
-                "rounded-xl border px-4 py-2.5 text-sm font-medium leading-5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+                "border-r border-line px-4 py-4 text-left font-mono text-[10.5px] uppercase tracking-[0.16em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-brass sm:px-[26px] sm:py-[22px]",
                 selected
-                  ? "border-green-deep bg-green-deep text-white"
-                  : "border-line bg-surface text-muted hover:border-green hover:text-green",
+                  ? "bg-green-deep text-paper"
+                  : "bg-transparent text-muted hover:text-green",
               )}
             >
-              {module.name}
+              {TAB_LABEL[module.id]}
             </button>
           );
         })}
@@ -115,47 +124,45 @@ export function ModuleShowcase({ panels }: ModuleShowcaseProps) {
           aria-labelledby={`module-tab-${module.id}`}
           tabIndex={0}
           hidden={index !== active}
-          className="mt-8 rounded-xl border border-line bg-surface p-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green md:p-8"
+          className="mt-12 focus-visible:outline-none md:mt-16"
         >
-          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-12">
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-20">
             <div>
-              <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
                 {module.half === "clinical" ? "Clinical" : "Operations"}
               </p>
-              <h3 className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight text-ink">
+              <h3 className="mt-5 font-display text-[clamp(2rem,3.4vw,44px)] font-normal leading-[1.08] text-ink [text-wrap:pretty]">
                 {module.name}
               </h3>
-              <p className="mt-2 text-base leading-relaxed text-ink">
+              <p className="mt-5 font-display text-[clamp(1.25rem,2vw,24px)] leading-[1.45] text-green">
                 {module.tagline}
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">
+              <p className="mt-6 text-base leading-[1.85] text-muted">
                 {module.description}
               </p>
 
-              <ul className="mt-6 flex flex-col gap-3">
-                {module.bullets.slice(0, 3).map((bullet) => (
-                  <li key={bullet} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-green"
-                    />
-                    <span className="text-sm leading-relaxed text-muted">
-                      {bullet}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-7">
+              <div className="mt-9">
                 <Button href={LEARN_MORE[module.id]} variant="ghost">
                   Learn more
                 </Button>
               </div>
             </div>
 
-            <div className="mx-auto w-full max-w-[420px] lg:mx-0">
-              {panels[module.id]}
-            </div>
+            <ul className="list-none border-t border-line">
+              {module.bullets.map((bullet, bulletIndex) => (
+                <li
+                  key={bullet}
+                  className="grid grid-cols-[28px_minmax(0,1fr)] gap-4 border-b border-line py-[22px] sm:grid-cols-[36px_minmax(0,1fr)]"
+                >
+                  <span className="pt-[5px] font-mono text-[10px] tracking-[0.14em] text-brass">
+                    {String(bulletIndex + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[15px] leading-[1.8] text-muted">
+                    {bullet}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       ))}

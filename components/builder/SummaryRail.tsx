@@ -32,15 +32,15 @@ function customizationLabels(state: BuilderState): string[] {
 
 function ChipList({ items }: { items: string[] }) {
   if (items.length === 0) {
-    return <p className="mt-2 text-sm leading-relaxed text-muted">Nothing yet</p>;
+    return <p className="mt-2 text-[13.5px] leading-[1.7] text-muted">Nothing yet</p>;
   }
 
   return (
-    <ul className="mt-2 flex flex-wrap gap-1.5">
+    <ul className="mt-2.5 flex list-none flex-wrap gap-1.5">
       {items.map((item) => (
         <li
           key={item}
-          className="rounded-full bg-green-soft px-2.5 py-1 text-xs leading-5 text-green-deep"
+          className="rounded-none border border-line bg-green-soft px-2.5 py-1 text-[12px] leading-5 text-green-deep"
         >
           {item}
         </li>
@@ -58,7 +58,7 @@ function RailBlock({
 }) {
   return (
     <div>
-      <p className="font-mono text-[0.62rem] uppercase leading-5 tracking-[0.14em] text-muted">
+      <p className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-brass-deep">
         {label}
       </p>
       {children}
@@ -96,11 +96,11 @@ function CopyLinkButton() {
       <button
         type="button"
         onClick={copy}
-        className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink transition-colors hover:border-green hover:text-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+        className="w-full rounded-none border border-line bg-surface px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:border-brass hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
       >
         {copied ? "Link copied" : "Copy shareable link"}
       </button>
-      <p className="mt-2 text-xs leading-relaxed text-muted">
+      <p className="mt-3 text-[12px] leading-[1.7] text-muted">
         {failed
           ? "Couldn't copy automatically — copy the address bar instead."
           : "The address bar carries your whole configuration. Share it with a colleague and they open exactly this."}
@@ -136,7 +136,7 @@ function RailContents({
           {startPackageName ?? "A custom selection"}
         </p>
         {suggested ? (
-          <p className="mt-1 text-xs leading-relaxed text-muted">
+          <p className="mt-1.5 text-[12px] leading-[1.7] text-muted">
             Suggested for your shape of clinic: {suggested.name}
           </p>
         ) : null}
@@ -144,11 +144,11 @@ function RailContents({
 
       <RailBlock label="Your organization">
         {orgBits.length > 0 ? (
-          <p className="mt-1.5 text-sm leading-relaxed text-ink">
+          <p className="mt-2 text-[14.5px] leading-[1.7] text-ink">
             {orgBits.join(" · ")}
           </p>
         ) : (
-          <p className="mt-1.5 text-sm leading-relaxed text-muted">
+          <p className="mt-2 text-[14.5px] leading-[1.7] text-muted">
             Not answered yet
           </p>
         )}
@@ -195,11 +195,11 @@ export function SummaryRail({ state, startPackageName }: SummaryRailProps) {
         aria-label="Your configuration"
         className="hidden lg:sticky lg:top-24 lg:block lg:self-start"
       >
-        <div className="rounded-xl border border-line bg-surface p-6">
-          <p className="font-display text-base font-semibold leading-snug tracking-tight text-ink">
+        <div className="rounded-none border border-line bg-surface p-7">
+          <p className="font-display text-[24px] font-normal leading-[1.15] text-ink">
             Your configuration
           </p>
-          <div className="mt-5">
+          <div className="mt-6">
             <RailContents state={state} startPackageName={startPackageName} />
           </div>
         </div>
@@ -220,15 +220,15 @@ export function SummaryRail({ state, startPackageName }: SummaryRailProps) {
             aria-expanded={open}
             aria-controls="builder-summary-sheet"
             onClick={() => setOpen((value) => !value)}
-            className="flex w-full items-center justify-between gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+            className="flex w-full items-center justify-between gap-4 text-left focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass"
           >
             <span className="min-w-0 flex-1">
-              <span className="block font-mono text-[0.62rem] uppercase leading-5 tracking-[0.14em] text-muted">
+              <span className="block font-mono text-[9.5px] uppercase tracking-[0.2em] text-brass-deep">
                 Your configuration
               </span>
               <span className="block truncate text-sm text-ink">{counts}</span>
             </span>
-            <span className="shrink-0 text-sm text-green">
+            <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.18em] text-green">
               {open ? "Hide" : "Show"}
             </span>
           </button>

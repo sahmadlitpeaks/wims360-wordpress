@@ -1,28 +1,39 @@
+import { Reveal } from "@/components/ui/Reveal";
 import { STATS } from "@/content/stats";
 
-/** Quiet green band between the product story and the governance story. */
+/** Dark band between the product story and the governance story. */
 export function StatsBand() {
   return (
-    <section className="border-y border-[color-mix(in_srgb,var(--green)_18%,transparent)] bg-green-soft py-14 md:py-16">
+    <section className="bg-green-deep py-20 text-cream md:py-[112px]">
       <div className="container-site">
-        <dl className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {STATS.map((stat) => (
-            <div key={stat.label}>
-              <dt className="sr-only">{stat.label}</dt>
-              <dd>
-                <span className="block font-display text-4xl font-semibold leading-none tracking-tight tabular-nums text-green-deep md:text-5xl">
-                  {stat.value}
-                </span>
-                <span className="mt-3 block font-mono text-[0.72rem] uppercase leading-5 tracking-[0.14em] text-green">
-                  {stat.label}
-                </span>
-                {stat.detail ? (
-                  <span className="mt-2.5 block text-sm leading-relaxed text-green-deep">
-                    {stat.detail}
+        <dl className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0">
+          {STATS.map((stat, index) => (
+            <Reveal
+              key={stat.label}
+              delay={Math.min(index, 4) * 90}
+              className={
+                index < STATS.length - 1
+                  ? "lg:border-r lg:border-[rgba(176,132,68,.28)] lg:pr-10"
+                  : ""
+              }
+            >
+              <div className={index > 0 ? "lg:pl-10" : undefined}>
+                <dt className="sr-only">{stat.label}</dt>
+                <dd className="m-0">
+                  <span className="block font-display text-[clamp(3rem,6vw,76px)] leading-[.92] text-paper">
+                    {stat.value}
                   </span>
-                ) : null}
-              </dd>
-            </div>
+                  <span className="mt-[22px] block font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
+                    {stat.label}
+                  </span>
+                  {stat.detail ? (
+                    <span className="mt-3.5 block text-sm leading-[1.75] text-[rgba(242,239,230,.6)]">
+                      {stat.detail}
+                    </span>
+                  ) : null}
+                </dd>
+              </div>
+            </Reveal>
           ))}
         </dl>
       </div>

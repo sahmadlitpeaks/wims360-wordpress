@@ -69,10 +69,10 @@ function OptionCard({
   return (
     <label
       className={cn(
-        "flex cursor-pointer items-center gap-3 rounded-xl border bg-surface px-4 py-3 text-sm transition-colors",
+        "flex cursor-pointer items-center gap-3 rounded-none border bg-surface px-4 py-3.5 text-sm transition-colors duration-300",
         checked
-          ? "border-green bg-green-soft text-green-deep"
-          : "border-line text-ink hover:border-green",
+          ? "border-brass bg-green-soft text-green-deep"
+          : "border-line text-ink hover:border-brass",
       )}
     >
       <input
@@ -87,7 +87,7 @@ function OptionCard({
         aria-hidden="true"
         className={cn(
           "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border",
-          checked ? "border-green" : "border-line",
+          checked ? "border-brass" : "border-line",
         )}
       >
         <span
@@ -113,7 +113,7 @@ function Group({
 }) {
   return (
     <fieldset>
-      <legend className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted">
+      <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
         {legend}
       </legend>
       {hint ? (
@@ -206,7 +206,7 @@ export function StepOrg({ org, onChange, onApplyPackage }: StepOrgProps) {
       </Group>
 
       <fieldset>
-        <legend className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted">
+        <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
           Tools you use today (optional)
         </legend>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
@@ -228,7 +228,7 @@ export function StepOrg({ org, onChange, onApplyPackage }: StepOrgProps) {
             }}
             placeholder="e.g. Google Sheets"
             aria-label="Add a tool you use today"
-            className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted focus-visible:border-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green sm:max-w-xs"
+            className="w-full rounded-none border border-line bg-surface px-4 py-3 text-sm text-ink transition-colors duration-300 placeholder:text-muted focus:border-green focus:outline-none sm:max-w-xs"
           />
           <Button variant="outline" onClick={addTool}>
             Add tool
@@ -239,13 +239,13 @@ export function StepOrg({ org, onChange, onApplyPackage }: StepOrgProps) {
           <ul className="mt-4 flex flex-wrap gap-2">
             {org.currentTools.map((tool) => (
               <li key={tool}>
-                <span className="inline-flex items-center gap-2 rounded-full bg-green-soft px-3 py-1 text-sm text-green-deep">
+                <span className="inline-flex items-center gap-2 rounded-none border border-line bg-green-soft px-3 py-1.5 text-sm text-green-deep">
                   {tool}
                   <button
                     type="button"
                     onClick={() => removeTool(tool)}
                     aria-label={`Remove ${tool}`}
-                    className="rounded-full px-1 leading-none text-green transition-colors hover:text-green-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+                    className="rounded-none px-1 leading-none text-green transition-colors duration-300 hover:text-brass-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass"
                   >
                     &times;
                   </button>
@@ -257,18 +257,18 @@ export function StepOrg({ org, onChange, onApplyPackage }: StepOrgProps) {
       </fieldset>
 
       {complete && suggested ? (
-        <div className="rounded-xl border border-green bg-green-soft p-5 md:p-6">
-          <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
+        <div className="rounded-none border border-brass bg-green-soft p-6 md:p-8">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
             Advisory
           </p>
-          <p className="mt-2 text-base leading-relaxed text-green-deep">
+          <p className="mt-4 text-[15px] leading-[1.8] text-green-deep">
             Based on this, most teams start from{" "}
-            <strong className="font-semibold">{suggested.name}</strong>.{" "}
+            <strong className="font-medium">{suggested.name}</strong>.{" "}
             {suggested.audience}. You can still switch any module on or off in
             the next step.
           </p>
-          <div className="mt-4">
-            <Button variant="primary" onClick={() => onApplyPackage(suggested.id)}>
+          <div className="mt-6">
+            <Button variant="dark" onClick={() => onApplyPackage(suggested.id)}>
               Apply {suggested.name} modules
             </Button>
           </div>

@@ -3,26 +3,39 @@
 @tailwind utilities;
 
 :root {
-  --bg: #F7F6F1;
+  --bg: #F2EFE6;
   --surface: #FFFFFF;
-  --ink: #182420;
+  --paper: #F7F5EE;
+  --cream: #F2EFE6;
+  --ink: #141E1A;
   --muted: #5A6B62;
-  --line: #E2E5DD;
+  --line: #DCD8CB;
   --green: #0E6B4E;
-  --green-deep: #0A3D2E;
+  --green-mid: #0C4633;
+  --green-deep: #07291E;
   --green-soft: #E4EFE8;
+  --brass: #B08444;
+  --brass-deep: #96661D;
+  --brass-light: #C79A58;
+  --brass-bright: #D6AE72;
+  /* Legacy alias — same hex as --brass-deep. Kept so existing `amber` utilities work. */
   --amber: #96661D;
 }
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: .72rem;
-  letter-spacing: .14em;
+  font-size: 10.5px;
+  letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--green);
+  color: var(--brass-deep);
 }
 
-/* DSC ladder connector flow — the only motion besides the hero live dot. */
+/* The same label on a green-deep ground. */
+.eyebrow-dark {
+  color: var(--brass);
+}
+
+/* DSC ladder connector flow — sparkline / connector line-draw. */
 @keyframes ladder-flow {
   from {
     stroke-dashoffset: 0;
@@ -32,16 +45,71 @@
   }
 }
 
+/* Estate motifs: live dot pulse and hairline rule draw-in. */
+@keyframes el-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .35;
+  }
+}
+
+@keyframes el-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/*
+ * Sparkline line-draw. The dash length is a deliberate over-estimate of the
+ * path length in viewBox units, so no JS geometry measurement is needed.
+ * Under reduced motion no dash array is applied and the line simply shows.
+ */
+@keyframes spark-draw {
+  from {
+    stroke-dashoffset: 340;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .ladder-flow {
     animation: ladder-flow 1.4s linear infinite;
   }
+
+  .el-pulse {
+    animation: el-pulse 2.6s ease-in-out infinite;
+  }
+
+  .el-rule {
+    transform-origin: left;
+    animation: el-rule 1.1s .3s cubic-bezier(.2, .8, .2, 1) both;
+  }
+
+  .spark-draw {
+    stroke-dasharray: 340;
+    animation: spark-draw 2.2s .35s cubic-bezier(.2, .8, .2, 1) both;
+  }
 }
 
 .container-site {
-  max-width: 1200px;
+  max-width: 1240px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (min-width: 768px) {
+  .container-site {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }

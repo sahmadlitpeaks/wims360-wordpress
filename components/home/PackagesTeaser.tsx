@@ -1,96 +1,100 @@
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
+import Link from "next/link";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { PACKAGES } from "@/content/packages";
 
 const PREVIEW_COUNT = 4;
 
-function Tick() {
-  return (
-    <svg
-      viewBox="0 0 12 12"
-      aria-hidden="true"
-      focusable="false"
-      className="mt-1 h-3 w-3 shrink-0"
-    >
-      <path
-        d="M2 6.4 4.6 9 10 3.2"
-        fill="none"
-        stroke="var(--green)"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+/** Precision sits on white so it reads as the emphasised column. */
+const CARD_GROUND: Record<string, string> = {
+  essentials: "bg-bg",
+  clinical: "bg-bg",
+  precision: "bg-surface",
+};
+
+const CARD_CLASS = "flex flex-col p-8 md:px-9 md:py-11";
 
 export function PackagesTeaser() {
   return (
     <Section
+      className="bg-bg"
+      revealHeader
+      headerClassName="max-w-[860px]"
+      contentClassName="mt-16 md:mt-20"
       eyebrow="Packages"
       title={
         <>
           Start where your clinic{" "}
-          <span className="font-serif italic">actually</span> is.
+          <em className="italic text-green">actually</em> is.
         </>
       }
       intro="Three shipped packages, or a configuration of your own. Every package sits on the same record and the same compliance layer — the difference is which modules are switched on."
     >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {PACKAGES.map((pkg) => (
-          <Card key={pkg.id} as="article" className="flex flex-col p-6 md:p-6">
-            <h3 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">
+      <div className="grid grid-cols-1 gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-4">
+        {PACKAGES.map((pkg, index) => (
+          <Reveal
+            key={pkg.id}
+            as="article"
+            delay={Math.min(index, 4) * 90}
+            className={`${CARD_CLASS} ${CARD_GROUND[pkg.id]}`}
+          >
+            <h3 className="font-display text-[34px] font-normal leading-[1.1] text-ink">
               {pkg.name}
             </h3>
-            <p className="mt-2 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-green">
+            <p className="mt-3.5 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
               {pkg.audience}
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
+            <p className="mt-6 text-[14.5px] leading-[1.8] text-muted">
               {pkg.summary}
             </p>
 
-            <ul className="mt-5 flex flex-col gap-2 border-t border-line pt-5">
+            <ul className="mt-7 flex list-none flex-col gap-2.5 border-t border-line pt-[26px]">
               {pkg.includes.slice(0, PREVIEW_COUNT).map((item) => (
-                <li key={item} className="flex gap-2.5">
-                  <Tick />
-                  <span className="text-sm leading-relaxed text-muted">
-                    {item}
-                  </span>
+                <li
+                  key={item}
+                  className="text-[13.5px] leading-[1.6] text-muted"
+                >
+                  {item}
                 </li>
               ))}
-              <li className="pl-[1.375rem] text-sm leading-relaxed text-muted">
+              <li className="text-[13.5px] leading-[1.6] text-muted">
                 and {pkg.includes.length - PREVIEW_COUNT} more
               </li>
             </ul>
 
-            <div className="mt-auto pt-6">
-              <Button href="/packages" variant="ghost">
-                See what&apos;s included
-              </Button>
-            </div>
-          </Card>
+            <Link
+              href="/packages"
+              className="mt-auto inline-flex pt-8 font-mono text-[10px] uppercase tracking-[0.18em] text-green transition-colors hover:text-brass-deep"
+            >
+              See what&apos;s included
+            </Link>
+          </Reveal>
         ))}
 
-        <article className="flex flex-col rounded-xl border border-dashed border-[color-mix(in_srgb,var(--green)_40%,transparent)] bg-green-soft p-6">
-          <h3 className="font-display text-xl font-semibold leading-snug tracking-tight text-green-deep">
+        <Reveal
+          as="article"
+          delay={Math.min(PACKAGES.length, 4) * 90}
+          className={`${CARD_CLASS} bg-green-deep text-cream`}
+        >
+          <h3 className="font-display text-[34px] font-normal leading-[1.1] text-paper">
             Build your own
           </h3>
-          <p className="mt-2 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-green">
+          <p className="mt-3.5 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
             For clinics that don&apos;t fit a tier
           </p>
-          <p className="mt-4 text-sm leading-relaxed text-green-deep">
+          <p className="mt-6 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.7)]">
             Pick the modules, the integrations and the roles your clinic
             actually runs, and the configurator assembles the scope as you go.
             Send it to us and we quote against exactly that — nothing you
             didn&apos;t choose.
           </p>
-          <div className="mt-auto pt-6">
-            <Button href="/build" variant="ghost">
-              Open the configurator
-            </Button>
-          </div>
-        </article>
+          <Link
+            href="/build"
+            className="mt-auto inline-flex pt-8 font-mono text-[10px] uppercase tracking-[0.18em] text-brass transition-colors hover:text-paper"
+          >
+            Open the configurator
+          </Link>
+        </Reveal>
       </div>
     </Section>
   );

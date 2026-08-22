@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
@@ -8,104 +9,84 @@ export const metadata: Metadata = {
 };
 
 const LINK_CLASS =
-  "text-green underline underline-offset-4 transition-colors hover:text-green-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green";
+  "border-b border-line text-green transition-colors duration-300 hover:border-brass hover:text-green-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-bg";
+
+const SECTIONS: { heading: string; body: React.ReactNode }[] = [
+  {
+    heading: "Informational website",
+    body: "This site is provided to describe WIMS 360, its packages and how to get in touch. Nothing on it constitutes a binding quote, medical advice, or a substitute for a written agreement — a proposal or contract with WIMS 360 is only binding once issued and signed separately.",
+  },
+  {
+    heading: "No warranties",
+    body: (
+      <>
+        The content of this site is provided &quot;as is&quot;, without
+        warranties of any kind, express or implied, including as to accuracy,
+        completeness, or fitness for a particular purpose. We aim to keep the
+        site current but do not guarantee that every detail is up to date at any
+        given moment.
+      </>
+    ),
+  },
+  {
+    heading: "Intellectual property",
+    body: "All content on this site — including text, layout, graphics and the WIMS 360 name and mark — is © WIMS 360. Nothing on this site grants you a license to copy, reproduce or redistribute that content without our prior written consent.",
+  },
+  {
+    heading: "External links",
+    body: "This site may link to third-party websites for convenience. We do not control and are not responsible for the content, accuracy, or practices of any site we do not operate.",
+  },
+  {
+    heading: "Governing law",
+    body: "These terms are governed by the laws of the United Arab Emirates, and any dispute arising from them is subject to the exclusive jurisdiction of the courts of the United Arab Emirates.",
+  },
+  {
+    heading: "Contact",
+    body: (
+      <>
+        Questions about these terms can be sent to{" "}
+        <a href="mailto:info@wims360.com" className={LINK_CLASS}>
+          info@wims360.com
+        </a>
+        .
+      </>
+    ),
+  },
+];
 
 export default function TermsPage() {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-20 md:py-[120px]">
       <div className="container-site">
-        <div className="max-w-prose">
-          <Eyebrow>Terms of Use</Eyebrow>
-          <h1 className="mt-3 font-display text-3xl font-semibold leading-[1.15] tracking-tight text-ink md:text-4xl">
+        <Reveal className="max-w-prose">
+          <Eyebrow>Legal</Eyebrow>
+          <h1 className="mt-7 font-display text-[clamp(2.4rem,5vw,3.5rem)] font-normal leading-[1.06] tracking-[-0.012em] text-ink [text-wrap:pretty]">
             Terms of Use
           </h1>
-          <p className="mt-4 text-sm text-muted">
+          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
             Last updated: 20 August 2026
           </p>
 
-          <div className="mt-10 flex flex-col gap-8 text-base leading-relaxed text-ink">
-            <p>
-              These terms govern use of the <strong>wims360.com</strong>{" "}
-              marketing website. They do not govern use of the WIMS 360
-              clinical platform, which is provided to clinics under a
-              separate customer agreement.
-            </p>
+          <p className="mt-10 text-[17px] leading-[1.85] text-ink">
+            These terms govern use of the{" "}
+            <strong className="font-medium">wims360.com</strong> marketing
+            website. They do not govern use of the WIMS 360 clinical platform,
+            which is provided to clinics under a separate customer agreement.
+          </p>
 
-            <div>
-              <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">
-                Informational website
-              </h2>
-              <p className="mt-3 text-muted">
-                This site is provided to describe WIMS 360, its packages and
-                how to get in touch. Nothing on it constitutes a binding
-                quote, medical advice, or a substitute for a written
-                agreement — a proposal or contract with WIMS 360 is only
-                binding once issued and signed separately.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">
-                No warranties
-              </h2>
-              <p className="mt-3 text-muted">
-                The content of this site is provided &quot;as is&quot;,
-                without warranties of any kind, express or implied, including
-                as to accuracy, completeness, or fitness for a particular
-                purpose. We aim to keep the site current but do not guarantee
-                that every detail is up to date at any given moment.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">
-                Intellectual property
-              </h2>
-              <p className="mt-3 text-muted">
-                All content on this site — including text, layout, graphics
-                and the WIMS 360 name and mark — is © WIMS 360. Nothing on
-                this site grants you a license to copy, reproduce or
-                redistribute that content without our prior written consent.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">
-                External links
-              </h2>
-              <p className="mt-3 text-muted">
-                This site may link to third-party websites for convenience.
-                We do not control and are not responsible for the content,
-                accuracy, or practices of any site we do not operate.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">
-                Governing law
-              </h2>
-              <p className="mt-3 text-muted">
-                These terms are governed by the laws of the United Arab
-                Emirates, and any dispute arising from them is subject to the
-                exclusive jurisdiction of the courts of the United Arab
-                Emirates.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">
-                Contact
-              </h2>
-              <p className="mt-3 text-muted">
-                Questions about these terms can be sent to{" "}
-                <a href="mailto:info@wims360.com" className={LINK_CLASS}>
-                  info@wims360.com
-                </a>
-                .
-              </p>
-            </div>
+          <div className="mt-14">
+            {SECTIONS.map((item) => (
+              <div key={item.heading} className="border-t border-line py-9">
+                <h2 className="font-display text-[clamp(1.5rem,2.6vw,30px)] font-normal leading-[1.12] text-ink">
+                  {item.heading}
+                </h2>
+                <p className="mt-5 text-[15px] leading-[1.85] text-muted">
+                  {item.body}
+                </p>
+              </div>
+            ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

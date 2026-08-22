@@ -8,6 +8,13 @@ import { useLeadSubmit } from "@/lib/useLeadSubmit";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/** Estate form control: no box, one hairline under the field, green on focus. */
+const CONTROL_CLASS =
+  "mt-3.5 w-full rounded-none border-0 border-b border-line bg-transparent px-0 py-3 text-[18px] leading-[1.5] text-ink transition-colors duration-300 placeholder:text-muted focus:border-green focus:outline-none md:text-[20px]";
+
+const LABEL_CLASS =
+  "block font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep";
+
 type OrgTypeValue =
   | "wellness-clinic"
   | "functional-integrative-medicine"
@@ -79,10 +86,7 @@ function Field({
 
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted"
-      >
+      <label htmlFor={id} className={LABEL_CLASS}>
         {label}
         {optional ? " (optional)" : ""}
       </label>
@@ -94,10 +98,10 @@ function Field({
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-2 w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted focus-visible:border-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+        className={CONTROL_CLASS}
       />
       {error ? (
-        <p id={errorId} className="mt-2 text-sm text-amber">
+        <p id={errorId} className="mt-3 text-[13.5px] leading-[1.5] text-brass-deep">
           {error}
         </p>
       ) : null}
@@ -180,14 +184,14 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
 
   if (status === "ok") {
     return (
-      <div className="rounded-xl border border-line bg-surface p-6 md:p-7">
-        <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
+      <div className="border-t border-line pt-10 md:pt-12">
+        <p className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-brass-deep">
           Message sent
         </p>
-        <h2 className="mt-2 font-display text-2xl font-semibold leading-tight tracking-tight text-ink">
+        <h2 className="mt-6 font-display text-[clamp(2rem,4vw,52px)] font-normal leading-[1.06] text-ink [text-wrap:pretty]">
           Thanks — we&apos;ll reply within one business day.
         </h2>
-        <p className="mt-4 text-sm leading-relaxed text-muted">
+        <p className="mt-7 max-w-[52ch] text-[16.5px] leading-[1.85] text-muted">
           Bring your lab vendor list, your current booking flow, and one real
           patient scenario — we&apos;ll show it running in WIMS.
         </p>
@@ -196,8 +200,12 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="max-w-xl">
-      <div className="flex flex-col gap-5">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="border-t border-line pt-10 md:pt-12"
+    >
+      <div className="flex flex-col gap-8">
         <Field
           id="demo-name"
           label="Your name"
@@ -215,29 +223,29 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
           error={fieldErrors.email}
           autoComplete="email"
         />
-        <Field
-          id="demo-phone"
-          label="Phone"
-          type="tel"
-          value={phone}
-          onChange={setPhone}
-          optional
-          autoComplete="tel"
-        />
-        <Field
-          id="demo-organization"
-          label="Organization"
-          value={organization}
-          onChange={setOrganization}
-          optional
-          autoComplete="organization"
-        />
+
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <Field
+            id="demo-phone"
+            label="Phone"
+            type="tel"
+            value={phone}
+            onChange={setPhone}
+            optional
+            autoComplete="tel"
+          />
+          <Field
+            id="demo-organization"
+            label="Organization"
+            value={organization}
+            onChange={setOrganization}
+            optional
+            autoComplete="organization"
+          />
+        </div>
 
         <div>
-          <label
-            htmlFor="demo-org-type"
-            className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted"
-          >
+          <label htmlFor="demo-org-type" className={LABEL_CLASS}>
             Organization type (optional)
           </label>
           <select
@@ -246,7 +254,7 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
             onChange={(event) =>
               setOrgType(event.target.value as OrgTypeValue | "")
             }
-            className="mt-2 w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink focus-visible:border-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+            className={CONTROL_CLASS}
           >
             <option value="">Select one</option>
             {ORG_TYPES.map((option) => (
@@ -258,10 +266,7 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
         </div>
 
         <div>
-          <label
-            htmlFor="demo-message"
-            className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted"
-          >
+          <label htmlFor="demo-message" className={LABEL_CLASS}>
             What should we show you? (optional)
           </label>
           <textarea
@@ -269,7 +274,7 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
             value={message}
             onChange={(event) => setMessage(event.target.value)}
             rows={4}
-            className="mt-2 w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted focus-visible:border-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+            className={`${CONTROL_CLASS} resize-y`}
           />
         </div>
       </div>
@@ -277,22 +282,21 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
       {status === "error" ? (
         <p
           role="alert"
-          className="mt-6 rounded-xl border border-amber bg-[color-mix(in_srgb,var(--amber)_10%,var(--surface))] px-4 py-3 text-sm leading-relaxed text-amber"
+          className="mt-10 border border-brass-deep bg-[color-mix(in_srgb,var(--brass-deep)_8%,var(--surface))] px-5 py-4 text-[14.5px] leading-[1.75] text-brass-deep"
         >
           We couldn&apos;t send your message just now. Please try again, or
           email info@wims360.com and we&apos;ll pick it up from there.
         </p>
       ) : null}
 
-      <div className="mt-7">
-        <Button type="submit" variant="primary" size="lg" disabled={submitting}>
+      <div className="mt-12 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
+        <Button type="submit" variant="dark" size="lg" disabled={submitting}>
           {submitting ? "Sending…" : "Book a demo"}
         </Button>
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+          We reply within one business day.
+        </p>
       </div>
-
-      <p className="mt-4 text-sm leading-relaxed text-muted">
-        We reply within one business day.
-      </p>
     </form>
   );
 }

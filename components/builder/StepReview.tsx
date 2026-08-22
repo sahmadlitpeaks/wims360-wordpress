@@ -19,6 +19,13 @@ export type ContactDetails = {
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/** Estate form control: sharp corners, hairline border, green on focus. */
+const CONTROL_CLASS =
+  "mt-3 w-full rounded-none border border-line bg-surface px-4 py-3 text-sm text-ink transition-colors duration-300 placeholder:text-muted focus:border-green focus:outline-none";
+
+const LABEL_CLASS =
+  "block font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep";
+
 function moduleNames(state: BuilderState): string[] {
   return state.modules
     .map((id) => MODULES.find((module) => module.id === id)?.name)
@@ -34,10 +41,12 @@ function customizationLabels(state: BuilderState): string[] {
 function Block({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="border-t border-line pt-5">
-      <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted">
+      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
         {label}
       </p>
-      <div className="mt-2 text-sm leading-relaxed text-ink">{children}</div>
+      <div className="mt-2.5 text-[14.5px] leading-[1.75] text-ink">
+        {children}
+      </div>
     </div>
   );
 }
@@ -144,10 +153,7 @@ function Field({
 
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted"
-      >
+      <label htmlFor={id} className={LABEL_CLASS}>
         {label}
         {optional ? " (optional)" : ""}
       </label>
@@ -159,10 +165,10 @@ function Field({
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-2 w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted focus-visible:border-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+        className={CONTROL_CLASS}
       />
       {error ? (
-        <p id={errorId} className="mt-2 text-sm text-amber">
+        <p id={errorId} className="mt-2.5 text-[13.5px] leading-[1.5] text-brass-deep">
           {error}
         </p>
       ) : null}
@@ -228,26 +234,26 @@ export function StepReview({
   return (
     <div className="flex flex-col gap-10">
       <div>
-        <h2 className="font-display text-2xl font-semibold leading-tight tracking-tight text-ink md:text-3xl">
+        <h2 className="font-display text-[clamp(1.9rem,3.6vw,42px)] font-normal leading-[1.08] text-ink">
           Your WIMS 360
         </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+        <p className="mt-5 max-w-2xl text-[15px] leading-[1.8] text-muted">
           This is the configuration we&apos;ll scope against. Send it with your
           details and a written proposal — modules, seats, centers and
           onboarding — comes back within one business day.
         </p>
 
-        <div className="mt-6 rounded-xl border border-line bg-surface p-6 md:p-7">
+        <div className="mt-8 border border-line bg-surface p-7 md:p-9">
           <ConfigurationSummary state={state} />
         </div>
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="max-w-xl">
-        <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+        <h3 className="font-display text-[26px] font-normal leading-[1.15] text-ink">
           Where should the proposal go?
         </h3>
 
-        <div className="mt-5 flex flex-col gap-5">
+        <div className="mt-7 flex flex-col gap-7">
           <Field
             id="builder-name"
             label="Your name"
@@ -287,19 +293,19 @@ export function StepReview({
         {error ? (
           <p
             role="alert"
-            className="mt-6 rounded-xl border border-amber bg-[color-mix(in_srgb,var(--amber)_10%,var(--surface))] px-4 py-3 text-sm leading-relaxed text-amber"
+            className="mt-8 border border-brass-deep bg-[color-mix(in_srgb,var(--brass-deep)_8%,var(--surface))] px-5 py-4 text-[14.5px] leading-[1.75] text-brass-deep"
           >
             {error}
           </p>
         ) : null}
 
-        <div className="mt-7">
-          <Button type="submit" variant="primary" size="lg" disabled={submitting}>
+        <div className="mt-10">
+          <Button type="submit" variant="dark" size="lg" disabled={submitting}>
             {submitting ? "Sending…" : "Send my configuration"}
           </Button>
         </div>
 
-        <p className="mt-4 text-sm leading-relaxed text-muted">
+        <p className="mt-5 text-[14.5px] leading-[1.8] text-muted">
           No pricing is calculated here. We read the configuration, scope it and
           reply in writing.
         </p>

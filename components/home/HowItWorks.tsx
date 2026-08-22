@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
 const STEPS = [
@@ -15,32 +16,48 @@ const STEPS = [
   },
 ];
 
+/** Column padding runs edge-to-edge: no left pad on the first, none right on the last. */
+const COLUMN_PADDING = [
+  "md:border-r md:border-line md:pl-0 md:pr-11 md:pt-11",
+  "md:border-r md:border-line md:px-11 md:pt-11",
+  "md:pl-11 md:pr-0 md:pt-11",
+];
+
 export function HowItWorks() {
   return (
     <Section
-      className="bg-surface"
+      className="border-t border-line bg-surface"
+      revealHeader
+      headerClassName="max-w-[860px]"
+      contentClassName="mt-16 md:mt-[88px]"
       eyebrow="How it works"
       title={
         <>
-          Three steps to a <span className="font-serif italic">single</span>{" "}
-          record.
+          Three steps to a <em className="italic text-green">single</em> record.
         </>
       }
       intro="Implementation is a project, not a download — but it is a bounded one, run with your team rather than handed over as a login."
     >
-      <ol className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
+      <ol className="grid list-none grid-cols-1 border-t border-line md:grid-cols-3">
         {STEPS.map((step, index) => (
-          <li key={step.title} className="border-t border-line pt-6">
-            <span className="font-mono text-[0.72rem] uppercase leading-5 tracking-[0.14em] text-green">
-              Step {String(index + 1).padStart(2, "0")}
+          <Reveal
+            key={step.title}
+            as="li"
+            delay={index * 90}
+            className={`pt-9 ${
+              index < STEPS.length - 1 ? "border-b border-line pb-9" : ""
+            } md:border-b-0 md:pb-0 ${COLUMN_PADDING[index]}`}
+          >
+            <span className="font-display text-[44px] leading-none text-brass">
+              {String(index + 1).padStart(2, "0")}
             </span>
-            <h3 className="mt-3 font-display text-xl font-semibold leading-snug tracking-tight text-ink">
+            <h3 className="mt-6 font-display text-[30px] font-normal leading-[1.15] text-ink">
               {step.title}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
+            <p className="mt-4 text-[15px] leading-[1.8] text-muted">
               {step.body}
             </p>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </Section>

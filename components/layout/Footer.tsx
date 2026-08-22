@@ -11,6 +11,7 @@ const PLATFORM_LINKS: FooterLink[] = [
   { label: "Dr.T AI", href: "/ai" },
   { label: "Packages", href: "/packages" },
   { label: "Build a package", href: "/build" },
+  { label: "Solutions", href: "/solutions/wellness-clinics" },
 ];
 
 const COMPANY_LINKS: FooterLink[] = [
@@ -21,19 +22,20 @@ const COMPANY_LINKS: FooterLink[] = [
 ];
 
 const LINK_CLASS =
-  "text-sm text-muted transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+  "text-[14.5px] text-[rgba(242,239,230,.72)] transition-colors hover:text-cream focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep";
 
-const COLUMN_HEADING_CLASS = "eyebrow";
+const COLUMN_HEADING_CLASS =
+  "font-mono text-[10px] uppercase tracking-[0.2em] text-brass";
 
-/** Site footer: brand blurb plus Platform, Company and Contact columns. */
+/** Site footer per the Site Footer artboard: green-deep, brass column labels. */
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-bg">
-      <div className="container-site py-16 md:py-20">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          <div className="lg:pr-6">
-            <Logo />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
+    <footer className="bg-green-deep pb-11 pt-20 text-cream md:pt-[112px]">
+      <div className="container-site">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))] lg:gap-16">
+          <div>
+            <Logo width={159} />
+            <p className="mt-[26px] max-w-[38ch] text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.6)]">
               WIMS 360 is the operating system for integrative wellness clinics
               — intake, diagnostics, care plans and client engagement running in
               one platform.
@@ -42,7 +44,7 @@ export function Footer() {
 
           <div>
             <h2 className={COLUMN_HEADING_CLASS}>Platform</h2>
-            <ul className="mt-4 flex flex-col gap-3">
+            <ul className="mt-6 flex flex-col gap-3.5">
               {PLATFORM_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className={LINK_CLASS}>
@@ -55,7 +57,7 @@ export function Footer() {
 
           <div>
             <h2 className={COLUMN_HEADING_CLASS}>Company</h2>
-            <ul className="mt-4 flex flex-col gap-3">
+            <ul className="mt-6 flex flex-col gap-3.5">
               {COMPANY_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className={LINK_CLASS}>
@@ -68,7 +70,7 @@ export function Footer() {
 
           <div>
             <h2 className={COLUMN_HEADING_CLASS}>Contact</h2>
-            <address className="mt-4 flex flex-col gap-3 text-sm not-italic leading-relaxed text-muted">
+            <address className="mt-6 flex flex-col gap-3.5 text-[14.5px] not-italic leading-[1.7] text-[rgba(242,239,230,.72)]">
               <span>
                 Dubai Science Park,
                 <br />
@@ -84,11 +86,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-muted">
-            &copy; {new Date().getFullYear()} WIMS 360. All rights reserved.
+        <div className="mt-16 flex flex-col gap-4 border-t border-[rgba(176,132,68,.24)] pt-8 sm:flex-row sm:items-center sm:justify-between md:mt-[88px]">
+          <p className="text-[13.5px] text-[rgba(242,239,230,.5)]">
+            &copy; 2026 WIMS 360. All rights reserved.
           </p>
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[rgba(242,239,230,.5)]">
             Dubai, United Arab Emirates
           </p>
         </div>

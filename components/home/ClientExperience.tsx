@@ -1,8 +1,10 @@
-import { CompanionPhone } from "@/components/mocks/CompanionPhone";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
-const BENEFITS = [
+type Benefit = { title: string; body: string };
+
+const LEFT_COLUMN: Benefit[] = [
   {
     title: "Portal and mobile app on one account",
     body: "Shared reports, healing plans, appointments and documents in plain language — on the web and on the phone, without a second login.",
@@ -15,6 +17,9 @@ const BENEFITS = [
     title: "Meal-photo logging and habit check-ins",
     body: "A photo of the plate is faster than a food diary, and the check-in lands on the same timeline the practitioner reviews before the next appointment.",
   },
+];
+
+const RIGHT_COLUMN: Benefit[] = [
   {
     title: "Family and dependent profiles",
     body: "Parents manage children, partners share a programme — each profile keeps its own record and its own consent.",
@@ -25,53 +30,85 @@ const BENEFITS = [
   },
 ];
 
+function BenefitArticle({
+  benefit,
+  delay,
+  last,
+}: {
+  benefit: Benefit;
+  delay: number;
+  last: boolean;
+}) {
+  return (
+    <Reveal
+      as="article"
+      delay={delay}
+      className={`border-t border-line py-8 ${last ? "border-b" : ""}`}
+    >
+      <h3 className="font-display text-[26px] font-normal leading-[1.2] text-ink">
+        {benefit.title}
+      </h3>
+      <p className="mt-3.5 text-[15px] leading-[1.8] text-muted">
+        {benefit.body}
+      </p>
+    </Reveal>
+  );
+}
+
 export function ClientExperience() {
   return (
     <Section
-      className="bg-surface"
+      className="border-y border-line bg-surface"
+      revealHeader
+      headerClassName="max-w-[860px]"
+      contentClassName="mt-16 md:mt-20"
       eyebrow="The client side"
       title={
         <>
           Your clients get an app worth{" "}
-          <span className="font-serif italic">opening</span>.
+          <em className="italic text-green">opening</em>.
         </>
       }
       intro="Engagement between appointments is where integrative programmes are won or lost. The portal is the same record the clinic works in, filtered to what a clinician has chosen to share."
     >
-      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-16">
+      <div className="grid grid-cols-1 gap-x-20 md:grid-cols-2">
         <div>
-          <ul className="flex flex-col gap-px overflow-hidden rounded-xl border border-line bg-line">
-            {BENEFITS.map((benefit) => (
-              <li key={benefit.title} className="bg-surface px-5 py-4">
-                <h3 className="text-sm font-semibold leading-5 text-ink">
-                  {benefit.title}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted">
-                  {benefit.body}
-                </p>
-              </li>
-            ))}
-          </ul>
+          {LEFT_COLUMN.map((benefit, index) => (
+            <BenefitArticle
+              key={benefit.title}
+              benefit={benefit}
+              delay={index * 90}
+              last={index === LEFT_COLUMN.length - 1}
+            />
+          ))}
+        </div>
 
-          <div className="mt-6 rounded-xl border border-line bg-bg p-5">
-            <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted">
+        <div>
+          {RIGHT_COLUMN.map((benefit, index) => (
+            <BenefitArticle
+              key={benefit.title}
+              benefit={benefit}
+              delay={index * 90}
+              last={index === RIGHT_COLUMN.length - 1}
+            />
+          ))}
+
+          <Reveal delay={180} className="mt-9 bg-green-soft p-8">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-green">
               Also on the desktop portal
             </p>
-            <p className="mt-2.5 text-sm leading-relaxed text-muted">
+            <p className="mt-3.5 text-[15px] leading-[1.8] text-green-deep">
               Full report history with compare-over-time, the document hub with
               short-lived signed links, secure threaded messaging with the care
               team, and wearable connections through Terra and Ultrahuman.
             </p>
-            <div className="mt-4">
-              <Button href="/platform#portal" variant="ghost">
-                Explore the client portal
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="mx-auto w-full max-w-[380px] lg:mx-0">
-          <CompanionPhone />
+            <Link
+              href="/platform#portal"
+              className="mt-6 inline-flex items-center border-b border-[color-mix(in_srgb,var(--green)_30%,transparent)] pb-[7px] font-mono text-[10.5px] uppercase tracking-[0.18em] text-green-deep transition-colors hover:border-green-deep"
+            >
+              Explore the client portal
+            </Link>
+          </Reveal>
         </div>
       </div>
     </Section>

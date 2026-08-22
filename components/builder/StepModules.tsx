@@ -18,22 +18,22 @@ export type ModuleNote = {
 
 function Switch({ on, label }: { on: boolean; label: string }) {
   return (
-    <span className="flex items-center gap-2.5">
+    <span className="flex items-center gap-3">
       <span
         aria-hidden="true"
         className={cn(
-          "flex h-6 w-11 shrink-0 items-center rounded-full p-0.5 transition-colors",
+          "flex h-5 w-10 shrink-0 items-center rounded-none p-0.5 transition-colors duration-300",
           on ? "bg-green" : "bg-line",
         )}
       >
         <span
           className={cn(
-            "h-5 w-5 rounded-full bg-surface shadow-sm transition-transform",
+            "h-4 w-4 rounded-none bg-surface transition-transform duration-300",
             on && "translate-x-5",
           )}
         />
       </span>
-      <span className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-muted">
+      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
         {label}
       </span>
     </span>
@@ -60,16 +60,16 @@ export function StepModules({
 }: StepModulesProps) {
   return (
     <div className="flex flex-col gap-8">
-      <div className="rounded-xl border border-line bg-green-soft px-5 py-4">
-        <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
+      <div className="rounded-none border border-line bg-green-soft px-6 py-5">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
           Always included
         </p>
-        <p className="mt-1.5 text-sm leading-relaxed text-green-deep">
+        <p className="mt-2.5 text-[14.5px] leading-[1.7] text-green-deep">
           {ALWAYS_INCLUDED.join(" · ")}
         </p>
       </div>
 
-      <ul className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+      <ul className="grid list-none grid-cols-1 gap-5 xl:grid-cols-2">
         {MODULES.map((module) => {
           const on = selected.includes(module.id);
           const showNote = note?.moduleId === module.id;
@@ -78,23 +78,23 @@ export function StepModules({
             <li
               key={module.id}
               className={cn(
-                "flex flex-col rounded-xl border bg-surface p-6",
-                on ? "border-green" : "border-line",
+                "flex flex-col rounded-none border bg-surface p-7 transition-colors duration-300",
+                on ? "border-brass" : "border-line",
               )}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+                  <h3 className="font-display text-[26px] font-normal leading-[1.15] text-ink">
                     {module.name}
                   </h3>
-                  <p className="mt-1.5 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-green">
+                  <p className="mt-2 font-mono text-[9.5px] uppercase tracking-[0.18em] text-brass">
                     {module.half === "clinical" ? "Clinical" : "Operations"}
                   </p>
                 </div>
                 {on ? <Chip tone="green">On</Chip> : null}
               </div>
 
-              <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+              <p className="mt-5 flex-1 text-[14.5px] leading-[1.8] text-muted">
                 {module.tagline}.
               </p>
 
@@ -103,16 +103,16 @@ export function StepModules({
                 aria-pressed={on}
                 aria-label={`${module.name} module`}
                 onClick={() => onToggle(module.id)}
-                className="mt-5 flex items-center rounded-xl border border-line px-3 py-2 transition-colors hover:border-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                className="mt-6 flex items-center self-start rounded-none border border-line px-3.5 py-2.5 transition-colors duration-300 hover:border-brass focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
               >
                 <Switch on={on} label={on ? "Included" : "Not included"} />
               </button>
 
               {showNote ? (
-                <div className="mt-4 flex items-start gap-3 rounded-xl bg-green-soft px-4 py-3">
+                <div className="mt-5 flex items-start gap-3 rounded-none border border-line bg-green-soft px-4 py-3.5">
                   <p
                     role="status"
-                    className="flex-1 text-sm leading-relaxed text-green-deep"
+                    className="flex-1 text-[14px] leading-[1.75] text-green-deep"
                   >
                     {note.text}
                   </p>
@@ -120,7 +120,7 @@ export function StepModules({
                     type="button"
                     onClick={onDismissNote}
                     aria-label="Dismiss note"
-                    className="rounded-full px-1 leading-none text-green transition-colors hover:text-green-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+                    className="rounded-none px-1 leading-none text-green transition-colors duration-300 hover:text-brass-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass"
                   >
                     &times;
                   </button>

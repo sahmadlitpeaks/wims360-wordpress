@@ -10,18 +10,18 @@ export type ChipProps = {
 };
 
 const TONES: Record<ChipTone, string> = {
-  green: "bg-green-soft text-green-deep",
+  green: "border border-[color-mix(in_srgb,var(--green)_30%,transparent)] bg-green-soft text-green-deep",
   neutral: "border border-line bg-surface text-muted",
   amber:
-    "bg-[color-mix(in_srgb,var(--amber)_12%,var(--surface))] text-amber",
+    "border border-[color-mix(in_srgb,var(--brass)_40%,transparent)] bg-[color-mix(in_srgb,var(--brass)_10%,var(--surface))] text-brass-deep",
 };
 
-/** Small pill label used for tags, statuses and "+N more" affordances. */
+/** Small rectangular label used for tags, statuses and "+N more" affordances. */
 export function Chip({ children, tone = "neutral", className }: ChipProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em]",
+        "inline-flex items-center gap-1.5 rounded-none px-2.5 py-1 font-mono text-[10px] uppercase leading-5 tracking-[0.16em]",
         TONES[tone],
         className,
       )}

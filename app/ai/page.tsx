@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LoopTabs } from "@/components/ai/LoopTabs";
-import { CompanionPhone } from "@/components/mocks/CompanionPhone";
-import { CopilotChat } from "@/components/mocks/CopilotChat";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
   title: "Dr.T AI",
   description:
-    "Dr.T Copilot reads the clinical record and drafts across five loops — Ladder Chex, Health Insight, report analysis, recommendation plans and case review — and a clinician approves every write. The Wellness Companion is the separate, deliberately narrower client-facing agent.",
+    "Two AIs, one rule: clinicians stay in charge. Dr.T Copilot reads the clinical record and drafts across five loops; the Wellness Companion is the separate, deliberately narrower client-facing agent. Both are consent-gated, audit-logged and off by default.",
 };
 
-const HERO_CHIPS = [
+const HERO_NOTES = [
   "Consent-gated per client",
   "Clinician-approved writes",
   "Audit-logged access",
@@ -82,216 +80,226 @@ const GOVERNANCE: { title: string; body: string }[] = [
 export default function AiPage() {
   return (
     <>
-      <section className="border-b border-line pb-16 pt-12 md:pb-24 md:pt-16">
+      <section className="bg-green-deep pb-24 pt-20 text-cream md:pb-[128px] md:pt-[120px]">
         <div className="container-site">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:gap-16">
-            <div>
-              <Eyebrow>Dr.T AI</Eyebrow>
-
-              <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-20">
+            <Reveal>
+              <Eyebrow tone="dark">Dr.T AI</Eyebrow>
+              <h1 className="mt-8 font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
                 Two AIs. One rule: clinicians stay in{" "}
-                <span className="font-serif italic">charge</span>.
+                <em className="italic text-brass">charge</em>.
               </h1>
-
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+              <p className="mt-10 max-w-[56ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
                 Dr.T Copilot reads the clinical record and drafts. The Wellness
                 Companion talks to clients and does far less on purpose. Neither
                 one writes anything a clinician has not approved, and neither
                 one runs at all until you switch it on.
               </p>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Button href="/contact" size="lg">
+              <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                <Button href="/contact" variant="primary" size="lg" onDark>
                   See Dr.T in a demo
                 </Button>
-                <Button href="#loops" variant="outline" size="lg">
+                <Button href="#loops" variant="outlineLight" size="lg" onDark>
                   See the five loops
                 </Button>
               </div>
 
-              <ul className="mt-10 flex flex-wrap items-center gap-2.5">
-                {HERO_CHIPS.map((label) => (
-                  <li key={label}>
-                    <Chip tone="neutral">{label}</Chip>
+              <ul className="mt-14 flex list-none flex-wrap gap-x-8 gap-y-3 border-t border-[rgba(242,239,230,.14)] pt-8">
+                {HERO_NOTES.map((note) => (
+                  <li
+                    key={note}
+                    className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[rgba(242,239,230,.5)]"
+                  >
+                    {note}
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
 
-            <div className="mx-auto w-full max-w-[480px] lg:mx-0 lg:justify-self-end">
-              <div className="overflow-hidden rounded-2xl border border-line bg-surface">
-                <ul className="flex flex-col gap-px bg-line">
-                  {AGENTS.map((agent) => (
-                    <li key={agent.name} className="bg-surface px-6 py-6 md:px-7">
-                      <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
-                        {agent.audience}
-                      </p>
-                      <h2 className="mt-2 font-display text-xl font-semibold leading-snug tracking-tight text-ink">
-                        {agent.name}
-                      </h2>
-                      <p className="mt-2.5 text-sm leading-relaxed text-muted">
-                        {agent.blurb}
-                      </p>
-                      <div className="mt-4">
-                        <Button href={agent.anchor} variant="ghost">
-                          What it does
-                        </Button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex items-start gap-2.5 border-t border-line bg-green-soft px-6 py-4 md:px-7">
-                  <svg
-                    viewBox="0 0 16 16"
-                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green-deep"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <rect x="3" y="7" width="10" height="6.5" rx="1.5" />
-                    <path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" strokeLinecap="round" />
-                  </svg>
-                  <p className="text-[0.8125rem] leading-5 text-green-deep">
-                    Both are off until a BAA or DPA is signed, and both are
-                    gated on the client&rsquo;s own consent.
+            <Reveal
+              delay={90}
+              className="border border-[rgba(176,132,68,.35)]"
+            >
+              {AGENTS.map((agent) => (
+                <article
+                  key={agent.name}
+                  className="border-b border-[rgba(176,132,68,.35)] p-8 md:p-10"
+                >
+                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
+                    {agent.audience}
                   </p>
-                </div>
+                  <h2 className="mt-4 font-display text-[clamp(1.75rem,3vw,36px)] font-normal leading-[1.1] text-paper">
+                    {agent.name}
+                  </h2>
+                  <p className="mt-4 text-[15px] leading-[1.8] text-[rgba(242,239,230,.66)]">
+                    {agent.blurb}
+                  </p>
+                  <Link
+                    href={agent.anchor}
+                    className="mt-6 inline-flex font-mono text-[10px] uppercase tracking-[0.18em] text-brass transition-colors duration-300 hover:text-paper focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep"
+                  >
+                    What it does
+                  </Link>
+                </article>
+              ))}
+
+              <div className="bg-[rgba(176,132,68,.12)] px-8 py-7 md:px-10">
+                <p className="text-sm leading-[1.75] text-[rgba(242,239,230,.78)]">
+                  Both are off until a BAA or DPA is signed, and both are gated
+                  on the client&rsquo;s own consent.
+                </p>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <LoopTabs chat={<CopilotChat />} />
+      <LoopTabs />
 
       <Section
         id="companion"
-        className="scroll-mt-24"
+        className="scroll-mt-24 bg-bg"
+        revealHeader
+        headerClassName="max-w-[900px]"
+        contentClassName="mt-16 md:mt-20"
         eyebrow="The client side"
         title={
           <>
             The Wellness Companion is{" "}
-            <span className="font-serif italic">smaller</span> on purpose.
+            <em className="italic text-green">smaller</em> on purpose.
           </>
         }
         intro="Clients get their own agent in the portal — a separate one, not the clinical Copilot with a friendlier tone. It can do a short, useful list of things and nothing beyond it."
       >
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] lg:gap-16">
-          <div className="flex flex-col gap-5">
-            <Card>
-              <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink">
-                What it does
-              </h3>
-              <ul className="mt-4 flex flex-col gap-3">
-                {COMPANION_CAN.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-green"
-                    />
-                    <span className="text-sm leading-relaxed text-muted">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+        <div className="grid grid-cols-1 gap-px border border-line bg-line md:grid-cols-2">
+          <Reveal className="bg-bg p-8 md:p-12">
+            <h3 className="font-display text-[clamp(1.75rem,3vw,34px)] font-normal leading-[1.1] text-ink">
+              What it does
+            </h3>
+            <ul className="mt-8 list-none border-t border-line">
+              {COMPANION_CAN.map((item, index) => (
+                <li
+                  key={item}
+                  className={`py-5 text-[15px] leading-[1.8] text-muted ${
+                    index < COMPANION_CAN.length - 1
+                      ? "border-b border-line"
+                      : ""
+                  }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
 
-            <Card>
-              <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink">
-                What it cannot do &mdash; by design
-              </h3>
-              <ul className="mt-4 flex flex-col gap-3">
-                {COMPANION_CANNOT.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-[0.5625rem] inline-block h-px w-3 shrink-0 bg-[color-mix(in_srgb,var(--ink)_35%,transparent)]"
-                    />
-                    <span className="text-sm leading-relaxed text-muted">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5 text-sm leading-relaxed text-muted">
-                Those actions belong to your team. A symptom the Companion
-                judges serious goes to the care team rather than being answered
-                away.
-              </p>
-            </Card>
-          </div>
-
-          <div className="mx-auto w-full max-w-[420px] lg:mx-0">
-            <CompanionPhone />
-          </div>
+          <Reveal delay={90} className="bg-green-deep p-8 text-cream md:p-12">
+            <h3 className="font-display text-[clamp(1.75rem,3vw,34px)] font-normal leading-[1.1] text-paper">
+              What it cannot do &mdash; by design
+            </h3>
+            <ul className="mt-8 list-none border-t border-[rgba(242,239,230,.16)]">
+              {COMPANION_CANNOT.map((item, index) => (
+                <li
+                  key={item}
+                  className={`py-5 text-[15px] leading-[1.8] text-[rgba(242,239,230,.66)] ${
+                    index < COMPANION_CANNOT.length - 1
+                      ? "border-b border-[rgba(242,239,230,.16)]"
+                      : ""
+                  }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 font-display text-[22px] leading-[1.45] text-cream">
+              Those actions belong to your team. A symptom the Companion judges
+              serious goes to the care team rather than being answered away.
+            </p>
+          </Reveal>
         </div>
       </Section>
 
       <Section
         id="governance"
-        className="scroll-mt-24 bg-surface"
+        className="scroll-mt-24 border-y border-line bg-surface"
+        revealHeader
+        headerClassName="max-w-[900px]"
+        contentClassName="mt-16 md:mt-20"
         eyebrow="Governance"
         title={
           <>
-            The rules the AI runs{" "}
-            <span className="font-serif italic">inside</span>.
+            The rules the AI runs <em className="italic text-green">inside</em>.
           </>
         }
         intro="These are enforced by the platform on every request, which is why they read the same whether you are asking a clinician, a compliance officer or the audit log."
       >
-        <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {GOVERNANCE.map((fact) => (
-            <Card key={fact.title} as="li" className="bg-bg">
-              <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink">
-                {fact.title}
+        <ul className="list-none border-t border-line">
+          {GOVERNANCE.map((rule, index) => (
+            <Reveal
+              key={rule.title}
+              as="li"
+              delay={Math.min(index, 4) * 90}
+              className="grid grid-cols-[32px_minmax(0,1fr)] gap-x-6 gap-y-3.5 border-b border-line py-9 md:grid-cols-[44px_minmax(0,0.5fr)_minmax(0,1fr)] md:gap-8"
+            >
+              <span className="font-display text-[24px] leading-none text-brass">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="font-display text-[clamp(1.5rem,2.4vw,28px)] font-normal leading-[1.15] text-ink">
+                {rule.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {fact.body}
+              <p className="col-span-2 text-[15px] leading-[1.8] text-muted md:col-span-1">
+                {rule.body}
               </p>
-            </Card>
+            </Reveal>
           ))}
         </ul>
 
-        <div className="mt-8">
+        <div className="mt-11">
           <Button href="/security" variant="ghost">
             Read the security overview
           </Button>
         </div>
       </Section>
 
-      <Section
-        eyebrow="Knowledge"
-        title={
-          <>
-            Grounded in a library{" "}
-            <span className="font-serif italic">you</span> curate.
-          </>
-        }
-        intro="Knowledge answers are grounded in an admin-curated reference library rather than whatever the model happens to have absorbed. Your administrators decide what goes into it, which means the clinical reasoning Dr.T leans on is reasoning your organization has agreed to."
-      >
-        <Card className="max-w-3xl">
-          <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-green">
-            How it works
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            An administrator uploads reference material into the library. When a
-            question calls for it, Dr.T retrieves from that library and cites
-            what it used, the same way it cites a lab marker or a Chex form. Add
-            a document and it becomes available; remove one and it stops being
-            used.
-          </p>
-        </Card>
-      </Section>
+      <section className="bg-bg py-24 md:py-[140px]">
+        <div className="container-site">
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-20">
+            <Reveal>
+              <Eyebrow>Knowledge</Eyebrow>
+              <h2 className="mt-7 font-display text-[clamp(2.2rem,4.2vw,3.75rem)] font-normal leading-[1.06] tracking-[-0.012em] text-ink [text-wrap:pretty]">
+                Grounded in a library <em className="italic text-green">you</em>{" "}
+                curate.
+              </h2>
+              <p className="mt-7 text-[17px] leading-[1.8] text-muted md:text-lg md:leading-[1.75]">
+                Knowledge answers are grounded in an admin-curated reference
+                library rather than whatever the model happens to have absorbed.
+                Your administrators decide what goes into it, which means the
+                clinical reasoning Dr.T leans on is reasoning your organization
+                has agreed to.
+              </p>
+            </Reveal>
+
+            <Reveal delay={90} className="border-t border-line pt-10">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+                How it works
+              </p>
+              <p className="mt-5 text-base leading-[1.85] text-muted">
+                An administrator uploads reference material into the library.
+                When a question calls for it, Dr.T retrieves from that library
+                and cites what it used, the same way it cites a lab marker or a
+                Chex form. Add a document and it becomes available; remove one
+                and it stops being used.
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
       <CtaBand
+        ground="surface"
         title={
           <>
-            See Dr.T read a{" "}
-            <span className="font-serif italic">real</span> record.
+            See Dr.T read a <em className="italic text-green">real</em> record.
           </>
         }
         body="Bring one anonymized case and we'll run the loops against it live — the ladder, the insight, the plan — and stop at every point where a clinician has to approve."

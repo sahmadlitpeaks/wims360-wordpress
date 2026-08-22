@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/Card";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
 const PROBLEMS = [
@@ -16,32 +16,49 @@ const PROBLEMS = [
   },
 ];
 
+/** Column padding runs edge-to-edge: no left pad on the first, none right on the last. */
+const COLUMN_PADDING = [
+  "md:border-r md:border-line md:py-11 md:pl-0 md:pr-11",
+  "md:border-r md:border-line md:p-11",
+  "md:py-11 md:pl-11 md:pr-0",
+];
+
 export function Problem() {
   return (
     <Section
+      className="bg-bg"
+      revealHeader
+      headerClassName="max-w-[820px]"
+      contentClassName="mt-16 md:mt-[88px]"
       eyebrow="The problem"
       title={
         <>
-          A clinic&apos;s data is{" "}
-          <span className="font-serif italic">scattered</span> across seven
-          tools.
+          A clinic&apos;s data is <em className="italic text-green">scattered</em>{" "}
+          across seven tools.
         </>
       }
       intro="Integrative practices run the most data-rich care in medicine on the least connected software. The cost shows up in three places, every week."
     >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="grid grid-cols-1 border-t border-line md:grid-cols-3">
         {PROBLEMS.map((problem, index) => (
-          <Card key={problem.title} as="article">
-            <span className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted">
+          <Reveal
+            key={problem.title}
+            as="article"
+            delay={index * 90}
+            className={`py-9 ${
+              index < PROBLEMS.length - 1 ? "border-b border-line" : ""
+            } md:border-b-0 ${COLUMN_PADDING[index]}`}
+          >
+            <span className="font-display text-[44px] leading-none text-brass">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <h3 className="mt-3 font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+            <h3 className="mt-6 font-display text-[28px] font-normal leading-[1.2] text-ink">
               {problem.title}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
+            <p className="mt-4 text-[15px] leading-[1.8] text-muted">
               {problem.body}
             </p>
-          </Card>
+          </Reveal>
         ))}
       </div>
     </Section>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { MODULES, type ModuleId } from "@/content/modules";
 import { PACKAGES } from "@/content/packages";
@@ -29,7 +29,7 @@ function findSolution(slug: string) {
 }
 
 /** Italicizes the last word of a headline, per the site's one-accent-word rule. */
-function accentLastWord(text: string): ReactNode {
+function accentLastWord(text: string, tone: "light" | "dark" = "light"): ReactNode {
   const words = text.trim().split(" ");
   const last = words.pop();
   if (!last) {
@@ -38,7 +38,13 @@ function accentLastWord(text: string): ReactNode {
   return (
     <>
       {words.length ? `${words.join(" ")} ` : ""}
-      <span className="font-serif italic">{last}</span>
+      <em
+        className={
+          tone === "dark" ? "italic text-brass" : "italic text-green"
+        }
+      >
+        {last}
+      </em>
     </>
   );
 }
@@ -102,41 +108,42 @@ export default async function SolutionPage({
     (pkg) => pkg.id === solution.recommendedPackage,
   );
 
-  const siblings = SOLUTIONS.filter(
-    (other) => other.slug !== solution.slug,
-  );
+  const siblings = SOLUTIONS.filter((other) => other.slug !== solution.slug);
 
   return (
     <>
-      <section className="border-b border-line py-16 md:py-24">
+      <section className="bg-green-deep pb-24 pt-20 text-cream md:pb-[128px] md:pt-[120px]">
         <div className="container-site">
-          <div className="max-w-2xl">
-            <Eyebrow>Solutions</Eyebrow>
-            <h1 className="mt-3 font-display text-3xl font-semibold leading-[1.15] tracking-tight text-ink md:text-4xl">
-              {accentLastWord(solution.name)}
+          <Reveal>
+            <Eyebrow tone="dark">Solutions</Eyebrow>
+            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+              {accentLastWord(solution.name, "dark")}
             </h1>
-            <p className="mt-6 text-base leading-relaxed text-muted md:text-lg">
+            <p className="mt-10 max-w-[64ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
               {solution.problem}
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button href="/contact" size="lg">
+            <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+              <Button href="/contact" variant="primary" size="lg" onDark>
                 Book a demo
               </Button>
-              <Button href="#modules" variant="outline" size="lg">
+              <Button href="#modules" variant="outlineLight" size="lg" onDark>
                 See what you&apos;d run
               </Button>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <Section
+        className="bg-bg"
+        revealHeader
+        headerClassName="max-w-[900px]"
         eyebrow="The WIMS 360 answer"
         title={
           <>
             Here&apos;s what actually{" "}
-            <span className="font-serif italic">changes</span>.
+            <em className="italic text-green">changes</em>.
           </>
         }
         intro={solution.narrative}
@@ -145,34 +152,42 @@ export default async function SolutionPage({
       {modules.length > 0 ? (
         <Section
           id="modules"
-          className="scroll-mt-24 bg-surface"
+          className="scroll-mt-24 border-y border-line bg-surface"
+          revealHeader
+          headerClassName="max-w-[900px]"
+          contentClassName="mt-16 md:mt-20"
           eyebrow="Inside this solution"
           title={
             <>
-              What you&apos;ll{" "}
-              <span className="font-serif italic">run</span> in WIMS 360.
+              What you&apos;ll <em className="italic text-green">run</em> in
+              WIMS 360.
             </>
           }
           intro="The modules this solution turns on first. Each one writes to the same client record, so nothing here is a separate system to keep in sync."
         >
-          <ul className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {modules.map((module) => (
-              <Card key={module.id} as="li" className="flex flex-col">
-                <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+          <ul className="grid list-none grid-cols-1 gap-px border border-line bg-line md:grid-cols-2">
+            {modules.map((module, index) => (
+              <Reveal
+                key={module.id}
+                as="li"
+                delay={Math.min(index, 4) * 90}
+                className="flex flex-col bg-surface p-8 md:p-11"
+              >
+                <h3 className="font-display text-[clamp(1.6rem,2.6vw,30px)] font-normal leading-[1.15] text-ink">
                   {module.name}
                 </h3>
-                <p className="mt-2 text-sm font-medium leading-relaxed text-ink">
+                <p className="mt-3.5 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
                   {module.tagline}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
+                <p className="mt-5 text-[14.5px] leading-[1.8] text-muted">
                   {firstSentence(module.description)}
                 </p>
-                <div className="mt-5 pt-1">
+                <div className="mt-auto pt-8">
                   <Button href={moduleHref(module.id)} variant="ghost">
                     Explore this module
                   </Button>
                 </div>
-              </Card>
+              </Reveal>
             ))}
           </ul>
         </Section>
@@ -180,55 +195,64 @@ export default async function SolutionPage({
 
       {recommendedPackage ? (
         <Section
+          className="bg-bg"
+          revealHeader
+          headerClassName="max-w-[900px]"
+          contentClassName="mt-14 md:mt-16"
           eyebrow="Recommended package"
           title={<>Start on {accentLastWord(recommendedPackage.name)}</>}
           intro={recommendedPackage.summary}
         >
-          <Card className="max-w-2xl">
-            <p className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-green">
+          <Reveal className="max-w-2xl border-t border-line pt-9">
+            <p className="font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
               {recommendedPackage.audience}
             </p>
-            <h3 className="mt-2 font-display text-xl font-semibold leading-snug tracking-tight text-ink">
+            <h3 className="mt-4 font-display text-[clamp(1.75rem,3vw,34px)] font-normal leading-[1.1] text-ink">
               {recommendedPackage.name}
             </h3>
 
-            <ul className="mt-5 flex flex-col gap-2.5 border-t border-line pt-5">
+            <ul className="mt-7 list-none border-t border-line">
               {recommendedPackage.includes
                 .slice(0, PACKAGE_PREVIEW_COUNT)
                 .map((item) => (
-                  <li key={item} className="flex gap-2.5">
-                    <span
-                      aria-hidden="true"
-                      className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-green"
-                    />
-                    <span className="text-sm leading-relaxed text-muted">
-                      {item}
-                    </span>
+                  <li
+                    key={item}
+                    className="border-b border-line py-3.5 text-[14.5px] leading-[1.7] text-muted"
+                  >
+                    {item}
                   </li>
                 ))}
               {recommendedPackage.includes.length > PACKAGE_PREVIEW_COUNT ? (
-                <li className="pl-[1.375rem] text-sm leading-relaxed text-muted">
-                  and {recommendedPackage.includes.length - PACKAGE_PREVIEW_COUNT}{" "}
+                <li className="border-b border-line py-3.5 text-[14.5px] leading-[1.7] text-muted">
+                  and{" "}
+                  {recommendedPackage.includes.length - PACKAGE_PREVIEW_COUNT}{" "}
                   more
                 </li>
               ) : null}
             </ul>
 
-            <div className="mt-6">
-              <Button href="/packages">See packages</Button>
+            <div className="mt-9">
+              <Button href="/packages" variant="outline">
+                See packages
+              </Button>
             </div>
-          </Card>
+          </Reveal>
         </Section>
       ) : null}
 
       {siblings.length > 0 ? (
-        <Section className="bg-surface" eyebrow="Also serving">
-          <ul className="flex flex-wrap gap-3">
+        <Section
+          className="border-t border-line bg-surface"
+          revealHeader
+          contentClassName="mt-10 md:mt-12"
+          eyebrow="Also serving"
+        >
+          <ul className="flex list-none flex-wrap gap-x-10 gap-y-5">
             {siblings.map((sibling) => (
               <li key={sibling.slug}>
                 <Link
                   href={`/solutions/${sibling.slug}`}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-4 py-2 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-muted transition-colors hover:border-green hover:text-green-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  className="inline-flex border-b border-line pb-2 font-mono text-[11px] uppercase tracking-[0.18em] text-green transition-colors duration-300 hover:border-brass hover:text-green-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
                 >
                   {sibling.name}
                 </Link>
@@ -238,7 +262,7 @@ export default async function SolutionPage({
         </Section>
       ) : null}
 
-      <CtaBand />
+      <CtaBand ground="bg" />
     </>
   );
 }

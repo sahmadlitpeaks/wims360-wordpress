@@ -8,7 +8,7 @@ function Box({ checked }: { checked: boolean }) {
     <span
       aria-hidden="true"
       className={cn(
-        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border",
+        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-none border transition-colors duration-300",
         checked ? "border-green bg-green" : "border-line bg-surface",
       )}
     >
@@ -16,7 +16,7 @@ function Box({ checked }: { checked: boolean }) {
         <svg
           viewBox="0 0 12 12"
           focusable="false"
-          className="h-3 w-3 text-white"
+          className="h-3 w-3 text-cream"
         >
           <path
             d="M2 6.4 4.6 9 10 3.2"
@@ -51,7 +51,7 @@ export function StepCustomize({
 }: StepCustomizeProps) {
   return (
     <div className="flex flex-col gap-8">
-      <p className="max-w-2xl text-sm leading-relaxed text-muted">
+      <p className="max-w-2xl text-[15px] leading-[1.8] text-muted">
         Most clinics need something shaped to them. Tick whatever applies —
         each item is scoped as onboarding work in the proposal, not billed as a
         surprise later.
@@ -65,8 +65,8 @@ export function StepCustomize({
             <li key={customization.id}>
               <label
                 className={cn(
-                  "flex h-full cursor-pointer gap-3 rounded-xl border bg-surface p-5 transition-colors",
-                  checked ? "border-green" : "border-line hover:border-green",
+                  "flex h-full cursor-pointer gap-4 rounded-none border bg-surface p-6 transition-colors duration-300",
+                  checked ? "border-brass" : "border-line hover:border-brass",
                 )}
               >
                 <input
@@ -76,7 +76,7 @@ export function StepCustomize({
                   className="sr-only"
                 />
                 <Box checked={checked} />
-                <span className="flex-1 text-sm leading-relaxed text-ink">
+                <span className="flex-1 text-[14.5px] leading-[1.8] text-ink">
                   {customization.label}
                 </span>
               </label>
@@ -88,11 +88,11 @@ export function StepCustomize({
       <div>
         <label
           htmlFor="builder-notes"
-          className="font-mono text-[0.68rem] uppercase leading-5 tracking-[0.14em] text-muted"
+          className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep"
         >
           Anything else we should know?
         </label>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+        <p className="mt-3 max-w-2xl text-[15px] leading-[1.8] text-muted">
           A protocol you run, a timeline you have to hit, a regulator you
           answer to, a system you are leaving. It all shapes the scope.
         </p>
@@ -102,7 +102,7 @@ export function StepCustomize({
           value={notes}
           onChange={(event) => onNotesChange(event.target.value)}
           placeholder="Tell us about your clinic, your timeline or anything specific you need."
-          className="mt-3 w-full max-w-2xl rounded-xl border border-line bg-surface px-4 py-3 text-sm leading-relaxed text-ink placeholder:text-muted focus-visible:border-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green"
+          className="mt-4 w-full max-w-2xl resize-y rounded-none border border-line bg-surface px-4 py-3.5 text-sm leading-[1.8] text-ink transition-colors duration-300 placeholder:text-muted focus:border-green focus:outline-none"
         />
       </div>
     </div>

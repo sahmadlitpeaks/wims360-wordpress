@@ -1,13 +1,8 @@
-import { BookingCalendar } from "@/components/mocks/BookingCalendar";
-import { CompanionPhone } from "@/components/mocks/CompanionPhone";
-import { CopilotChat } from "@/components/mocks/CopilotChat";
-import { CrmFunnel } from "@/components/mocks/CrmFunnel";
-import { ExamCatalog } from "@/components/mocks/ExamCatalog";
-import { ReportCompare } from "@/components/mocks/ReportCompare";
 import { ClientExperience } from "@/components/home/ClientExperience";
 import { ComplianceGrid } from "@/components/home/ComplianceGrid";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
+import { ImageBand } from "@/components/home/ImageBand";
 import { Methodology } from "@/components/home/Methodology";
 import { ModuleShowcase } from "@/components/home/ModuleShowcase";
 import { PackagesTeaser } from "@/components/home/PackagesTeaser";
@@ -30,18 +25,10 @@ export default function Home() {
       <TrustStrip />
       <Problem />
       <ReplaceStack />
+      <ImageBand />
       <Pillars />
       <Methodology />
-      <ModuleShowcase
-        panels={{
-          assessments: <ExamCatalog />,
-          labs: <ReportCompare />,
-          ai: <CopilotChat />,
-          bookings: <BookingCalendar />,
-          crm: <CrmFunnel />,
-          portal: <CompanionPhone />,
-        }}
-      />
+      <ModuleShowcase />
       <ClientExperience />
       <StatsBand />
       <RolesGrid />

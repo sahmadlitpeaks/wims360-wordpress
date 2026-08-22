@@ -2,7 +2,12 @@ import Link from "next/link";
 import type { MouseEventHandler, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-export type ButtonVariant = "primary" | "outline" | "ghost";
+export type ButtonVariant =
+  | "primary"
+  | "dark"
+  | "outline"
+  | "outlineLight"
+  | "ghost";
 export type ButtonSize = "default" | "lg";
 
 export type ButtonProps = {
@@ -15,6 +20,8 @@ export type ButtonProps = {
   /** Only applies when `href` is omitted. */
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  /** Set on a button sitting on a green-deep ground so the focus ring offset doesn't paint a parchment halo. */
+  onDark?: boolean;
   onClick?: MouseEventHandler<HTMLElement>;
   target?: string;
   rel?: string;
@@ -23,20 +30,35 @@ export type ButtonProps = {
   "aria-controls"?: string;
 };
 
+/**
+ * Estate buttons are rectangular mono labels — never rounded, never sentence
+ * case. Shared across every variant.
+ */
 const BASE =
-  "inline-flex items-center justify-center gap-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+  "inline-flex items-center justify-center gap-2 rounded-none font-mono text-[11px] uppercase tracking-[0.18em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4";
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "rounded-xl bg-green-deep text-white hover:bg-green",
-  outline:
-    "rounded-xl border border-[color-mix(in_srgb,var(--ink)_20%,transparent)] text-ink hover:border-green hover:text-green",
-  ghost: "group rounded-md text-green hover:text-green-deep",
+  primary:
+    "bg-brass text-green-deep hover:bg-brass-light motion-safe:hover:-translate-y-0.5",
+  dark: "bg-green-deep text-cream hover:bg-green motion-safe:hover:-translate-y-0.5",
+  outline: "border border-line text-ink hover:border-brass",
+  outlineLight:
+    "border border-[rgba(242,239,230,.28)] text-cream hover:border-[rgba(242,239,230,.7)] hover:bg-[rgba(242,239,230,.06)]",
+  ghost:
+    "border-b border-line pb-2 text-green hover:border-brass hover:text-green-deep",
+};
+
+const SOLID_SIZES: Record<ButtonSize, string> = {
+  default: "px-[26px] py-[14px]",
+  lg: "px-[34px] py-[18px]",
 };
 
 const SIZES: Record<ButtonVariant, Record<ButtonSize, string>> = {
-  primary: { default: "px-5 py-2.5 text-sm", lg: "px-6 py-3.5 text-base" },
-  outline: { default: "px-5 py-2.5 text-sm", lg: "px-6 py-3.5 text-base" },
-  ghost: { default: "text-sm", lg: "text-base" },
+  primary: SOLID_SIZES,
+  dark: SOLID_SIZES,
+  outline: SOLID_SIZES,
+  outlineLight: SOLID_SIZES,
+  ghost: { default: "", lg: "" },
 };
 
 /**
@@ -51,6 +73,7 @@ export function Button({
   className,
   type = "button",
   disabled = false,
+  onDark = false,
   onClick,
   target,
   rel,
@@ -58,24 +81,13 @@ export function Button({
 }: ButtonProps) {
   const classes = cn(
     BASE,
+    onDark
+      ? "focus-visible:ring-offset-green-deep"
+      : "focus-visible:ring-offset-bg",
     VARIANTS[variant],
     SIZES[variant][size],
     disabled && "pointer-events-none opacity-60",
     className,
-  );
-
-  const content = (
-    <>
-      {children}
-      {variant === "ghost" ? (
-        <span
-          aria-hidden="true"
-          className="transition-transform duration-200 group-hover:translate-x-0.5"
-        >
-          &rarr;
-        </span>
-      ) : null}
-    </>
   );
 
   if (href) {
@@ -88,7 +100,7 @@ export function Button({
         rel={rel}
         {...aria}
       >
-        {content}
+        {children}
       </Link>
     );
   }
@@ -101,7 +113,7 @@ export function Button({
       onClick={onClick}
       {...aria}
     >
-      {content}
+      {children}
     </button>
   );
 }

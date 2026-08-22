@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Section } from "@/components/ui/Section";
 import { FAQ } from "@/content/faq";
 import { cn } from "@/lib/cn";
 
@@ -14,85 +14,76 @@ function slugify(question: string): string {
 
 /**
  * Accordion over `content/faq.ts`. One panel open at a time; clicking the open
- * question closes it again.
+ * question closes it again. Editorial hairline rows — the disclosure is a
+ * button so the whole list stays keyboard-operable.
  */
 export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-20 md:py-28">
-      <div className="container-site">
-        <div className="max-w-2xl">
-          <Eyebrow>Questions</Eyebrow>
-          <h2 className="mt-3 font-display text-3xl font-semibold leading-[1.15] tracking-tight text-ink md:text-4xl">
-            The questions that decide{" "}
-            <span className="font-serif italic">this</span>, answered.
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
-            Deployment, data ownership, migration, agreements and go-live. If
-            yours isn&apos;t here, ask us directly and we&apos;ll answer in
-            writing.
-          </p>
-        </div>
+    <Section
+      id="faq"
+      className="scroll-mt-24 border-t border-line bg-surface"
+      headerClassName="max-w-[900px]"
+      contentClassName="mt-14 md:mt-20"
+      eyebrow="Questions"
+      title={
+        <>
+          What clinics ask <em className="italic text-green">before</em>{" "}
+          signing.
+        </>
+      }
+    >
+      <ul className="list-none border-t border-line">
+        {FAQ.map((item, index) => {
+          const open = openIndex === index;
+          const panelId = `faq-panel-${slugify(item.question)}`;
+          const buttonId = `faq-button-${slugify(item.question)}`;
 
-        <ul className="mt-12 flex flex-col gap-px overflow-hidden rounded-xl border border-line bg-line md:mt-16">
-          {FAQ.map((item, index) => {
-            const open = openIndex === index;
-            const panelId = `faq-panel-${slugify(item.question)}`;
-            const buttonId = `faq-button-${slugify(item.question)}`;
-
-            return (
-              <li key={item.question} className="bg-surface">
-                <h3>
-                  <button
-                    type="button"
-                    id={buttonId}
-                    aria-expanded={open}
-                    aria-controls={panelId}
-                    onClick={() => setOpenIndex(open ? null : index)}
-                    className="flex w-full items-start gap-4 px-5 py-5 text-left transition-colors hover:bg-green-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-green md:px-7"
-                  >
-                    <span className="flex-1 text-base font-semibold leading-snug text-ink">
-                      {item.question}
-                    </span>
-                    <svg
-                      viewBox="0 0 16 16"
-                      aria-hidden="true"
-                      focusable="false"
-                      className={cn(
-                        "mt-0.5 h-4 w-4 shrink-0 text-green transition-transform duration-200",
-                        open && "rotate-180",
-                      )}
-                    >
-                      <path
-                        d="M3.5 6 8 10.5 12.5 6"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </h3>
-
-                <div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  hidden={!open}
-                  className="px-5 pb-6 md:px-7"
+          return (
+            <li key={item.question} className="border-b border-line">
+              <h3>
+                <button
+                  type="button"
+                  id={buttonId}
+                  aria-expanded={open}
+                  aria-controls={panelId}
+                  onClick={() => setOpenIndex(open ? null : index)}
+                  className="group flex w-full items-start justify-between gap-8 py-8 text-left focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface md:py-10"
                 >
-                  <p className="max-w-3xl text-sm leading-relaxed text-muted">
-                    {item.answer}
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
+                  <span
+                    className={cn(
+                      "font-display text-[clamp(1.4rem,2.4vw,28px)] font-normal leading-[1.2] transition-colors duration-300",
+                      open ? "text-green" : "text-ink group-hover:text-green",
+                    )}
+                  >
+                    {item.question}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="mt-2 shrink-0 font-mono text-[15px] leading-none text-brass"
+                  >
+                    {open ? "−" : "+"}
+                  </span>
+                </button>
+              </h3>
+
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={buttonId}
+                hidden={!open}
+                className="pb-9 md:pb-11"
+              >
+                <p className="max-w-[80ch] text-[15px] leading-[1.85] text-muted">
+                  {item.answer}
+                </p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </Section>
   );
 }
 
