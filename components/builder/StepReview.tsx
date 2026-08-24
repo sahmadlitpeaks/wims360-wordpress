@@ -7,8 +7,13 @@ import {
   siteBandLabel,
 } from "@/components/builder/StepOrg";
 import { Button } from "@/components/ui/Button";
-import { MODULES } from "@/content/modules";
-import { CUSTOMIZATIONS, type BuilderState } from "@/lib/builder";
+import { BASELINE_MODULES } from "@/content/modules";
+import {
+  builderGroups,
+  CUSTOMIZATIONS,
+  selectedSelectableCount,
+  type BuilderState,
+} from "@/lib/builder";
 
 export type ContactDetails = {
   name: string;
@@ -26,10 +31,20 @@ const CONTROL_CLASS =
 const LABEL_CLASS =
   "block font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep";
 
-function moduleNames(state: BuilderState): string[] {
-  return state.modules
-    .map((id) => MODULES.find((module) => module.id === id)?.name)
-    .filter((name): name is string => Boolean(name));
+/** The selectable modules that are on, grouped by pillar for the review. */
+function selectedByGroup(
+  state: BuilderState,
+): { name: string; modules: string[] }[] {
+  const selected = new Set(state.modules);
+
+  return builderGroups()
+    .map((group) => ({
+      name: group.name,
+      modules: group.modules
+        .filter((module) => selected.has(module.id))
+        .map((module) => module.name),
+    }))
+    .filter((group) => group.modules.length > 0);
 }
 
 function customizationLabels(state: BuilderState): string[] {
@@ -66,7 +81,7 @@ export function ConfigurationSummary({ state }: { state: BuilderState }) {
     practitionerBandLabel(state.org.practitioners),
   ].filter((bit): bit is string => Boolean(bit));
 
-  const modules = moduleNames(state);
+  const groups = selectedByGroup(state);
   const customizations = customizationLabels(state);
 
   return (
@@ -84,19 +99,30 @@ export function ConfigurationSummary({ state }: { state: BuilderState }) {
         ) : null}
       </Block>
 
-      <Block label="Modules switched on">
-        {modules.length > 0 ? (
-          modules.join(" · ")
+      <Block
+        label={`Modules switched on (${selectedSelectableCount(state)})`}
+      >
+        {groups.length > 0 ? (
+          <ul className="flex list-none flex-col gap-3">
+            {groups.map((group) => (
+              <li key={group.name}>
+                <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-brass">
+                  {group.name}
+                </span>
+                <span className="mt-1 block">{group.modules.join(" · ")}</span>
+              </li>
+            ))}
+          </ul>
         ) : (
-          <Empty>Platform base only</Empty>
+          <Empty>Platform baseline only</Empty>
         )}
-        <p className="mt-1.5 text-muted">
-          Always included: Client records · Compliance layer · Dashboards &amp;
-          reporting
+        <p className="mt-3 text-muted">
+          Included in every package:{" "}
+          {BASELINE_MODULES.map((module) => module.name).join(" · ")}
         </p>
       </Block>
 
-      <Block label="Integrations">
+      <Block label="Connected services">
         {state.integrations.length > 0 ? (
           state.integrations.join(" · ")
         ) : (
@@ -104,7 +130,7 @@ export function ConfigurationSummary({ state }: { state: BuilderState }) {
         )}
         {state.otherSystems.trim() ? (
           <p className="mt-1.5 text-muted">
-            Other system: {state.otherSystems.trim()}
+            Also asked about: {state.otherSystems.trim()}
           </p>
         ) : null}
       </Block>
@@ -239,8 +265,8 @@ export function StepReview({
         </h2>
         <p className="mt-5 max-w-2xl text-[15px] leading-[1.8] text-muted">
           This is the configuration we&apos;ll scope against. Send it with your
-          details and a written proposal — modules, seats, centers and
-          onboarding — comes back within one business day.
+          details and a written proposal — modules, practitioner seats, centres
+          and onboarding — comes back within one business day.
         </p>
 
         <div className="mt-8 border border-line bg-surface p-7 md:p-9">
@@ -301,13 +327,13 @@ export function StepReview({
 
         <div className="mt-10">
           <Button type="submit" variant="dark" size="lg" disabled={submitting}>
-            {submitting ? "Sending…" : "Send my configuration"}
+            {submitting ? "Sending…" : "Request a Configuration Review"}
           </Button>
         </div>
 
         <p className="mt-5 text-[14.5px] leading-[1.8] text-muted">
-          No pricing is calculated here. We read the configuration, scope it and
-          reply in writing.
+          No pricing is calculated here. We read the configuration, scope it
+          and reply in writing within one business day.
         </p>
       </form>
     </div>

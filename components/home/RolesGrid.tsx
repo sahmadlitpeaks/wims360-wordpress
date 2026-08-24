@@ -3,26 +3,25 @@ import { Section } from "@/components/ui/Section";
 import { ROLES } from "@/content/roles";
 
 /**
- * All fourteen roles as a two-column hairline list — no "+ N more" card,
- * because the point of the section is that you can read the whole permission
- * model in one pass.
+ * The role TYPES as a two-column hairline list — no count in the copy, because
+ * roles can be configured around how a practice actually works.
  */
 export function RolesGrid() {
   return (
     <Section
+      id="team"
       className="bg-bg"
       revealHeader
       headerClassName="max-w-[880px]"
       contentClassName="mt-16 md:mt-20"
-      eyebrow="Roles"
+      eyebrow="Your team"
       title={
         <>
-          Fourteen roles, fourteen{" "}
-          <em className="italic text-green">different</em> views of the same
-          record.
+          Everyone sees the part of the journey they{" "}
+          <em className="italic text-green">need</em>.
         </>
       }
-      intro="A role is a permission set, not a job title. What a person can see and change is decided by their role — and every access against protected health information is logged."
+      intro="A role is a permission set rather than a job title. One client story, different views — and access to client information is recorded with the actor and the timestamp. Roles can be configured around the way your practice works."
     >
       <ul className="grid list-none grid-cols-1 gap-x-20 md:grid-cols-2">
         {ROLES.map((role, index) => {

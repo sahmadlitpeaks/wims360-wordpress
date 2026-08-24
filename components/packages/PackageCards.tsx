@@ -3,6 +3,23 @@ import { Reveal } from "@/components/ui/Reveal";
 import { PACKAGES, type PackageId } from "@/content/packages";
 import { cn } from "@/lib/cn";
 
+/** The one-line promise each package leads with, per the approved direction. */
+const PROMISE: Record<PackageId, string> = {
+  essentials: "Build the foundation.",
+  clinical: "Go deeper into investigations and client management.",
+  precision: "Bring intelligence, genomics and advanced care together.",
+};
+
+/**
+ * The package summaries in `content/packages` open with the same promise
+ * line the card already shows, so the card drops the duplicate opening.
+ */
+function summaryAfterPromise(summary: string, promise: string): string {
+  return summary.startsWith(promise)
+    ? summary.slice(promise.length).trimStart()
+    : summary;
+}
+
 /** Precision sits on white so it reads as the emphasised column. */
 const CARD_GROUND: Record<PackageId, string> = {
   essentials: "bg-bg",
@@ -16,9 +33,9 @@ const CARD_LINK =
   "inline-flex font-mono text-[10px] uppercase tracking-[0.18em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4";
 
 /**
- * The three shipped packages plus the dark "Build your own" column, as one
- * hairline grid. Each package card keeps both calls to action: a conversation,
- * or the configurator pre-seeded with that package.
+ * The three packages plus the dark "Build your own" column, as one hairline
+ * grid. Each package card keeps both calls to action: a conversation, or the
+ * configurator pre-seeded with that package.
  */
 export function PackageCards() {
   return (
@@ -38,8 +55,11 @@ export function PackageCards() {
               <p className="mt-4 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
                 {pkg.audience}
               </p>
-              <p className="mt-6 text-[14.5px] leading-[1.8] text-muted">
-                {pkg.summary}
+              <p className="mt-6 font-display text-[19px] leading-[1.3] text-green">
+                {PROMISE[pkg.id]}
+              </p>
+              <p className="mt-4 text-[14.5px] leading-[1.8] text-muted">
+                {summaryAfterPromise(pkg.summary, PROMISE[pkg.id])}
               </p>
 
               <ul className="mt-8 flex list-none flex-col gap-3 border-t border-line pt-7">
@@ -82,17 +102,35 @@ export function PackageCards() {
             className={cn(CARD_CLASS, "bg-green-deep text-cream")}
           >
             <h2 className="font-display text-[clamp(2rem,3.4vw,40px)] font-normal leading-[1.05] text-paper">
-              Build your own
+              Build Your Own
             </h2>
             <p className="mt-4 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
-              For clinics that don&apos;t fit a tier
+              For practices that don&apos;t fit a package
             </p>
-            <p className="mt-6 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.7)]">
-              Pick the modules, the integrations and the roles your clinic
-              actually runs, and the configurator assembles the scope as you go.
-              Send it to us and we quote against exactly that — nothing you
-              didn&apos;t choose.
+            <p className="mt-6 font-display text-[19px] leading-[1.3] text-brass">
+              Configure WIMS 360 around your practice.
             </p>
+            <p className="mt-4 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.7)]">
+              Start from any package and switch capabilities on or off across
+              the four pillars, add the services you already run and tell us
+              what needs shaping. The configurator assembles the scope as you
+              go, and we review exactly what you chose.
+            </p>
+
+            <ul className="mt-8 flex list-none flex-col gap-3 border-t border-[rgba(242,239,230,.16)] pt-7">
+              <li className="text-[13.5px] leading-[1.6] text-[rgba(242,239,230,.62)]">
+                33 selectable modules across four pillars
+              </li>
+              <li className="text-[13.5px] leading-[1.6] text-[rgba(242,239,230,.62)]">
+                The platform baseline included either way
+              </li>
+              <li className="text-[13.5px] leading-[1.6] text-[rgba(242,239,230,.62)]">
+                Connected services chosen by service, not supplier
+              </li>
+              <li className="text-[13.5px] leading-[1.6] text-[rgba(242,239,230,.62)]">
+                A shareable link so a colleague opens exactly your configuration
+              </li>
+            </ul>
 
             <div className="mt-auto pt-9">
               <Link
@@ -102,7 +140,7 @@ export function PackageCards() {
                   "text-brass hover:text-paper focus-visible:ring-offset-green-deep",
                 )}
               >
-                Open the configurator
+                Request a Configuration Review
               </Link>
             </div>
           </Reveal>

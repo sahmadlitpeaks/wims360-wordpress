@@ -1,21 +1,15 @@
 "use client";
 
-import { INTEGRATIONS } from "@/content/integrations";
+import { INTEGRATION_SERVICES } from "@/content/integrations";
 import { cn } from "@/lib/cn";
 
-/** Only the integrations a clinic actually chooses appear in the builder. */
-export const SELECTABLE_INTEGRATIONS = INTEGRATIONS.filter(
-  (integration) => integration.builderSelectable,
+/**
+ * Integrations are offered as SERVICES, never as suppliers. Only the services
+ * a practice actually chooses appear in the builder.
+ */
+export const SELECTABLE_SERVICES = INTEGRATION_SERVICES.filter(
+  (service) => service.builderSelectable,
 );
-
-const CATEGORY_LABELS: Record<string, string> = {
-  wearables: "Wearables",
-  labs: "Labs",
-  comms: "Messaging",
-  payments: "Payments",
-  auth: "Identity",
-  infra: "Infrastructure",
-};
 
 function Box({ checked }: { checked: boolean }) {
   return (
@@ -54,8 +48,8 @@ export type StepIntegrationsProps = {
 };
 
 /**
- * Step 3. Checkbox cards over the builder-selectable integrations, plus a
- * free-text field for a system we don't list yet.
+ * Step 3. Checkbox cards over the connected services a practice can switch
+ * on, plus a free-text field for anything we don't list yet.
  */
 export function StepIntegrations({
   selected,
@@ -66,17 +60,17 @@ export function StepIntegrations({
   return (
     <div className="flex flex-col gap-8">
       <p className="max-w-2xl text-[15px] leading-[1.8] text-muted">
-        Pick the systems WIMS 360 should talk to on day one. Nothing here is
-        mandatory — an integration you skip today can be switched on later
-        without touching the record underneath.
+        Pick the services WIMS 360 should connect to on day one. Nothing here is
+        mandatory — a service you skip today can be switched on later without
+        touching the record underneath, and more can be integrated.
       </p>
 
       <ul className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-        {SELECTABLE_INTEGRATIONS.map((integration) => {
-          const checked = selected.includes(integration.name);
+        {SELECTABLE_SERVICES.map((service) => {
+          const checked = selected.includes(service.name);
 
           return (
-            <li key={integration.name}>
+            <li key={service.id}>
               <label
                 className={cn(
                   "flex h-full cursor-pointer gap-4 rounded-none border bg-surface p-6 transition-colors duration-300",
@@ -86,23 +80,22 @@ export function StepIntegrations({
                 <input
                   type="checkbox"
                   checked={checked}
-                  onChange={() => onToggle(integration.name)}
+                  onChange={() => onToggle(service.name)}
                   className="sr-only"
                 />
                 <Box checked={checked} />
                 <span className="flex-1">
-                  <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="font-display text-[22px] leading-[1.15] text-ink">
-                      {integration.name}
-                    </span>
-                    <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-brass">
-                      {CATEGORY_LABELS[integration.category] ??
-                        integration.category}
-                    </span>
+                  <span className="block font-display text-[22px] leading-[1.15] text-ink">
+                    {service.name}
                   </span>
                   <span className="mt-2.5 block text-[14px] leading-[1.8] text-muted">
-                    {integration.note}
+                    {service.description}
                   </span>
+                  {service.examples ? (
+                    <span className="mt-3 block font-mono text-[9.5px] uppercase leading-[1.8] tracking-[0.16em] text-brass-deep">
+                      {service.examples.join(" · ")}
+                    </span>
+                  ) : null}
                 </span>
               </label>
             </li>
@@ -115,12 +108,12 @@ export function StepIntegrations({
           htmlFor="builder-other-systems"
           className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep"
         >
-          Another system?
+          Another service?
         </label>
         <p className="mt-3 max-w-2xl text-[15px] leading-[1.8] text-muted">
           Name anything else that has to connect — a laboratory system, an
-          accounting package, a device vendor. We&apos;ll tell you honestly
-          whether it is supported, buildable or out of scope.
+          accounting package, a device your clients already wear. We&apos;ll
+          tell you honestly whether it is supported, buildable or out of scope.
         </p>
         <input
           id="builder-other-systems"

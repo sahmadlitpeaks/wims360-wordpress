@@ -6,22 +6,17 @@ import {
   practitionerBandLabel,
   siteBandLabel,
 } from "@/components/builder/StepOrg";
-import { MODULES } from "@/content/modules";
 import { PACKAGES } from "@/content/packages";
 import {
   CUSTOMIZATIONS,
   recommendedPackage,
+  selectedCountsByGroup,
+  selectedSelectableCount,
   type BuilderState,
 } from "@/lib/builder";
 
 function plural(count: number, singular: string): string {
   return `${count} ${singular}${count === 1 ? "" : "s"}`;
-}
-
-function moduleNames(state: BuilderState): string[] {
-  return state.modules
-    .map((id) => MODULES.find((module) => module.id === id)?.name)
-    .filter((name): name is string => Boolean(name));
 }
 
 function customizationLabels(state: BuilderState): string[] {
@@ -137,7 +132,7 @@ function RailContents({
         </p>
         {suggested ? (
           <p className="mt-1.5 text-[12px] leading-[1.7] text-muted">
-            Suggested for your shape of clinic: {suggested.name}
+            Suggested for a practice your shape: {suggested.name}
           </p>
         ) : null}
       </RailBlock>
@@ -154,11 +149,31 @@ function RailContents({
         )}
       </RailBlock>
 
-      <RailBlock label={plural(state.modules.length, "module")}>
-        <ChipList items={moduleNames(state)} />
+      <RailBlock label={plural(selectedSelectableCount(state), "module")}>
+        <ul className="mt-2.5 flex list-none flex-wrap gap-x-2 gap-y-1.5">
+          {selectedCountsByGroup(state).map((group) => (
+            <li
+              key={group.name}
+              className={
+                group.count > 0
+                  ? "text-[13px] leading-[1.7] text-ink"
+                  : "text-[13px] leading-[1.7] text-muted"
+              }
+            >
+              {group.name}{" "}
+              <span className="font-mono text-[12px] text-brass-deep">
+                {group.count}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-2.5 text-[12px] leading-[1.7] text-muted">
+          The six platform-baseline modules are included in every package. The
+          full list is on the review step.
+        </p>
       </RailBlock>
 
-      <RailBlock label={plural(state.integrations.length, "integration")}>
+      <RailBlock label={plural(state.integrations.length, "connected service")}>
         <ChipList items={state.integrations} />
       </RailBlock>
 
@@ -184,10 +199,10 @@ export type SummaryRailProps = {
 export function SummaryRail({ state, startPackageName }: SummaryRailProps) {
   const [open, setOpen] = useState(false);
 
-  const counts = `${plural(state.modules.length, "module")} · ${plural(
-    state.integrations.length,
-    "integration",
-  )}`;
+  const counts = `${plural(
+    selectedSelectableCount(state),
+    "module",
+  )} · ${plural(state.integrations.length, "service")}`;
 
   return (
     <>

@@ -28,15 +28,17 @@ const fontMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "WIMS 360 — The operating system for integrative wellness clinics",
+    default:
+      "WIMS 360 — The complete operating system for longevity & wellness",
     template: "%s · WIMS 360",
   },
   description:
-    "WIMS 360 is the operating system for integrative wellness clinics — unifying intake, diagnostics, care plans, and client engagement in one platform.",
+    "WIMS 360 brings investigations, healing, live health data, communication and intelligent AI together in one connected platform. One client. One connected journey. One platform.",
   openGraph: {
-    title: "WIMS 360 — The operating system for integrative wellness clinics",
+    title:
+      "WIMS 360 — The complete operating system for longevity & wellness",
     description:
-      "WIMS 360 is the operating system for integrative wellness clinics — unifying intake, diagnostics, care plans, and client engagement in one platform.",
+      "WIMS 360 brings investigations, healing, live health data, communication and intelligent AI together in one connected platform. One client. One connected journey. One platform.",
     siteName: "WIMS 360",
     type: "website",
   },

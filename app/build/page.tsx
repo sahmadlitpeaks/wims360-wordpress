@@ -5,9 +5,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import { PACKAGES, type PackageId } from "@/content/packages";
 
 export const metadata: Metadata = {
-  title: "Build your package",
+  title: "Build your configuration",
   description:
-    "Configure WIMS 360 for your clinic in five steps — your organization, the modules you switch on, the integrations you need and the customisations you want — then send the configuration to us for a scoped proposal.",
+    "Configure WIMS 360 around your practice in five steps — your organisation, the modules you switch on across the four pillars, the services you connect and anything custom — then request a configuration review.",
 };
 
 type BuildSearchParams = {
@@ -49,16 +49,17 @@ export default async function BuildPage({
       <section className="bg-green-deep pb-20 pt-20 text-cream md:pb-[104px] md:pt-[112px]">
         <div className="container-site">
           <Reveal>
-            <Eyebrow tone="dark">Build your package</Eyebrow>
+            <Eyebrow tone="dark">Build your own</Eyebrow>
             <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.4rem,5.6vw,68px)] font-normal leading-[1.02] tracking-[-0.015em] text-paper [text-wrap:pretty]">
-              Configure the WIMS 360 you{" "}
-              <em className="italic text-brass">actually</em> need.
+              Configure WIMS 360 around your{" "}
+              <em className="italic text-brass">practice</em>.
             </h1>
             <p className="mt-10 max-w-[62ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
-              Five short steps: tell us the shape of your organization, switch on
-              the modules you want, pick the integrations you run today and note
-              anything custom. Nothing is charged here and nothing is committed —
-              you send us a configuration, we send back a written scope.
+              Five short steps: tell us the shape of your organisation, switch
+              on the capabilities you need across the four pillars, pick the
+              services you already run and note anything custom. Nothing is
+              charged here and nothing is committed — you send us a
+              configuration, we come back with a written scope.
             </p>
           </Reveal>
         </div>

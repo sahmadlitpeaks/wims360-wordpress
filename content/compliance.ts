@@ -4,72 +4,88 @@ export interface CompliancePractice {
   points: string[];
 }
 
-/** Six practice cards. Homepage renders title + summary; /security renders the points too. */
+/**
+ * The seven security practices from the approved content direction. Homepage
+ * renders title + summary; /security renders the points too.
+ * Language is HIPAA-aligned and GDPR-ready — never "certified".
+ */
 export const COMPLIANCE: CompliancePractice[] = [
   {
-    title: 'Audit logging',
+    title: 'Audit Logging',
     summary:
-      'Every read and write against protected health information is logged with the actor and the timestamp. The log is append-only.',
+      'Access and activity across client information can be recorded with the actor and the timestamp, so a practice can answer who saw what, and when.',
     points: [
-      'Actor, action, subject record and timestamp captured on every PHI access',
-      'Append-only: entries cannot be edited or deleted from the application',
+      'Actor, action, subject record and timestamp captured on access to client information',
+      'Entries are append-only and cannot be edited or removed from the application',
       'Filterable by staff member, client, date range and record type',
       'Exportable for internal review or an external audit',
     ],
   },
   {
-    title: 'Consent registry',
+    title: 'Consent Management',
     summary:
-      'Consent is versioned, not a checkbox. Clients see what they agreed to, when, and can withdraw it — including AI consent.',
+      'Consent is held as a versioned record rather than a single checkbox. Clients can see what they agreed to and when, and can withdraw it — including consent for AI-assisted features.',
     points: [
       'Each consent document is versioned; the record stores which version the client accepted',
-      'A new version requires fresh acceptance rather than silently applying',
-      'AI consent is separate from clinical consent and is revocable at any time',
-      'Withdrawal takes effect immediately and is itself recorded',
+      'A new version requires fresh acceptance rather than being applied silently',
+      'Consent for AI-assisted features is held separately from clinical consent',
+      'Withdrawal takes effect immediately, is itself recorded, and does not withdraw the client from care',
     ],
   },
   {
-    title: 'Authentication',
+    title: 'Role-Based Access',
     summary:
-      'Two-factor authentication is enforced for every role that can reach protected health information. Staff directories connect through Azure AD single sign-on.',
+      'Access follows the role a person holds, not the person. Everyone sees the part of the client journey their work requires, and nothing beyond it.',
     points: [
-      'Enforced 2FA for all PHI-facing roles — not optional per user',
-      'Azure AD single sign-on so joiners and leavers are handled in your directory',
-      'Session expiry, device sign-out and forced re-authentication for sensitive actions',
-      'Permission sets are role-based; access is granted by role, never ad hoc',
+      'Permission sets are defined per role and applied everywhere, including across centres',
+      'Practitioners, reception, laboratory, marketing and management each see a different view of the same client record',
+      'External collaborators can be given scoped access to one task rather than to the record',
+      'Joiners, movers and leavers are handled by changing a role rather than by editing individual permissions',
     ],
   },
   {
-    title: 'Retention & erasure',
+    title: 'Two-Factor Authentication',
     summary:
-      'Retention windows are configured per data category, and right-to-erasure requests run as a defined workflow rather than a manual delete.',
+      'Two-factor authentication is available and can be required for the roles that reach client health information.',
+    points: [
+      'Enforced by role rather than left to each individual user',
+      'Single sign-on through your existing identity provider is supported where your organisation already runs one',
+      'Session expiry, device sign-out and re-authentication for sensitive actions',
+      'Sign-in activity is recorded alongside the rest of the audit trail',
+    ],
+  },
+  {
+    title: 'Data Retention',
+    summary:
+      'Retention windows can be defined per data category, and erasure runs as a reviewed workflow rather than a manual delete.',
     points: [
       'Retention windows set per data category and per jurisdiction',
-      'Right-to-erasure workflow with review, execution and a record of what was removed',
-      'Clinical records subject to statutory retention are flagged and excluded, with the reason shown',
+      'Erasure workflow with review, execution and a record of what was removed',
+      'Records subject to statutory retention are flagged and excluded, with the reason shown',
       'Backups age out on the same schedule as live data',
     ],
   },
   {
-    title: 'Breach response',
+    title: 'Secure Data',
     summary:
-      'A documented 72-hour breach workflow covers detection, assessment, customer notification and regulator reporting.',
+      'Client information is protected in transit and at rest, and access to documents, reports and files is controlled rather than open to anyone holding a link.',
     points: [
-      'Defined severity assessment and escalation path from first detection',
-      'Customer notification within 72 hours of becoming aware, per GDPR Article 33',
-      'Scope reconstruction from the audit log: which records, which actors, which window',
-      'Post-incident review with remediation tracked to closure',
+      'Encryption in transit and at rest for the database and for file storage',
+      'Documents, reports and images served through short-lived, permission-checked links rather than public URLs',
+      'A separate tenant database and file store per customer',
+      'Regional hosting selected per customer where data residency is required',
+      'A documented breach workflow covering detection, assessment, customer notification within 72 hours and regulator reporting, in line with GDPR Article 33',
     ],
   },
   {
-    title: 'Infrastructure',
+    title: 'AI Governance',
     summary:
-      'Data is encrypted in transit and at rest. Documents and images are served through short-lived signed URLs, never public links.',
+      'AI capabilities are governed through explicit consent and the appropriate organisational controls, so intelligence is available on the same terms as everything else in the platform.',
     points: [
-      'Encryption in transit (TLS) and at rest for database and object storage',
-      'Documents, reports and images served through short-TTL signed URLs',
-      'Separate tenant database and storage bucket per customer',
-      'Regional hosting selected per customer for data-residency requirements',
+      'AI features are gated on the individual client’s AI consent, which is separate and can be withdrawn',
+      'Dr.T and the Wellness Companion draft; a practitioner reviews before anything enters the clinical record',
+      'What was read, what was drafted and who approved it are recorded in the same audit trail as every other clinical action',
+      'AI can be switched off entirely for a practice, a role or a client without affecting the rest of the platform',
     ],
   },
 ];

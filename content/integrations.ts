@@ -1,81 +1,81 @@
-export interface Integration {
+/**
+ * Integrations are described by the SERVICE they provide, never by the
+ * supplier behind it. Device ecosystems a client owns may be named as
+ * supported; nothing else is.
+ */
+export interface IntegrationService {
+  id: string;
   name: string;
-  category: 'wearables' | 'labs' | 'comms' | 'payments' | 'auth' | 'infra';
-  note: string;
+  description: string;
+  /** Named only where the client owns the ecosystem, e.g. their wearable. */
+  examples?: string[];
   builderSelectable: boolean;
 }
 
-export const INTEGRATIONS: Integration[] = [
+export const INTEGRATION_SERVICES: IntegrationService[] = [
   {
-    name: 'Terra',
-    category: 'wearables',
-    note: 'Aggregator for the wearables and health apps your clients already use. Sleep, HRV, activity and recovery land on the client timeline.',
+    id: 'wearables-connected-health',
+    name: 'Wearables & Connected Health',
+    description:
+      'Clients can connect the devices and health apps they already use, so sleep, activity, heart-rate and recovery signals land on the same timeline as clinical findings.',
+    examples: [
+      'Apple Health',
+      'Samsung Health',
+      'Fitbit',
+      'and other supported devices',
+    ],
     builderSelectable: true,
   },
   {
-    name: 'Ultrahuman',
-    category: 'wearables',
-    note: 'Direct ring integration for continuous sleep, recovery and metabolic signals between appointments.',
+    id: 'laboratory-systems',
+    name: 'Laboratory Systems',
+    description:
+      'Orders can be sent to, and results received from, connected laboratory systems, so an investigation moves from order to result without being retyped along the way.',
     builderSelectable: true,
   },
   {
-    name: 'LIMS API',
-    category: 'labs',
-    note: 'Documented bidirectional API for organizations running their own laboratory system: orders out, results back against the same client.',
+    id: 'sms',
+    name: 'SMS',
+    description:
+      'Text messaging for appointment reminders, confirmations and time-sensitive notices, sent through the SMS service your practice connects.',
     builderSelectable: true,
   },
   {
-    name: 'Twilio',
-    category: 'comms',
-    note: 'SMS delivery for appointment reminders, confirmations and one-time passcodes.',
+    id: 'email',
+    name: 'Email',
+    description:
+      'Transactional email for confirmations, reminders, shared reports and account notices, delivered from your practice’s own sending domain.',
     builderSelectable: true,
   },
   {
-    name: 'Interakt (WhatsApp)',
-    category: 'comms',
-    note: 'WhatsApp Business messaging for reminders, follow-ups and campaign sends with opt-in tracking.',
+    id: 'whatsapp',
+    name: 'WhatsApp',
+    description:
+      'WhatsApp messaging for reminders, follow-ups and client conversations where that is the channel clients prefer, with opt-in state respected per client.',
     builderSelectable: true,
   },
   {
-    name: 'Brevo',
-    category: 'comms',
-    note: 'Transactional and campaign email, wired to CRM segments and consent state.',
+    id: 'email-marketing',
+    name: 'Email Marketing',
+    description:
+      'Campaign email built from live client segments rather than an exported list, with consent applied to every send.',
     builderSelectable: true,
   },
   {
-    name: 'Stripe',
-    category: 'payments',
-    note: 'Card payments for consultations, packages and programme instalments.',
+    id: 'single-sign-on',
+    name: 'Single Sign-On',
+    description:
+      'Staff sign in through your organisation’s existing identity provider, so joiners and leavers are handled once, in the directory you already run.',
     builderSelectable: true,
   },
   {
-    name: 'Azure AD SSO',
-    category: 'auth',
-    note: 'Single sign-on for staff accounts, so joiners and leavers are handled in your existing directory.',
+    id: 'payments',
+    name: 'Payments',
+    description:
+      'Payments for consultations, programmes, products and credits, taken through the payment service your practice already uses.',
     builderSelectable: true,
-  },
-  {
-    name: 'OpenAI',
-    category: 'infra',
-    note: 'Model provider behind Dr.T Copilot and the Wellness Companion. Enabled per customer after a signed BAA or DPA, and off until then.',
-    builderSelectable: false,
-  },
-  {
-    name: 'AWS S3',
-    category: 'infra',
-    note: 'Encrypted object storage for documents, reports and images, served through short-lived signed URLs.',
-    builderSelectable: false,
-  },
-  {
-    name: 'Firebase',
-    category: 'infra',
-    note: 'Push notifications to the client mobile app for appointments, messages and shared reports.',
-    builderSelectable: false,
-  },
-  {
-    name: 'iCal',
-    category: 'infra',
-    note: 'Read-only calendar feed so practitioners can mirror their WIMS schedule in Outlook or Google Calendar.',
-    builderSelectable: false,
   },
 ];
+
+/** Closing line after the service list. */
+export const INTEGRATIONS_CLOSING = 'and more can be integrated.';

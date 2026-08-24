@@ -7,65 +7,159 @@ export interface Package {
   name: string;
   audience: string;
   summary: string;
+  /** Human-readable bullets, derived from the module catalog. */
   includes: string[];
   moduleIds: ModuleId[];
 }
+
+/** The six platform-baseline modules, included in every package. */
+const BASELINE: ModuleId[] = [
+  'roles-permissions',
+  'security-consent-audit',
+  'documents',
+  'dashboards-reporting',
+  'multi-centre',
+  'integrations',
+];
+
+const ESSENTIALS_MODULES: ModuleId[] = [
+  'client-records',
+  'assessment-forms',
+  'bookings',
+  'reminders',
+  'chat',
+  'client-portal',
+  ...BASELINE,
+];
+
+const CLINICAL_MODULES: ModuleId[] = [
+  'client-records',
+  'assessment-forms',
+  'clinical-examinations',
+  'lab-orders',
+  'routine-lab-reports',
+  'specialty-reports',
+  'compare-over-time',
+  'wizards',
+  'healing-plans',
+  'nutrition',
+  'supplementation',
+  'medication',
+  'therapies',
+  'consultations',
+  'wearables',
+  'health-metrics',
+  'lifestyle-tracking',
+  'bookings',
+  'reminders',
+  'chat',
+  'messaging',
+  'campaigns',
+  'events',
+  'crm',
+  'client-portal',
+  'shop-orders',
+  ...BASELINE,
+];
+
+const PRECISION_MODULES: ModuleId[] = [
+  'client-records',
+  'assessment-forms',
+  'clinical-examinations',
+  'lab-orders',
+  'routine-lab-reports',
+  'specialty-reports',
+  'genetics',
+  'radiology',
+  'dynamic-analysis',
+  'compare-over-time',
+  'wizards',
+  'healing-plans',
+  'nutrition',
+  'supplementation',
+  'medication',
+  'therapies',
+  'consultations',
+  'wearables',
+  'health-metrics',
+  'lifestyle-tracking',
+  'bookings',
+  'reminders',
+  'chat',
+  'messaging',
+  'campaigns',
+  'events',
+  'crm',
+  'client-portal',
+  'shop-orders',
+  'learn',
+  'support-desk',
+  'drt-ai',
+  'wellness-companion',
+  ...BASELINE,
+];
 
 export const PACKAGES: Package[] = [
   {
     id: 'essentials',
     name: 'Essentials',
-    audience: 'Single-site clinics starting out',
+    audience: 'Practices starting their digital transformation',
     summary:
-      'The record, the calendar and the client relationship in one system. Enough structure to retire the spreadsheet and the shared inbox, without asking a small team to run a laboratory.',
+      'Build the foundation. The client record, the calendar and the client relationship in one connected platform, with the security, roles and reporting baseline included from day one.',
     includes: [
+      'Client records & history',
+      'Assessment forms',
       'Bookings & scheduling',
-      'Client records',
-      'Core intake Chex forms',
+      'Reminders',
+      'Secure chat',
       'Client portal & mobile app',
-      'Document hub',
-      'Secure messaging',
-      'Dashboards',
-      'Compliance layer',
+      'Roles & permissions',
+      'Security, consent & audit',
+      'Documents & records',
+      'Dashboards & reporting',
+      'Multi-centre support',
+      'Integrations & connectivity',
     ],
-    moduleIds: ['bookings', 'portal'],
+    moduleIds: ESSENTIALS_MODULES,
   },
   {
     id: 'clinical',
     name: 'Clinical',
-    audience: 'Established integrative & functional practices',
+    audience: 'Established longevity & wellness practices',
     summary:
-      'Everything in Essentials, plus the full assessment catalog, lab work and the growth side of the clinic. This is the package for a practice already ordering panels and tracking clients over months.',
+      'Go deeper into investigations and client management. Everything in Essentials, plus clinical examinations, laboratory work, personalised healing plans, live health data and the engagement side of the practice.',
     includes: [
       'Everything in Essentials',
-      'Full examination catalog',
-      'Specialty reports with compare-over-time',
-      'Lab orders & partner-lab workflow',
-      'Wearables (Terra + Ultrahuman)',
-      'CRM & campaigns',
-      'Operational reports',
+      'Clinical examinations',
+      'Laboratory orders & results',
+      'Routine lab reports & specialty reports',
+      'Compare over time & guided wizards',
+      'Healing plans, nutrition, supplementation, medication & therapies',
+      'Consultations & clinical notes',
+      'Wearables, health metrics & lifestyle tracking',
+      'Email, SMS & WhatsApp messaging',
+      'Campaigns, events & CRM',
+      'Shop, orders & credits',
     ],
-    moduleIds: ['bookings', 'portal', 'assessments', 'labs', 'crm'],
+    moduleIds: CLINICAL_MODULES,
   },
   {
     id: 'precision',
     name: 'Precision',
-    audience: 'Longevity programs & multi-center organizations',
+    audience: 'Longevity programmes & multi-centre organisations',
     summary:
-      'Everything in Clinical, plus Dr.T AI, genomics, laboratory integration and the tooling a group needs to run several centers under one governance model.',
+      'Bring intelligence, genomics and advanced care together. Everything in Clinical, plus genetics, radiology, dynamic analysis, Dr.T AI and the Wellness Companion — with training and an internal support desk for a group running several locations.',
     includes: [
       'Everything in Clinical',
-      'Dr.T Copilot (all five loops)',
-      'Wellness Companion',
-      'Healing prescriptions',
-      'Genomics (NIMVS, LPG-GX)',
-      'Bidirectional LIMS integration',
-      'Multi-center management',
+      'Genetics & genomics',
+      'Radiology & diagnostic records',
+      'Dynamic analysis',
+      'Dr.T AI across the client record',
+      'Wellness Companion in the client portal',
+      'Learn — staff and client training',
       'Support desk',
-      'Staff training LMS',
-      'Embeddable wizards',
     ],
-    moduleIds: ['bookings', 'portal', 'assessments', 'labs', 'crm', 'ai'],
+    moduleIds: PRECISION_MODULES,
   },
 ];
 
@@ -75,238 +169,243 @@ export interface ComparisonRow {
   tiers: Record<PackageId, boolean | string>;
 }
 
+const IN_ALL = { essentials: true, clinical: true, precision: true } as const;
+const FROM_CLINICAL = {
+  essentials: false,
+  clinical: true,
+  precision: true,
+} as const;
+const PRECISION_ONLY = {
+  essentials: false,
+  clinical: false,
+  precision: true,
+} as const;
+
+/**
+ * One row per selectable module plus the six platform-baseline rows. Row
+ * truthiness always matches `Module.includedIn` in `content/modules.ts`.
+ */
 export const COMPARISON: ComparisonRow[] = [
-  // Assessments (Chex)
+  // ── Investigations ────────────────────────────────────────────────────
   {
-    group: 'Assessments (Chex)',
-    feature: 'Core intake Chex forms (History, Me, Life)',
-    tiers: { essentials: true, clinical: true, precision: true },
+    group: 'Investigations',
+    feature: 'Client records & history',
+    tiers: { ...IN_ALL },
   },
   {
-    group: 'Assessments (Chex)',
-    feature: 'Full examination catalog (30+ assessment types)',
-    tiers: { essentials: false, clinical: true, precision: true },
+    group: 'Investigations',
+    feature: 'Assessment forms (self-reported)',
+    tiers: { ...IN_ALL },
   },
   {
-    group: 'Assessments (Chex)',
-    feature: 'Specialty reports as branded PDFs',
-    tiers: { essentials: false, clinical: true, precision: true },
+    group: 'Investigations',
+    feature: 'Clinical examinations',
+    tiers: { ...FROM_CLINICAL },
   },
   {
-    group: 'Assessments (Chex)',
-    feature: 'Compare a report against any earlier date',
-    tiers: { essentials: false, clinical: true, precision: true },
+    group: 'Investigations',
+    feature: 'Laboratory orders & results',
+    tiers: { ...FROM_CLINICAL },
   },
   {
-    group: 'Assessments (Chex)',
-    feature: 'Diamond System of Care ladder scoring (7 layers)',
-    tiers: { essentials: false, clinical: true, precision: true },
-  },
-
-  // Labs, Genomics & Diagnostics
-  {
-    group: 'Labs, Genomics & Diagnostics',
-    feature: 'Lab orders raised from the client record',
-    tiers: { essentials: false, clinical: true, precision: true },
+    group: 'Investigations',
+    feature: 'Routine lab reports',
+    tiers: { ...FROM_CLINICAL },
   },
   {
-    group: 'Labs, Genomics & Diagnostics',
-    feature: 'Partner-lab portal with barcode sample workflow',
-    tiers: { essentials: false, clinical: true, precision: true },
+    group: 'Investigations',
+    feature: 'Specialty reports',
+    tiers: { ...FROM_CLINICAL },
   },
   {
-    group: 'Labs, Genomics & Diagnostics',
-    feature: 'Functional marker library (115 markers, 33 panels)',
-    tiers: { essentials: false, clinical: true, precision: true },
+    group: 'Investigations',
+    feature: 'Genetics & genomics',
+    tiers: { ...PRECISION_ONLY },
   },
   {
-    group: 'Labs, Genomics & Diagnostics',
-    feature: 'Genomics scoring (NIMVS, LPG-GX)',
-    tiers: { essentials: false, clinical: false, precision: true },
+    group: 'Investigations',
+    feature: 'Radiology & diagnostic records',
+    tiers: { ...PRECISION_ONLY },
   },
   {
-    group: 'Labs, Genomics & Diagnostics',
-    feature: 'Bidirectional LIMS integration',
-    tiers: { essentials: false, clinical: false, precision: true },
-  },
-
-  // Dr.T AI
-  {
-    group: 'Dr.T AI',
-    feature: 'Dr.T Copilot — all five clinical loops',
-    tiers: { essentials: false, clinical: false, precision: true },
+    group: 'Investigations',
+    feature: 'Dynamic analysis',
+    tiers: { ...PRECISION_ONLY },
   },
   {
-    group: 'Dr.T AI',
-    feature: 'Wellness Companion in the client portal',
-    tiers: { essentials: false, clinical: false, precision: true },
-  },
-  {
-    group: 'Dr.T AI',
-    feature: 'Healing prescriptions drafted for clinician review',
-    tiers: { essentials: false, clinical: false, precision: true },
-  },
-  {
-    group: 'Dr.T AI',
-    feature: 'AI enablement',
-    tiers: {
-      essentials: 'Not included',
-      clinical: 'Not included',
-      precision: 'After BAA / DPA',
-    },
-  },
-
-  // Bookings & Scheduling
-  {
-    group: 'Bookings & Scheduling',
-    feature: 'Practitioner, room and service calendars',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'Bookings & Scheduling',
-    feature: 'Online booking links and guest booking',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'Bookings & Scheduling',
-    feature: 'Automated appointment reminders',
-    tiers: {
-      essentials: 'Email',
-      clinical: 'Email, SMS, WhatsApp',
-      precision: 'Email, SMS, WhatsApp',
-    },
-  },
-  {
-    group: 'Bookings & Scheduling',
-    feature: 'Booking KPIs (utilization, no-show rate, load)',
-    tiers: { essentials: false, clinical: true, precision: true },
-  },
-  {
-    group: 'Bookings & Scheduling',
-    feature: 'Scheduling across multiple centers',
-    tiers: { essentials: false, clinical: false, precision: true },
-  },
-
-  // CRM & Growth
-  {
-    group: 'CRM & Growth',
-    feature: 'Lead pipeline from enquiry to active programme',
-    tiers: { essentials: false, clinical: true, precision: true },
-  },
-  {
-    group: 'CRM & Growth',
-    feature: 'Email and WhatsApp campaigns with opt-in state',
-    tiers: { essentials: false, clinical: true, precision: true },
-  },
-  {
-    group: 'CRM & Growth',
-    feature: 'Clinic dashboards',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'CRM & Growth',
-    feature: 'Operational reports (conversion, revenue mix, load)',
-    tiers: { essentials: false, clinical: true, precision: true },
-  },
-  {
-    group: 'CRM & Growth',
-    feature: 'Support desk for internal help queues',
-    tiers: { essentials: false, clinical: false, precision: true },
-  },
-  {
-    group: 'CRM & Growth',
-    feature: 'Embeddable wizards and white-label surfaces',
-    tiers: { essentials: false, clinical: false, precision: true },
-  },
-
-  // Client Portal & Mobile
-  {
-    group: 'Client Portal & Mobile',
-    feature: 'Client portal and mobile app',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'Client Portal & Mobile',
-    feature: 'Document hub with signed, short-lived file access',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'Client Portal & Mobile',
-    feature: 'Secure messaging with the care team',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'Client Portal & Mobile',
-    feature: 'Wearable connections',
+    group: 'Investigations',
+    feature: 'Compare over time',
     tiers: {
       essentials: false,
-      clinical: 'Terra + Ultrahuman',
-      precision: 'Terra + Ultrahuman',
+      clinical: 'Assessments & reports',
+      precision: 'All investigations',
     },
   },
   {
-    group: 'Client Portal & Mobile',
-    feature: 'Meal-photo logging and habit check-ins',
-    tiers: { essentials: false, clinical: false, precision: true },
+    group: 'Investigations',
+    feature: 'Guided wizards',
+    tiers: { ...FROM_CLINICAL },
   },
 
-  // Platform & compliance
+  // ── Healing ───────────────────────────────────────────────────────────
+  { group: 'Healing', feature: 'Healing plans', tiers: { ...FROM_CLINICAL } },
   {
-    group: 'Platform & compliance',
-    feature: 'Unified client record and timeline',
-    tiers: { essentials: true, clinical: true, precision: true },
+    group: 'Healing',
+    feature: 'Nutrition & meal planning',
+    tiers: { ...FROM_CLINICAL },
+  },
+  { group: 'Healing', feature: 'Supplementation', tiers: { ...FROM_CLINICAL } },
+  {
+    group: 'Healing',
+    feature: 'Medication & prescriptions',
+    tiers: { ...FROM_CLINICAL },
+  },
+  { group: 'Healing', feature: 'Therapies', tiers: { ...FROM_CLINICAL } },
+  {
+    group: 'Healing',
+    feature: 'Consultations & clinical notes',
+    tiers: { ...FROM_CLINICAL },
+  },
+
+  // ── Live ──────────────────────────────────────────────────────────────
+  {
+    group: 'Live',
+    feature: 'Wearables & device connectivity',
+    tiers: { ...FROM_CLINICAL },
   },
   {
-    group: 'Platform & compliance',
-    feature: 'Family and dependent profiles',
-    tiers: { essentials: true, clinical: true, precision: true },
+    group: 'Live',
+    feature: 'Health metrics & vitals',
+    tiers: { ...FROM_CLINICAL },
   },
   {
-    group: 'Platform & compliance',
-    feature: 'Audit-logged PHI access with actor and timestamp',
-    tiers: { essentials: true, clinical: true, precision: true },
+    group: 'Live',
+    feature: 'Lifestyle tracking',
+    tiers: { ...FROM_CLINICAL },
+  },
+
+  // ── Communication & Engagement ────────────────────────────────────────
+  {
+    group: 'Communication & Engagement',
+    feature: 'Bookings & scheduling',
+    tiers: { ...IN_ALL },
   },
   {
-    group: 'Platform & compliance',
-    feature: 'Versioned consent registry with revocation',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'Platform & compliance',
-    feature: 'Enforced two-factor authentication for PHI roles',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'Platform & compliance',
-    feature: 'Single sign-on (Azure AD)',
-    tiers: { essentials: false, clinical: true, precision: true },
-  },
-  {
-    group: 'Platform & compliance',
-    feature: 'Retention windows and right-to-erasure workflows',
-    tiers: { essentials: true, clinical: true, precision: true },
-  },
-  {
-    group: 'Platform & compliance',
-    feature: 'Role library',
+    group: 'Communication & Engagement',
+    feature: 'Reminders',
     tiers: {
-      essentials: 'Core roles',
-      clinical: '14 clinical roles',
-      precision: '14 roles + custom scopes',
+      essentials: 'Email',
+      clinical: 'Email, SMS & WhatsApp',
+      precision: 'Email, SMS & WhatsApp',
     },
   },
   {
-    group: 'Platform & compliance',
-    feature: 'Multi-center management and HQ reporting',
-    tiers: { essentials: false, clinical: false, precision: true },
+    group: 'Communication & Engagement',
+    feature: 'Secure chat',
+    tiers: { ...IN_ALL },
   },
   {
-    group: 'Platform & compliance',
-    feature: 'Staff training LMS',
-    tiers: { essentials: false, clinical: false, precision: true },
+    group: 'Communication & Engagement',
+    feature: 'Email, SMS & WhatsApp messaging',
+    tiers: { ...FROM_CLINICAL },
   },
   {
-    group: 'Platform & compliance',
+    group: 'Communication & Engagement',
+    feature: 'Campaigns',
+    tiers: { ...FROM_CLINICAL },
+  },
+  {
+    group: 'Communication & Engagement',
+    feature: 'Events',
+    tiers: { ...FROM_CLINICAL },
+  },
+  {
+    group: 'Communication & Engagement',
+    feature: 'CRM & lead management',
+    tiers: { ...FROM_CLINICAL },
+  },
+  {
+    group: 'Communication & Engagement',
+    feature: 'Client portal & mobile app',
+    tiers: {
+      essentials: 'Reports, plans & messages',
+      clinical: 'Adds live data & tracking',
+      precision: 'Adds Wellness Companion',
+    },
+  },
+  {
+    group: 'Communication & Engagement',
+    feature: 'Shop, orders & credits',
+    tiers: { ...FROM_CLINICAL },
+  },
+  {
+    group: 'Communication & Engagement',
+    feature: 'Learn — staff & client training',
+    tiers: { ...PRECISION_ONLY },
+  },
+  {
+    group: 'Communication & Engagement',
+    feature: 'Support desk',
+    tiers: { ...PRECISION_ONLY },
+  },
+
+  // ── Intelligence ──────────────────────────────────────────────────────
+  {
+    group: 'Intelligence',
+    feature: 'Dr.T AI across the client record',
+    tiers: {
+      essentials: false,
+      clinical: false,
+      precision: 'Subject to consent & review',
+    },
+  },
+  {
+    group: 'Intelligence',
+    feature: 'Wellness Companion',
+    tiers: {
+      essentials: false,
+      clinical: false,
+      precision: 'Subject to consent',
+    },
+  },
+
+  // ── Platform baseline ─────────────────────────────────────────────────
+  {
+    group: 'Platform',
+    feature: 'Roles & permissions',
+    tiers: { ...IN_ALL },
+  },
+  {
+    group: 'Platform',
+    feature: 'Security, consent & audit',
+    tiers: { ...IN_ALL },
+  },
+  {
+    group: 'Platform',
+    feature: 'Documents & records',
+    tiers: { ...IN_ALL },
+  },
+  {
+    group: 'Platform',
+    feature: 'Dashboards & reporting',
+    tiers: {
+      essentials: 'Core dashboards',
+      clinical: 'Clinical & operational',
+      precision: 'Group-wide reporting',
+    },
+  },
+  {
+    group: 'Platform',
+    feature: 'Multi-centre / multi-location',
+    tiers: { ...IN_ALL },
+  },
+  {
+    group: 'Platform',
+    feature: 'Integrations & connectivity',
+    tiers: { ...IN_ALL },
+  },
+  {
+    group: 'Platform',
     feature: 'Data migration from your current tools',
     tiers: {
       essentials: 'On request',

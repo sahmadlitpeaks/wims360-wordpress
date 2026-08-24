@@ -11,22 +11,22 @@ const FACTORS: Factor[] = [
   {
     index: "01",
     title: "Platform base",
-    body: "Every customer gets a managed cloud tenant with its own database and its own storage bucket, hosted in the region you require. The base carries the unified client record, the document hub, dashboards and the compliance layer — audit logging, consent, retention and two-factor authentication are never a line item you can decline.",
+    body: "Every customer gets a managed cloud tenant with its own database and its own storage, hosted in the region you require. The base carries the six platform-baseline modules — roles & permissions, security, consent & audit, documents & records, dashboards & reporting, multi-centre support and integrations & connectivity. They are included in every package and are never a line item you can decline.",
   },
   {
     index: "02",
     title: "Modules",
-    body: "On top of the base you switch on the modules the clinic actually runs: assessments, labs and genomics, Dr.T AI, bookings, CRM, the client portal. Scope follows what you turn on, and a module added later is a configuration change rather than a migration.",
+    body: "On top of the base you switch on the capabilities your practice actually runs, drawn from the 33 selectable modules across the four pillars: Investigations, Healing, Live and Communication & Engagement, plus the intelligence layer. Scope follows what you turn on, and a module added later is a configuration change rather than a migration.",
   },
   {
     index: "03",
     title: "Practitioner seats",
-    body: "Staff who touch the record hold named accounts scoped by role, so an audit entry always points at a person. Seats follow the size of your clinical team, and someone who covers two sites holds one account with access to both, not two accounts.",
+    body: "Staff who touch the record hold named accounts scoped by role, so an audit entry always points at a person. Seats follow the size of your clinical team, and someone who covers two centres holds one account with access to both, not two accounts.",
   },
   {
     index: "04",
-    title: "Centers",
-    body: "Centers are first-class in the data model: clients, bookings, staff and reporting are scoped per site, with roll-up reporting for head office. Each additional center adds its own scope, while group-wide settings — consent versions, retention rules, the support desk — stay configured once, centrally.",
+    title: "Centres",
+    body: "Centres are part of the data model rather than an afterthought: clients, bookings, staff and reporting can be scoped per site, with roll-up reporting for head office. Each additional centre adds its own scope, while group-wide settings — consent versions, retention rules, training modules, the support desk — stay configured once, centrally.",
   },
   {
     index: "05",
@@ -54,7 +54,7 @@ export function HowPricingWorks() {
           Five inputs, <em className="italic text-green">no</em> guesswork.
         </>
       }
-      intro="A WIMS 360 proposal is assembled from the same five inputs every time. Tell us where your clinic sits on each and the scope is deterministic — you can see exactly what you are being quoted for, and what you are not."
+      intro="A WIMS 360 proposal is assembled from the same five inputs every time. Tell us where your practice sits on each and the scope is legible — you can see exactly what you are being quoted for, and what you are not."
     >
       <ul className="list-none border-t border-line">
         {FACTORS.map((factor, index) => (

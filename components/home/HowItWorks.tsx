@@ -1,64 +1,85 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
-const STEPS = [
-  {
-    title: "Connect the stack",
-    body: "Staff accounts come in through Azure AD single sign-on, wearables through Terra and Ultrahuman, and lab results through the partner-lab portal or your own LIMS. Onboarding migrates the clients and history you already hold.",
-  },
-  {
-    title: "Shape it to your clinic",
-    body: "Switch on the modules you need, map your team onto the fourteen roles, and set what each dashboard shows. Chex forms mirror the protocols you already run, including custom ones.",
-  },
-  {
-    title: "Deliver better care",
-    body: "Book, examine, analyze and prescribe against one record. The ladder scores itself from every source, Dr.T drafts for review where it is enabled, and the client sees the plan in the portal the same day.",
-  },
-];
+type Step = { title: string; body: string };
 
-/** Column padding runs edge-to-edge: no left pad on the first, none right on the last. */
-const COLUMN_PADDING = [
-  "md:border-r md:border-line md:pl-0 md:pr-11 md:pt-11",
-  "md:border-r md:border-line md:px-11 md:pt-11",
-  "md:pl-11 md:pr-0 md:pt-11",
+const STEPS: Step[] = [
+  {
+    title: "Discover",
+    body: "The client record opens with history, discovery notes and the care team, so everything that follows has somewhere to land.",
+  },
+  {
+    title: "Investigate",
+    body: "Assessments, clinical examinations, laboratory work, genetics and imaging are recorded as structured data rather than as documents.",
+  },
+  {
+    title: "Understand",
+    body: "Findings are read together — compared across the journey, mapped to pathways, and reviewed with Dr.T where a practice has it enabled.",
+  },
+  {
+    title: "Heal",
+    body: "A personalised healing plan brings nutrition, supplementation, medication and therapies into one plan the client can follow.",
+  },
+  {
+    title: "Connect",
+    body: "Bookings, reminders, secure chat and the client portal keep the client and the care team in contact before, during and after every appointment.",
+  },
+  {
+    title: "Track",
+    body: "Supported wearables, vitals and lifestyle logs continue the story between appointments, on the same timeline as clinical findings.",
+  },
+  {
+    title: "Evolve",
+    body: "Progress is reviewed against what came before, and the plan is revised as new findings arrive. The journey never stops.",
+  },
 ];
 
 export function HowItWorks() {
   return (
     <Section
+      id="how-it-works"
       className="border-t border-line bg-surface"
       revealHeader
-      headerClassName="max-w-[860px]"
+      headerClassName="max-w-[880px]"
       contentClassName="mt-16 md:mt-[88px]"
       eyebrow="How it works"
       title={
         <>
-          Three steps to a <em className="italic text-green">single</em> record.
+          Seven steps, one{" "}
+          <em className="italic text-green">continuous</em> journey.
         </>
       }
-      intro="Implementation is a project, not a download — but it is a bounded one, run with your team rather than handed over as a login."
+      intro="The same sequence a practice already follows — with each step writing to the record the next step reads."
     >
-      <ol className="grid list-none grid-cols-1 border-t border-line md:grid-cols-3">
+      <ol className="grid list-none grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
         {STEPS.map((step, index) => (
           <Reveal
             key={step.title}
             as="li"
-            delay={index * 90}
-            className={`pt-9 ${
-              index < STEPS.length - 1 ? "border-b border-line pb-9" : ""
-            } md:border-b-0 md:pb-0 ${COLUMN_PADDING[index]}`}
+            delay={Math.min(index % 4, 4) * 90}
+            className="bg-surface p-8 md:p-10"
           >
-            <span className="font-display text-[44px] leading-none text-brass">
+            <span className="font-display text-[40px] leading-none text-brass">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <h3 className="mt-6 font-display text-[30px] font-normal leading-[1.15] text-ink">
+            <h3 className="mt-6 font-display text-[26px] font-normal leading-[1.15] text-ink">
               {step.title}
             </h3>
-            <p className="mt-4 text-[15px] leading-[1.8] text-muted">
+            <p className="mt-3.5 text-[14.5px] leading-[1.8] text-muted">
               {step.body}
             </p>
           </Reveal>
         ))}
+
+        <Reveal
+          as="li"
+          delay={270}
+          className="flex items-end bg-green-deep p-8 md:p-10"
+        >
+          <p className="font-display text-[clamp(1.3rem,2.2vw,27px)] leading-[1.35] text-paper [text-wrap:pretty]">
+            And then it begins again, with more of the story than last time.
+          </p>
+        </Reveal>
       </ol>
     </Section>
   );

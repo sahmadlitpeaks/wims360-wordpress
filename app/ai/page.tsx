@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { LoopTabs } from "@/components/ai/LoopTabs";
+import { CompanionPhone } from "@/components/mocks/CompanionPhone";
+import { CopilotChat } from "@/components/mocks/CopilotChat";
 import { Button } from "@/components/ui/Button";
+import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,98 +11,144 @@ import { Section } from "@/components/ui/Section";
 export const metadata: Metadata = {
   title: "Dr.T AI",
   description:
-    "Two AIs, one rule: clinicians stay in charge. Dr.T Copilot reads the clinical record and drafts across five loops; the Wellness Companion is the separate, deliberately narrower client-facing agent. Both are consent-gated, audit-logged and off by default.",
+    "Dr.T works across the information available within the client's record — analysing in seconds, comparing findings across the history and surfacing relationships a single report would not show. Intelligent assistance, human oversight: every AI-assisted clinical action stays subject to permissions, consent and professional review.",
 };
 
 const HERO_NOTES = [
-  "Consent-gated per client",
-  "Clinician-approved writes",
-  "Audit-logged access",
+  "Works within the client record",
+  "Consent and permissions apply",
+  "Professional review before anything counts",
 ];
 
-const AGENTS: {
-  name: string;
-  audience: string;
-  blurb: string;
-  anchor: string;
-}[] = [
+/**
+ * The approved capability list. These are CAPABILITIES, deliberately named for
+ * what a practitioner gets — never for the internal workflow that produces it.
+ */
+const CAPABILITIES: { title: string; body: string }[] = [
   {
-    name: "Dr.T Copilot",
-    audience: "For your clinicians",
-    blurb:
-      "Reads assessments, labs, wearables and genomics, then drafts the ladder, the insight, the plan or the case review for review.",
-    anchor: "#loops",
+    title: "Analyse individual reports",
+    body: "A report can be read marker by marker in the context of the client it belongs to, rather than as a document to be interpreted from scratch each time.",
   },
   {
-    name: "Wellness Companion",
-    audience: "For your clients",
-    blurb:
-      "Explains a client's own reports, logs a meal from a photo and logs symptoms. Deliberately narrower, and it stays that way.",
-    anchor: "#companion",
+    title: "Compare results over time",
+    body: "Findings from today can be set against any earlier point in the journey, so a direction of travel is visible instead of a single reading.",
+  },
+  {
+    title: "Review broader health information",
+    body: "Assessments, examinations, laboratory results, genomics, imaging and live data are all available to the same review, where the client has consented to their use.",
+  },
+  {
+    title: "Generate health insights",
+    body: "Observations are drafted from what the record holds and presented for the practitioner to accept, amend or discard.",
+  },
+  {
+    title: "Identify patterns across multiple sources",
+    body: "Relationships that only appear when several sources are read together can be surfaced — something a single document cannot show on its own.",
+  },
+  {
+    title: "Assist with case review",
+    body: "Preparation for a review appointment can be gathered in one pass, so the practitioner arrives with the history already assembled.",
+  },
+  {
+    title: "Draft recommendations for practitioner review",
+    body: "Recommendations are drafts. Nothing reaches the record or the client until a practitioner has reviewed and approved it.",
+  },
+  {
+    title: "Support personalised healing plans",
+    body: "Plan content can be drafted from the client's own findings, and revised as new results arrive, with the practitioner making every decision.",
+  },
+  {
+    title: "Work within a client-specific clinical context",
+    body: "Each response is scoped to one client's record. Dr.T does not answer about a client whose information the practitioner is not permitted to see.",
   },
 ];
 
-const COMPANION_CAN = [
-  "Explain the client's own reports back to them in plain language",
-  "Log a meal from a photo the client sends",
-  "Log symptoms, and escalate the serious ones to the care team",
+const COMPANION_SCOPE = [
+  "Explains the plan the care team has shared, in plain language",
+  "Encourages logging, habits and everyday adherence",
+  "Answers questions about what the client has already been given",
+  "Directs clinical questions back to the care team",
 ];
 
-const COMPANION_CANNOT = [
-  "Prescribe anything",
-  "Order a test or a panel",
-  "Book, move or cancel an appointment",
-  "Message anyone on its own",
+const COMPANION_LIMITS = [
+  "It works only from what the care team has chosen to share",
+  "It does not diagnose, prescribe or order investigations",
+  "It is active only where the client's consent is active",
+  "It is a separate, narrower assistant — not Dr.T with a friendlier tone",
 ];
 
 const GOVERNANCE: { title: string; body: string }[] = [
   {
-    title: "Consent-gated, per client",
-    body: "Every Dr.T response is gated on that client's consent. No active consent, no AI response about that client — the gate sits in the platform, not in a policy document.",
+    title: "Consent",
+    body: "Consent is versioned rather than a single checkbox, and AI-assisted features carry their own consent. Where that consent is not active, Dr.T does not run for that client.",
   },
   {
-    title: "The AI drafts, the clinician decides",
-    body: "Every write requires explicit clinician approval. Dr.T proposes an output; a person confirms it. Nothing reaches the record or the client on the model's own say-so.",
+    title: "Permissions",
+    body: "Access follows the same role-based permissions as the rest of the platform. Dr.T can read no more of a client's record than the practitioner asking is permitted to read.",
   },
   {
-    title: "Every access is audit-logged",
-    body: "What was read, what was drafted and who approved it are all recorded — so an AI-assisted decision can be reconstructed months later like any other clinical entry.",
+    title: "Audit",
+    body: "What was read, what was drafted and who approved it are recorded, so an AI-assisted decision can be reconstructed later like any other clinical entry.",
   },
   {
-    title: "Off by default",
-    body: "AI is disabled until you turn it on. It is enabled per customer once a BAA or DPA is signed, which means a clinic that wants WIMS 360 without any AI simply runs it that way.",
+    title: "Professional review",
+    body: "Every AI-generated clinical action remains subject to professional review. Dr.T proposes; a practitioner decides, and nothing is written to the record without that decision.",
   },
   {
-    title: "Two agents, two capability sets",
-    body: "The client-facing Wellness Companion is a separate agent with its own, smaller set of abilities. Giving the clinical Copilot a new capability does not hand that capability to clients.",
+    title: "Withdrawal of AI consent",
+    body: "A client can withdraw consent for AI-assisted features from the consent centre in their portal, without withdrawing from care. AI-assisted features stop applying to their record from that point.",
+  },
+  {
+    title: "HIPAA-aligned, GDPR-ready",
+    body: "The same encryption, retention and erasure workflows that cover the rest of the client record cover AI-assisted features. The platform is built to support HIPAA-aligned and GDPR-ready operation.",
   },
 ];
 
 export default function AiPage() {
   return (
     <>
-      <section className="bg-green-deep pb-24 pt-20 text-cream md:pb-[128px] md:pt-[120px]">
-        <div className="container-site">
-          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-20">
+      <section className="relative overflow-hidden bg-green-deep pb-24 pt-20 text-cream md:pb-[128px] md:pt-[120px]">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(110% 80% at 84% 0%,rgba(14,107,78,.32),transparent 62%)",
+          }}
+        />
+
+        <div className="container-site relative">
+          <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] lg:gap-20">
             <Reveal>
-              <Eyebrow tone="dark">Dr.T AI</Eyebrow>
-              <h1 className="mt-8 font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
-                Two AIs. One rule: clinicians stay in{" "}
-                <em className="italic text-brass">charge</em>.
+              <Eyebrow tone="dark">Meet Dr.T</Eyebrow>
+              <h1 className="mt-8 font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1.02] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+                AI that sees the whole story —{" "}
+                <em className="italic text-brass">not just one report</em>.
               </h1>
-              <p className="mt-10 max-w-[56ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
-                Dr.T Copilot reads the clinical record and drafts. The Wellness
-                Companion talks to clients and does far less on purpose. Neither
-                one writes anything a clinician has not approved, and neither
-                one runs at all until you switch it on.
+              <p className="mt-10 max-w-[58ch] text-[17px] leading-[1.8] text-[rgba(242,239,230,.72)] md:text-lg md:leading-[1.75]">
+                Dr.T works across the information available within the
+                client&rsquo;s record. It can analyse in seconds, compare
+                findings across the history, and surface relationships and
+                patterns a single document would not show.
+              </p>
+              <p className="mt-6 max-w-[58ch] text-[15.5px] leading-[1.85] text-[rgba(242,239,230,.6)]">
+                Assessments, examinations, laboratory results, genomics, imaging
+                and live health data are read together, in the context of one
+                client, so the care team can see how findings relate rather than
+                reading each report on its own.
               </p>
 
               <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                 <Button href="/contact" variant="primary" size="lg" onDark>
-                  See Dr.T in a demo
+                  Book a demo
                 </Button>
-                <Button href="#loops" variant="outlineLight" size="lg" onDark>
-                  See the five loops
+                <Button
+                  href="#capabilities"
+                  variant="outlineLight"
+                  size="lg"
+                  onDark
+                >
+                  What Dr.T can do
                 </Button>
               </div>
 
@@ -117,194 +164,199 @@ export default function AiPage() {
               </ul>
             </Reveal>
 
-            <Reveal
-              delay={90}
-              className="border border-[rgba(176,132,68,.35)]"
-            >
-              {AGENTS.map((agent) => (
-                <article
-                  key={agent.name}
-                  className="border-b border-[rgba(176,132,68,.35)] p-8 md:p-10"
-                >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
-                    {agent.audience}
-                  </p>
-                  <h2 className="mt-4 font-display text-[clamp(1.75rem,3vw,36px)] font-normal leading-[1.1] text-paper">
-                    {agent.name}
-                  </h2>
-                  <p className="mt-4 text-[15px] leading-[1.8] text-[rgba(242,239,230,.66)]">
-                    {agent.blurb}
-                  </p>
-                  <Link
-                    href={agent.anchor}
-                    className="mt-6 inline-flex font-mono text-[10px] uppercase tracking-[0.18em] text-brass transition-colors duration-300 hover:text-paper focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep"
-                  >
-                    What it does
-                  </Link>
-                </article>
-              ))}
-
-              <div className="bg-[rgba(176,132,68,.12)] px-8 py-7 md:px-10">
-                <p className="text-sm leading-[1.75] text-[rgba(242,239,230,.78)]">
-                  Both are off until a BAA or DPA is signed, and both are gated
-                  on the client&rsquo;s own consent.
-                </p>
-              </div>
+            <Reveal delay={90}>
+              <CopilotChat />
             </Reveal>
           </div>
         </div>
       </section>
 
-      <LoopTabs />
+      <Section
+        id="capabilities"
+        ground="surface"
+        className="scroll-mt-24"
+        revealHeader
+        headerClassName="max-w-[900px]"
+        contentClassName="mt-14 md:mt-16"
+        eyebrow="Capabilities"
+        title={
+          <>
+            Dr.T can help practitioners{" "}
+            <em className="italic text-green">see more</em> of the story.
+          </>
+        }
+        intro="Nine things Dr.T can help a practitioner do. Each one is available where the client's consent and the practitioner's permissions allow it, and each one produces something a person reviews."
+      >
+        <ul className="list-none border-t border-line">
+          {CAPABILITIES.map((capability, index) => (
+            <Reveal
+              key={capability.title}
+              as="li"
+              delay={Math.min(index, 4) * 90}
+              className="grid grid-cols-[32px_minmax(0,1fr)] gap-x-6 gap-y-3.5 border-b border-line py-8 md:grid-cols-[52px_minmax(0,0.62fr)_minmax(0,1fr)] md:gap-8"
+            >
+              <span className="font-display text-[24px] leading-none text-brass">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="font-display text-[clamp(1.4rem,2.3vw,27px)] font-normal leading-[1.18] text-ink">
+                {capability.title}
+              </h3>
+              <p className="col-span-2 text-[14.5px] leading-[1.8] text-muted md:col-span-1">
+                {capability.body}
+              </p>
+            </Reveal>
+          ))}
+        </ul>
+      </Section>
+
+      <Section ground="bg" contentClassName="mt-0">
+        <Reveal className="max-w-[1000px] border-t border-line pt-12 md:pt-16">
+          <p className="font-display text-[clamp(2rem,4.2vw,3.5rem)] font-normal leading-[1.08] tracking-[-0.012em] text-ink [text-wrap:pretty]">
+            Dr.T does not replace the practitioner. It helps the practitioner{" "}
+            <em className="italic text-green">see more of the story</em>,
+            faster.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,0.5fr)_minmax(0,1fr)] md:gap-16">
+            <p className="font-mono text-[11px] uppercase leading-[1.9] tracking-[0.18em] text-brass-deep">
+              Intelligent assistance.
+              <br />
+              Human oversight.
+            </p>
+            <p className="text-[15.5px] leading-[1.85] text-muted md:text-base">
+              Every AI-generated clinical action remains subject to the
+              appropriate permissions, consent and professional review. Dr.T
+              drafts, cites what it read and stops — a practitioner decides what
+              becomes part of the record and what the client sees.
+            </p>
+          </div>
+        </Reveal>
+      </Section>
 
       <Section
         id="companion"
-        className="scroll-mt-24 bg-bg"
+        ground="surface"
+        className="scroll-mt-24"
         revealHeader
         headerClassName="max-w-[900px]"
-        contentClassName="mt-16 md:mt-20"
-        eyebrow="The client side"
+        contentClassName="mt-14 md:mt-16"
+        eyebrow="Wellness Companion"
         title={
           <>
-            The Wellness Companion is{" "}
-            <em className="italic text-green">smaller</em> on purpose.
+            The client-facing assistant is{" "}
+            <em className="italic text-green">narrower</em> on purpose.
           </>
         }
-        intro="Clients get their own agent in the portal — a separate one, not the clinical Copilot with a friendlier tone. It can do a short, useful list of things and nothing beyond it."
+        intro="Clients get their own assistant in the portal and mobile app — a separate one, restricted to what the care team has chosen to share, and active only where the client's consent is active."
       >
-        <div className="grid grid-cols-1 gap-px border border-line bg-line md:grid-cols-2">
-          <Reveal className="bg-bg p-8 md:p-12">
-            <h3 className="font-display text-[clamp(1.75rem,3vw,34px)] font-normal leading-[1.1] text-ink">
-              What it does
-            </h3>
-            <ul className="mt-8 list-none border-t border-line">
-              {COMPANION_CAN.map((item, index) => (
-                <li
-                  key={item}
-                  className={`py-5 text-[15px] leading-[1.8] text-muted ${
-                    index < COMPANION_CAN.length - 1
-                      ? "border-b border-line"
-                      : ""
-                  }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.62fr)] lg:gap-20">
+          <div>
+            <Reveal>
+              <p className="max-w-[62ch] text-[15.5px] leading-[1.85] text-muted md:text-base">
+                The Wellness Companion helps a client understand the plan they
+                are on, answer everyday questions about it and keep to the
+                habits the care team has recommended. It is not the clinical
+                assistant in a friendlier tone; it is a different assistant with
+                a smaller set of things it can do, and it stays that way.
+              </p>
+            </Reveal>
 
-          <Reveal delay={90} className="bg-green-deep p-8 text-cream md:p-12">
-            <h3 className="font-display text-[clamp(1.75rem,3vw,34px)] font-normal leading-[1.1] text-paper">
-              What it cannot do &mdash; by design
-            </h3>
-            <ul className="mt-8 list-none border-t border-[rgba(242,239,230,.16)]">
-              {COMPANION_CANNOT.map((item, index) => (
-                <li
-                  key={item}
-                  className={`py-5 text-[15px] leading-[1.8] text-[rgba(242,239,230,.66)] ${
-                    index < COMPANION_CANNOT.length - 1
-                      ? "border-b border-[rgba(242,239,230,.16)]"
-                      : ""
-                  }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 font-display text-[22px] leading-[1.45] text-cream">
-              Those actions belong to your team. A symptom the Companion judges
-              serious goes to the care team rather than being answered away.
-            </p>
+            <Reveal delay={90} className="mt-10">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+                What it does
+              </p>
+              <ul className="mt-6 list-none border-t border-line">
+                {COMPANION_SCOPE.map((item) => (
+                  <li
+                    key={item}
+                    className="border-b border-line py-4 text-[15px] leading-[1.8] text-muted"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal delay={180} className="mt-12 bg-green-deep p-8 md:p-10">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
+                Deliberately narrow
+              </p>
+              <ul className="mt-6 list-none border-t border-[rgba(176,132,68,.28)]">
+                {COMPANION_LIMITS.map((item) => (
+                  <li
+                    key={item}
+                    className="border-b border-[rgba(176,132,68,.2)] py-4 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.72)]"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-7 flex flex-wrap gap-2">
+                <Chip tone="amber">Consent-gated</Chip>
+                <Chip tone="amber">Shared content only</Chip>
+                <Chip tone="amber">Care team escalation</Chip>
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal delay={90} className="lg:pt-2">
+            <CompanionPhone />
           </Reveal>
         </div>
       </Section>
 
       <Section
         id="governance"
-        className="scroll-mt-24 border-y border-line bg-surface"
+        ground="dark"
+        className="scroll-mt-24"
         revealHeader
         headerClassName="max-w-[900px]"
-        contentClassName="mt-16 md:mt-20"
+        contentClassName="mt-14 md:mt-16"
         eyebrow="Governance"
         title={
           <>
-            The rules the AI runs <em className="italic text-green">inside</em>.
+            The rules AI-assisted features run{" "}
+            <em className="italic text-brass">inside</em>.
           </>
         }
-        intro="These are enforced by the platform on every request, which is why they read the same whether you are asking a clinician, a compliance officer or the audit log."
+        intro="These apply on every request, which is why they read the same whether the question comes from a practitioner, a compliance officer or the audit trail."
       >
-        <ul className="list-none border-t border-line">
+        <ul className="grid list-none grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {GOVERNANCE.map((rule, index) => (
             <Reveal
               key={rule.title}
               as="li"
-              delay={Math.min(index, 4) * 90}
-              className="grid grid-cols-[32px_minmax(0,1fr)] gap-x-6 gap-y-3.5 border-b border-line py-9 md:grid-cols-[44px_minmax(0,0.5fr)_minmax(0,1fr)] md:gap-8"
+              delay={Math.min(index % 3, 4) * 90}
+              className="-mb-px -mr-px border border-[rgba(176,132,68,.28)] p-7 md:p-8"
             >
-              <span className="font-display text-[24px] leading-none text-brass">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="font-display text-[clamp(1.5rem,2.4vw,28px)] font-normal leading-[1.15] text-ink">
+              <h3 className="font-display text-[23px] font-normal leading-[1.2] text-paper">
                 {rule.title}
               </h3>
-              <p className="col-span-2 text-[15px] leading-[1.8] text-muted md:col-span-1">
+              <p className="mt-4 text-[14px] leading-[1.8] text-[rgba(242,239,230,.66)]">
                 {rule.body}
               </p>
             </Reveal>
           ))}
         </ul>
 
-        <div className="mt-11">
-          <Button href="/security" variant="ghost">
+        <div className="mt-12">
+          <Button href="/security" variant="outlineLight" size="lg" onDark>
             Read the security overview
           </Button>
         </div>
       </Section>
 
-      <section className="bg-bg py-24 md:py-[140px]">
-        <div className="container-site">
-          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-20">
-            <Reveal>
-              <Eyebrow>Knowledge</Eyebrow>
-              <h2 className="mt-7 font-display text-[clamp(2.2rem,4.2vw,3.75rem)] font-normal leading-[1.06] tracking-[-0.012em] text-ink [text-wrap:pretty]">
-                Grounded in a library <em className="italic text-green">you</em>{" "}
-                curate.
-              </h2>
-              <p className="mt-7 text-[17px] leading-[1.8] text-muted md:text-lg md:leading-[1.75]">
-                Knowledge answers are grounded in an admin-curated reference
-                library rather than whatever the model happens to have absorbed.
-                Your administrators decide what goes into it, which means the
-                clinical reasoning Dr.T leans on is reasoning your organization
-                has agreed to.
-              </p>
-            </Reveal>
-
-            <Reveal delay={90} className="border-t border-line pt-10">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
-                How it works
-              </p>
-              <p className="mt-5 text-base leading-[1.85] text-muted">
-                An administrator uploads reference material into the library.
-                When a question calls for it, Dr.T retrieves from that library
-                and cites what it used, the same way it cites a lab marker or a
-                Chex form. Add a document and it becomes available; remove one
-                and it stops being used.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
       <CtaBand
-        ground="surface"
+        ground="bg"
         title={
           <>
-            See Dr.T read a <em className="italic text-green">real</em> record.
+            See Dr.T read one <em className="italic text-green">real</em>{" "}
+            client story.
           </>
         }
-        body="Bring one anonymized case and we'll run the loops against it live — the ladder, the insight, the plan — and stop at every point where a clinician has to approve."
-        primary={{ label: "See Dr.T in a demo", href: "/contact" }}
-        secondary={{ label: "Security approach", href: "/security" }}
+        body="Bring an anonymised case from your own practice. We'll show how Dr.T reads across the record, what it can draft, and every point at which a practitioner has to review before anything counts."
+        primary={{ label: "Book a demo", href: "/contact" }}
+        secondary={{ label: "Explore the platform", href: "/platform" }}
       />
     </>
   );

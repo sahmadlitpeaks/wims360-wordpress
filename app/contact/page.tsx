@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { DemoForm } from "@/components/forms/DemoForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -6,7 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a demo of WIMS 360, or reach out about a package. We reply within one business day.",
+    "See your practice through one complete client story. Book a live walkthrough of WIMS 360, or reach out about a package. We reply within one business day.",
 };
 
 type ContactSearchParams = {
@@ -21,6 +22,20 @@ function firstValue(value: string | string[] | undefined): string | null {
 
   return value ?? null;
 }
+
+/** The other two closing calls to action from the approved content direction. */
+const EXPLORE_LINKS: { href: string; label: string; note: string }[] = [
+  {
+    href: "/platform",
+    label: "Explore the platform",
+    note: "The four pillars, the intelligence layer and every module in the catalogue.",
+  },
+  {
+    href: "/build",
+    label: "Build your configuration",
+    note: "Choose the modules and connected services your practice needs, and we'll come back with a written proposal.",
+  },
+];
 
 const DIRECT_LINK =
   "font-display text-[clamp(1.75rem,3vw,34px)] leading-[1.1] text-ink transition-colors duration-300 hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-bg";
@@ -40,13 +55,17 @@ export default async function ContactPage({
           <Reveal>
             <Eyebrow tone="dark">Contact</Eyebrow>
             <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
-              Let&apos;s see WIMS 360 running in{" "}
-              <em className="italic text-brass">your</em> clinic.
+              See your practice through one complete client{" "}
+              <em className="italic text-brass">story</em>.
             </h1>
-            <p className="mt-10 max-w-[60ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
-              Tell us who you are and what you want to see. A 20-minute live
-              walkthrough, scoped to your workflow — no pricing calculated on
-              the call, just a written proposal after.
+            <p className="mt-10 max-w-[64ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
+              Bring your current workflow, your clinical services and the way
+              you manage clients today. We&apos;ll show you how WIMS 360 can
+              connect the journey from investigation to healing, from live data
+              to communication, and from client engagement to practice growth.
+            </p>
+            <p className="mt-8 font-display text-[clamp(1.4rem,2.6vw,28px)] leading-[1.3] text-brass">
+              One platform. Every insight. Better outcomes.
             </p>
           </Reveal>
         </div>
@@ -77,6 +96,29 @@ export default async function ContactPage({
                     Warehouse Complex B12
                   </address>
                 </div>
+              </div>
+
+              <div className="mt-12 border-t border-line pt-10 md:pt-12">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+                  Rather look around first
+                </p>
+                <ul className="mt-7 list-none border-t border-line">
+                  {EXPLORE_LINKS.map((link) => (
+                    <li key={link.href} className="border-b border-line">
+                      <Link
+                        href={link.href}
+                        className="flex flex-col gap-1.5 py-5 transition-colors duration-300 hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass"
+                      >
+                        <span className="font-display text-[19px] leading-[1.25] text-ink">
+                          {link.label}
+                        </span>
+                        <span className="text-[14px] leading-[1.7] text-muted">
+                          {link.note}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <div className="mt-12 bg-green-soft p-8 md:p-9">

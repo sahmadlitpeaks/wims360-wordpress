@@ -19,13 +19,25 @@ function groupRows(rows: ComparisonRow[]): { group: string; rows: ComparisonRow[
   return groups;
 }
 
-/** The artboard's own affordance: a green dot for yes, a pale rule for no. */
+/** A green check for yes, a pale rule for no — each with its own sr-only text. */
 function Included() {
   return (
     <>
-      <span aria-hidden="true" className="text-[15px] leading-none text-green">
-        &#9679;
-      </span>
+      <svg
+        viewBox="0 0 12 12"
+        aria-hidden="true"
+        focusable="false"
+        className="inline-block h-3.5 w-3.5 text-green"
+      >
+        <path
+          d="M2 6.4 4.6 9 10 3.2"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
       <span className="sr-only">Included</span>
     </>
   );
@@ -46,7 +58,7 @@ function NotIncluded() {
 }
 
 /**
- * The full 41-row feature matrix. The wrapper scrolls horizontally below `lg`
+ * The full 40-row feature matrix, grouped by pillar. The wrapper scrolls horizontally below `lg`
  * so the four columns stay readable on a phone without the page itself
  * scrolling; from `lg` the wrapper stops being a scroll container, which is
  * what lets the header row stick under the site header.
@@ -64,7 +76,8 @@ export function ComparisonTable() {
       eyebrow="Compare"
       title={
         <>
-          Every feature, <em className="italic text-green">tier</em> by tier.
+          Every capability, <em className="italic text-green">package</em> by
+          package.
         </>
       }
     >
@@ -144,9 +157,11 @@ export function ComparisonTable() {
       </div>
 
       <p className="mt-10 max-w-[70ch] text-[15px] leading-[1.8] text-muted">
-        Dr.T Copilot and the Wellness Companion are consent-gated and
-        clinician-approved, and are enabled per customer only after a BAA or DPA
-        is signed.
+        Dr.T AI and the Wellness Companion are not enabled by default. Your
+        organisation switches them on, they work only for clients whose consent
+        for AI-assisted features is active, and every AI-generated clinical
+        action remains subject to the appropriate permissions, consent and
+        professional review.
       </p>
     </Section>
   );

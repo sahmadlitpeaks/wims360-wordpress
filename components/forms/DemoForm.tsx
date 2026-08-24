@@ -22,14 +22,19 @@ type OrgTypeValue =
   | "multi-center"
   | "other";
 
+/**
+ * Display labels follow the approved voice ("practice", "centre"); the `value`
+ * strings are the stable identifiers that travel in the lead message, so they
+ * are deliberately left alone.
+ */
 const ORG_TYPES: { value: OrgTypeValue; label: string }[] = [
-  { value: "wellness-clinic", label: "Wellness clinic" },
+  { value: "wellness-clinic", label: "Longevity & wellness practice" },
   {
     value: "functional-integrative-medicine",
     label: "Functional & integrative medicine",
   },
-  { value: "lab-diagnostics", label: "Lab or diagnostics provider" },
-  { value: "multi-center", label: "Multi-center organization" },
+  { value: "lab-diagnostics", label: "Laboratory or diagnostics provider" },
+  { value: "multi-center", label: "Multi-centre group" },
   { value: "other", label: "Other" },
 ];
 
@@ -191,9 +196,14 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
         <h2 className="mt-6 font-display text-[clamp(2rem,4vw,52px)] font-normal leading-[1.06] text-ink [text-wrap:pretty]">
           Thanks — we&apos;ll reply within one business day.
         </h2>
-        <p className="mt-7 max-w-[52ch] text-[16.5px] leading-[1.85] text-muted">
-          Bring your lab vendor list, your current booking flow, and one real
-          patient scenario — we&apos;ll show it running in WIMS.
+        <p className="mt-7 max-w-[54ch] text-[16.5px] leading-[1.85] text-muted">
+          Bring your current workflow, your clinical services and the way you
+          manage clients today. We&apos;ll show you how WIMS 360 can connect the
+          journey from investigation to healing, from live data to
+          communication, and from client engagement to practice growth.
+        </p>
+        <p className="mt-7 font-display text-[clamp(1.3rem,2.4vw,26px)] leading-[1.3] text-green">
+          One platform. Every insight. Better outcomes.
         </p>
       </div>
     );

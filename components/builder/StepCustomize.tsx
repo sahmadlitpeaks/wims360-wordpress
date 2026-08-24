@@ -52,7 +52,7 @@ export function StepCustomize({
   return (
     <div className="flex flex-col gap-8">
       <p className="max-w-2xl text-[15px] leading-[1.8] text-muted">
-        Most clinics need something shaped to them. Tick whatever applies —
+        Most practices need something shaped to them. Tick whatever applies —
         each item is scoped as onboarding work in the proposal, not billed as a
         surprise later.
       </p>
@@ -101,7 +101,7 @@ export function StepCustomize({
           rows={5}
           value={notes}
           onChange={(event) => onNotesChange(event.target.value)}
-          placeholder="Tell us about your clinic, your timeline or anything specific you need."
+          placeholder="Tell us about your practice, your timeline or anything specific you need."
           className="mt-4 w-full max-w-2xl resize-y rounded-none border border-line bg-surface px-4 py-3.5 text-sm leading-[1.8] text-ink transition-colors duration-300 placeholder:text-muted focus:border-green focus:outline-none"
         />
       </div>

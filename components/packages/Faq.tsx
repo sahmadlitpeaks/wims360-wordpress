@@ -29,7 +29,7 @@ export function Faq() {
       eyebrow="Questions"
       title={
         <>
-          What clinics ask <em className="italic text-green">before</em>{" "}
+          What practices ask <em className="italic text-green">before</em>{" "}
           signing.
         </>
       }

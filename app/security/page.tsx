@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/Button";
+import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -8,44 +9,41 @@ import { COMPLIANCE } from "@/content/compliance";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
-  title: "Security & Compliance",
+  title: "Security",
   description:
-    "WIMS 360 operates as a HIPAA Business Associate and a GDPR Processor. Audit logging, versioned consent, enforced 2FA, retention and erasure workflows, a 72-hour breach process and encrypted infrastructure — plus how the AI layer is governed.",
+    "Security, permissions and consent are part of the WIMS 360 platform rather than an afterthought: audit logging, versioned consent, role-based access, two-factor authentication, defined retention, secure data and governed AI. HIPAA-aligned and GDPR-ready.",
 };
 
 /** Hairline colour for dividers on the green-deep ground. */
 const BRASS_RULE = "border-[rgba(176,132,68,.28)]";
 
+/** Posture, stated the way it is allowed to be stated — aligned, never certified. */
+const POSTURE = [
+  "HIPAA-aligned",
+  "GDPR-ready",
+  "Encrypted in transit and at rest",
+];
+
 const STANCE: { role: string; label: string; body: string }[] = [
   {
     role: "WIMS 360",
     label: "Business Associate / Processor",
-    body: "We process protected health information on your behalf, under the terms of the BAA and DPA you sign with us. We do not decide why the data is collected or how it is used clinically — you do.",
+    body: "We process client health information on your behalf, under the terms of the Business Associate Agreement and Data Processing Agreement you sign with us. We do not decide why the information is collected or how it is used clinically — you do.",
   },
   {
-    role: "Your clinic",
+    role: "Your practice",
     label: "Covered Entity / Controller",
-    body: "You remain the Covered Entity under HIPAA and the Controller under GDPR. You set the clinical purpose, own the client relationship, and are the party clients and regulators contact first.",
+    body: "Your practice remains the Covered Entity under HIPAA and the Controller under GDPR. You set the clinical purpose, you own the client relationship, and you are the party clients and regulators contact first.",
   },
 ];
 
-const GOVERNANCE: { title: string; body: string }[] = [
-  {
-    title: "Consent-gated, per client",
-    body: "AI features are gated on that individual client's consent, including a separate, revocable AI consent — not one blanket toggle for the account.",
-  },
-  {
-    title: "Clinician approval on every write",
-    body: "Dr.T Copilot and the Wellness Companion draft; nothing is written to the clinical record without a clinician confirming it first.",
-  },
-  {
-    title: "Audit-logged",
-    body: "What was read, what was drafted and who approved it are recorded in the same append-only audit log as every other clinical action.",
-  },
-  {
-    title: "Off until the paperwork is signed",
-    body: "AI is disabled by default and enabled per customer only once a BAA or DPA is in place — a clinic can run WIMS 360 with no AI at all.",
-  },
+/** The closing chip row from the approved content direction. */
+const CLOSING_CHIPS = [
+  "Security",
+  "Consent",
+  "Access Control",
+  "Auditability",
+  "Privacy",
 ];
 
 export default function SecurityPage() {
@@ -54,20 +52,40 @@ export default function SecurityPage() {
       <section className="bg-green-deep pb-24 pt-20 text-cream md:pb-[128px] md:pt-[120px]">
         <div className="container-site">
           <Reveal>
-            <Eyebrow tone="dark">Security &amp; Compliance</Eyebrow>
-            <h1 className="mt-8 max-w-[22ch] font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
-              Compliance is a <em className="italic text-brass">platform</em>{" "}
-              property, not a policy binder.
+            <Eyebrow tone="dark">Security</Eyebrow>
+            <h1 className="mt-8 max-w-[18ch] font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+              Built into the <em className="italic text-brass">platform</em>.
             </h1>
             <p className="mt-10 max-w-[64ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
-              WIMS 360 operates as a HIPAA Business Associate and a GDPR
-              Processor. Your clinic remains the Covered Entity and the
-              Controller — the party that decides why the data exists and who it
-              belongs to. Here is how we hold up our side.
+              WIMS 360 is designed so security, permissions and consent are part
+              of the platform rather than an afterthought. They are not a policy
+              document maintained alongside the product — they are the way the
+              client record behaves in every module, on every screen, for every
+              role.
             </p>
 
+            <ul className="mt-10 flex list-none flex-wrap gap-2">
+              {POSTURE.map((item) => (
+                <li key={item}>
+                  <Chip
+                    tone="neutral"
+                    className={cn(
+                      "border-[rgba(176,132,68,.4)] bg-transparent text-[rgba(242,239,230,.8)]",
+                    )}
+                  >
+                    {item}
+                  </Chip>
+                </li>
+              ))}
+            </ul>
+
             <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-              <Button href="/contact?package=security" variant="primary" size="lg" onDark>
+              <Button
+                href="/contact?package=security"
+                variant="primary"
+                size="lg"
+                onDark
+              >
                 Request the DPA/BAA pack
               </Button>
               <Button href="/contact" variant="outlineLight" size="lg" onDark>
@@ -107,14 +125,14 @@ export default function SecurityPage() {
         revealHeader
         headerClassName="max-w-[900px]"
         contentClassName="mt-16 md:mt-20"
-        eyebrow="Practices"
+        eyebrow="What the platform holds"
         title={
           <>
-            Six practices, held{" "}
-            <em className="italic text-green">everywhere</em> in the platform.
+            Seven things the platform holds{" "}
+            <em className="italic text-green">everywhere</em>.
           </>
         }
-        intro="These are not a checklist we maintain alongside the product — they are enforced by it, module by module."
+        intro="Each one is enforced by the product rather than maintained beside it, so it holds the same way in the first module a practice switches on as in the last."
       >
         <div className="border-t border-line">
           {COMPLIANCE.map((practice, index) => (
@@ -154,55 +172,29 @@ export default function SecurityPage() {
         ground="dark"
         revealHeader
         headerClassName="max-w-[900px]"
-        contentClassName="mt-16 md:mt-20"
+        contentClassName="mt-14 md:mt-16"
         eyebrow="AI governance"
         title={
           <>
-            The AI layer runs under the{" "}
-            <em className="italic text-brass">same</em> rules.
+            Intelligence on the{" "}
+            <em className="italic text-brass">same</em> terms.
           </>
         }
-        intro="Dr.T Copilot and the Wellness Companion are covered by the same posture as the rest of the platform, enforced at the platform level rather than left to a prompt."
+        intro="Dr.T and the Wellness Companion are governed through explicit client consent and the appropriate organisational controls. Every AI-generated clinical action remains subject to the relevant permissions, consent and professional review — a practice can also run WIMS 360 with no AI at all."
       >
-        <ul className="grid list-none grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0">
-          {GOVERNANCE.map((fact, index) => (
-            <Reveal
-              key={fact.title}
-              as="li"
-              delay={index * 90}
-              className={cn(
-                index > 0 && "lg:pl-9",
-                index < GOVERNANCE.length - 1 && `lg:border-r lg:pr-9 ${BRASS_RULE}`,
-              )}
-            >
-              <h3 className="font-display text-[clamp(1.5rem,2.2vw,28px)] font-normal leading-[1.14] text-paper">
-                {fact.title}
-              </h3>
-              <p className="mt-[18px] text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.62)]">
-                {fact.body}
-              </p>
-            </Reveal>
-          ))}
-        </ul>
-
-        {/*
-          Ghost `Button` with a `className` override: safe now that `cn` pipes
-          through `tailwind-merge`, so `text-brass` reliably beats the ghost
-          variant's `text-green` on this green-deep ground.
-        */}
-        <div className="mt-12 md:mt-14">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
           <Button
-            href="/ai"
+            href="/ai#governance"
             variant="ghost"
             onDark
             className="border-[rgba(176,132,68,.5)] text-[10.5px] text-brass hover:border-paper hover:text-paper"
           >
-            Read the full AI governance page
+            Read how Dr.T is governed
           </Button>
         </div>
       </Section>
 
-      <section className="border-b border-line bg-surface py-24 md:py-[140px]">
+      <section className="border-y border-line bg-surface py-24 md:py-[140px]">
         <div className="container-site">
           <Reveal className="grid grid-cols-1 items-end gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-20">
             <div>
@@ -214,13 +206,18 @@ export default function SecurityPage() {
             </div>
             <div>
               <p className="text-[17px] leading-[1.8] text-muted">
-                Penetration test summaries, subprocessor lists, infrastructure
-                diagrams and the full DPA/BAA text are shared once an NDA is in
+                Security assessments, the list of services we rely on,
+                infrastructure detail and the full Data Processing Agreement and
+                Business Associate Agreement text are shared once an NDA is in
                 place — request the pack and we&apos;ll route it to the right
                 person.
               </p>
               <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-                <Button href="/contact?package=security" variant="dark" size="lg">
+                <Button
+                  href="/contact?package=security"
+                  variant="dark"
+                  size="lg"
+                >
                   Request the DPA/BAA pack
                 </Button>
                 <Button href="/contact" variant="outline" size="lg">
@@ -229,19 +226,39 @@ export default function SecurityPage() {
               </div>
             </div>
           </Reveal>
+
+          <Reveal className="mt-16 border-t border-line pt-10 md:mt-20 md:pt-12">
+            <ul className="flex list-none flex-wrap items-center gap-x-3 gap-y-3">
+              {CLOSING_CHIPS.map((chip, index) => (
+                <li key={chip} className="flex items-center gap-3">
+                  {index > 0 ? (
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "hidden h-px w-6 border-t sm:block",
+                        BRASS_RULE,
+                      )}
+                    />
+                  ) : null}
+                  <Chip tone="green">{chip}</Chip>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </section>
 
       <CtaBand
+        ground="bg"
         title={
           <>
-            Bring your security team to a{" "}
+            Bring your security lead to a{" "}
             <em className="italic text-green">live</em> walkthrough.
           </>
         }
-        body="We'll walk your security or compliance lead through the audit log, the consent registry and the breach process directly in the product."
+        body="We'll walk your security or compliance lead through the audit trail, the consent records and the permission model directly in the product."
         primary={{ label: "Book a security call", href: "/contact" }}
-        secondary={{ label: "See Dr.T governance", href: "/ai" }}
+        secondary={{ label: "See how Dr.T is governed", href: "/ai#governance" }}
       />
     </>
   );

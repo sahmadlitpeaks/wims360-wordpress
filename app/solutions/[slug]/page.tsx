@@ -15,9 +15,13 @@ type PageParams = { slug: string };
 
 const PACKAGE_PREVIEW_COUNT = 5;
 
-/** `ai` lives on its own page rather than a `/platform` deep-dive section. */
+/**
+ * Dr.T and the client-facing companion have their own page; everything else
+ * links to its named card in the matching pillar on `/platform`.
+ */
 const MODULE_HREF_OVERRIDES: Partial<Record<ModuleId, string>> = {
-  ai: "/ai",
+  "drt-ai": "/ai",
+  "wellness-companion": "/ai#companion",
 };
 
 function moduleHref(moduleId: ModuleId): string {

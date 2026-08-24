@@ -36,9 +36,9 @@ export function Footer() {
           <div>
             <Logo width={159} />
             <p className="mt-[26px] max-w-[38ch] text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.6)]">
-              WIMS 360 is the operating system for integrative wellness clinics
-              — intake, diagnostics, care plans and client engagement running in
-              one platform.
+              WIMS 360 is the complete operating system for longevity &amp;
+              wellness — investigations, healing, live health data and
+              communication in one connected platform.
             </p>
           </div>
 

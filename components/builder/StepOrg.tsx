@@ -15,10 +15,10 @@ import { cn } from "@/lib/cn";
 type Org = BuilderState["org"];
 
 export const ORG_TYPES: { value: OrgType; label: string }[] = [
-  { value: "wellness-clinic", label: "Wellness clinic" },
+  { value: "wellness-clinic", label: "Longevity & wellness practice" },
   { value: "functional-medicine", label: "Functional medicine" },
-  { value: "lab", label: "Laboratory / diagnostics" },
-  { value: "multi-center", label: "Multi-center group" },
+  { value: "lab", label: "Laboratory & diagnostics" },
+  { value: "multi-center", label: "Multi-centre group" },
   { value: "other", label: "Something else" },
 ];
 
@@ -135,7 +135,7 @@ export type StepOrgProps = {
 
 /**
  * Step 1. Three radio-card groups describing the organization, plus an
- * optional free list of the tools the clinic runs today. Once all three
+ * optional free list of the tools the practice runs today. Once all three
  * bands are answered an advisory banner names the package most teams in that
  * shape start from — advisory only, every module stays togglable in step 2.
  */
@@ -210,8 +210,8 @@ export function StepOrg({ org, onChange, onApplyPackage }: StepOrgProps) {
           Tools you use today (optional)
         </legend>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-          Whatever the clinic runs now — a practice management system, a
-          spreadsheet, a booking tool, a lab portal. It tells us what a
+          Whatever the practice runs now — a practice management system, a
+          spreadsheet, a booking tool, a laboratory portal. It tells us what a
           migration would have to carry.
         </p>
 

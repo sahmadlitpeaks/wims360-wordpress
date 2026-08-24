@@ -19,46 +19,20 @@ import {
 } from "@/components/builder/Stepper";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { INTEGRATIONS } from "@/content/integrations";
 import type { ModuleId } from "@/content/modules";
 import { PACKAGES, type PackageId } from "@/content/packages";
 import {
-  CUSTOMIZATIONS,
   decodeState,
   dependencyNote,
   encodeState,
   initialState,
   packageModuleIds,
+  sanitizeState,
   toLeadConfiguration,
   toggleModule,
   type BuilderState,
 } from "@/lib/builder";
 import { useLeadSubmit } from "@/lib/useLeadSubmit";
-
-const SELECTABLE_INTEGRATION_NAMES = new Set(
-  INTEGRATIONS.filter((integration) => integration.builderSelectable).map(
-    (integration) => integration.name,
-  ),
-);
-
-const CUSTOMIZATION_IDS = new Set(CUSTOMIZATIONS.map((item) => item.id));
-
-/**
- * Drops entries a shared link may carry that this build no longer knows
- * about — an integration or customization that has since been renamed or
- * removed. `decodeState` validates shape; this validates vocabulary.
- */
-function sanitize(state: BuilderState): BuilderState {
-  return {
-    ...state,
-    integrations: state.integrations.filter((name) =>
-      SELECTABLE_INTEGRATION_NAMES.has(name),
-    ),
-    customizations: state.customizations.filter((id) =>
-      CUSTOMIZATION_IDS.has(id),
-    ),
-  };
-}
 
 function toggleInList(list: string[], value: string): string[] {
   return list.includes(value)
@@ -80,7 +54,7 @@ export type BuilderWizardProps = {
  */
 export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
   const [state, setState] = useState<BuilderState>(() =>
-    sanitize(decodeState(encoded) ?? initialState(startPackage)),
+    sanitizeState(decodeState(encoded) ?? initialState(startPackage)),
   );
   const [note, setNote] = useState<ModuleNote | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -117,6 +91,24 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
 
     setNote(text ? { moduleId: id, text } : null);
     setState((current) => toggleModule(current, id));
+  }
+
+  /**
+   * Group-level convenience on step 2. Folded through `toggleModule` rather
+   * than set directly, so switching a whole pillar on or off still honours
+   * the Dr.T AI / Assessment Forms dependency.
+   */
+  function handleSetGroup(ids: ModuleId[], enabled: boolean) {
+    setNote(null);
+    setState((current) =>
+      ids.reduce(
+        (draft, id) =>
+          draft.modules.includes(id) === enabled
+            ? draft
+            : toggleModule(draft, id),
+        current,
+      ),
+    );
   }
 
   function handleApplyPackage(packageId: PackageId) {
@@ -202,6 +194,7 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
                 note={note}
                 onToggle={handleToggleModule}
                 onDismissNote={() => setNote(null)}
+                onSetGroup={handleSetGroup}
               />
             ) : null}
 

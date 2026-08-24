@@ -17,18 +17,19 @@ const CARD_CLASS = "flex flex-col p-8 md:px-9 md:py-11";
 export function PackagesTeaser() {
   return (
     <Section
+      id="packages"
       className="bg-bg"
       revealHeader
-      headerClassName="max-w-[860px]"
+      headerClassName="max-w-[880px]"
       contentClassName="mt-16 md:mt-20"
       eyebrow="Packages"
       title={
         <>
-          Start where your clinic{" "}
+          Start where your practice{" "}
           <em className="italic text-green">actually</em> is.
         </>
       }
-      intro="Three shipped packages, or a configuration of your own. Every package sits on the same record and the same compliance layer — the difference is which modules are switched on."
+      intro="Three packages, or a configuration of your own. Every package sits on the same connected record and the same security baseline — the difference is which modules are switched on."
     >
       <div className="grid grid-cols-1 gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-4">
         {PACKAGES.map((pkg, index) => (
@@ -80,19 +81,18 @@ export function PackagesTeaser() {
             Build your own
           </h3>
           <p className="mt-3.5 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
-            For clinics that don&apos;t fit a tier
+            Configure WIMS 360 around your practice
           </p>
           <p className="mt-6 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.7)]">
-            Pick the modules, the integrations and the roles your clinic
-            actually runs, and the configurator assembles the scope as you go.
-            Send it to us and we quote against exactly that — nothing you
-            didn&apos;t choose.
+            Choose the modules, the connected services and the roles your
+            practice actually runs, and the configurator assembles the scope as
+            you go. Send it to us and we review it against exactly that.
           </p>
           <Link
             href="/build"
             className="mt-auto inline-flex pt-8 font-mono text-[10px] uppercase tracking-[0.18em] text-brass transition-colors hover:text-paper"
           >
-            Open the configurator
+            Request a configuration review
           </Link>
         </Reveal>
       </div>

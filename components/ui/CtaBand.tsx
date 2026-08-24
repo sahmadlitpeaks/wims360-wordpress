@@ -16,6 +16,8 @@ export type CtaBandProps = {
   primary?: CtaLink;
   /** Pass `null` to render a single call to action. */
   secondary?: CtaLink | null;
+  /** Optional third link, used by the homepage's closing band. */
+  tertiary?: CtaLink | null;
   /** Ground the band sits on, so it alternates with the section above it. */
   ground?: "bg" | "surface";
   className?: string;
@@ -33,7 +35,7 @@ export const DEFAULT_CTA_TITLE: ReactNode = (
 );
 
 export const DEFAULT_CTA_BODY =
-  "A 20-minute live walkthrough. Bring your lab vendor list, your current booking flow, and one real patient scenario — we'll show it running in WIMS.";
+  "A live walkthrough against your own way of working. Bring your current workflow, your clinical services and the way you manage clients today — we'll show you how WIMS 360 can connect the journey.";
 
 export const DEFAULT_CTA_PRIMARY: CtaLink = {
   label: "Book a demo",
@@ -55,6 +57,7 @@ export function CtaBand({
   body = DEFAULT_CTA_BODY,
   primary = DEFAULT_CTA_PRIMARY,
   secondary = DEFAULT_CTA_SECONDARY,
+  tertiary = null,
   ground = "bg",
   className,
 }: CtaBandProps) {
@@ -83,6 +86,11 @@ export function CtaBand({
               {secondary ? (
                 <Button href={secondary.href} variant="outline" size="lg">
                   {secondary.label}
+                </Button>
+              ) : null}
+              {tertiary ? (
+                <Button href={tertiary.href} variant="ghost">
+                  {tertiary.label}
                 </Button>
               ) : null}
             </div>

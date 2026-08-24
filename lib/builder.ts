@@ -1,5 +1,14 @@
-import { MODULES, type ModuleId } from "@/content/modules";
+import { INTEGRATION_SERVICES } from "@/content/integrations";
+import {
+  MODULES,
+  SELECTABLE_MODULES,
+  modulesByPillar,
+  type Module,
+  type ModuleId,
+  type ModulePillar,
+} from "@/content/modules";
 import { PACKAGES, type PackageId } from "@/content/packages";
+import { PILLARS } from "@/content/pillars";
 
 export type OrgType =
   | "wellness-clinic"
@@ -36,7 +45,7 @@ export interface BuilderState {
 export const CUSTOMIZATIONS: { id: string; label: string }[] = [
   {
     id: "custom-chex",
-    label: "Custom Chex forms for a protocol you already run on paper",
+    label: "Custom assessment forms for a protocol you already run on paper",
   },
   { id: "white-label", label: "White-label / embeddable wizards" },
   { id: "migration", label: "Data migration from your current tools" },
@@ -44,6 +53,49 @@ export const CUSTOMIZATIONS: { id: string; label: string }[] = [
   { id: "training", label: "Staff training" },
   { id: "hosting", label: "Specific hosting requirements" },
 ];
+
+/**
+ * One collapsible group of selectable modules in step 2. The four pillars in
+ * their running order, then Intelligence — which sits across all four rather
+ * than inside any one of them.
+ */
+export interface BuilderGroup {
+  id: ModulePillar;
+  /** '01'..'05' — the group's number in the running order. */
+  number: string;
+  name: string;
+  /** The short promise line shown under the group name. */
+  promise: string;
+  /** Selectable modules only; the baseline is never togglable. */
+  modules: Module[];
+}
+
+/**
+ * Groups the 33 selectable modules for the builder's module step, so 33
+ * checkboxes read as five short sections rather than one wall.
+ */
+export function builderGroups(): BuilderGroup[] {
+  const pillarGroups: BuilderGroup[] = PILLARS.map((pillar) => ({
+    id: pillar.id,
+    number: pillar.number,
+    name: pillar.name,
+    promise: pillar.promise,
+    modules: modulesByPillar(pillar.id).filter((module) => module.selectable),
+  }));
+
+  return [
+    ...pillarGroups,
+    {
+      id: "intelligence",
+      number: String(pillarGroups.length + 1).padStart(2, "0"),
+      name: "Intelligence",
+      promise: "Across the entire journey.",
+      modules: modulesByPillar("intelligence").filter(
+        (module) => module.selectable,
+      ),
+    },
+  ];
+}
 
 const DEFAULT_START_PACKAGE: PackageId = "clinical";
 
@@ -101,9 +153,9 @@ export function recommendedPackage(org: BuilderState["org"]): PackageId {
 
 /**
  * Toggles a single module on or off, applying the one dependency rule the
- * builder enforces: Dr.T AI reads Chex data, so it cannot be enabled
- * without Assessments, and dropping Assessments while AI is on drops AI
- * too.
+ * builder enforces: Dr.T AI reads assessment data, so it cannot be enabled
+ * without Assessment Forms, and dropping Assessment Forms while Dr.T is on
+ * drops Dr.T too.
  */
 export function toggleModule(state: BuilderState, id: ModuleId): BuilderState {
   const isEnabled = state.modules.includes(id);
@@ -112,14 +164,14 @@ export function toggleModule(state: BuilderState, id: ModuleId): BuilderState {
   if (isEnabled) {
     modules = state.modules.filter((moduleId) => moduleId !== id);
 
-    if (id === "assessments" && modules.includes("ai")) {
-      modules = modules.filter((moduleId) => moduleId !== "ai");
+    if (id === "assessment-forms" && modules.includes("drt-ai")) {
+      modules = modules.filter((moduleId) => moduleId !== "drt-ai");
     }
   } else {
     modules = [...state.modules, id];
 
-    if (id === "ai" && !modules.includes("assessments")) {
-      modules = [...modules, "assessments"];
+    if (id === "drt-ai" && !modules.includes("assessment-forms")) {
+      modules = [...modules, "assessment-forms"];
     }
   }
 
@@ -132,12 +184,12 @@ export function toggleModule(state: BuilderState, id: ModuleId): BuilderState {
  * `id` to `enabled` has no cascading effect on other modules.
  */
 export function dependencyNote(id: ModuleId, enabled: boolean): string | null {
-  if (id === "ai" && enabled) {
-    return "Dr.T reads Chex data — we've added Assessments.";
+  if (id === "drt-ai" && enabled) {
+    return "Dr.T reads assessment data — we've added Assessment Forms.";
   }
 
-  if (id === "assessments" && !enabled) {
-    return "Dr.T AI depends on Assessments — we've removed it too.";
+  if (id === "assessment-forms" && !enabled) {
+    return "Dr.T AI depends on Assessment Forms — we've removed it too.";
   }
 
   return null;
@@ -241,13 +293,9 @@ function isBuilderState(value: unknown): value is BuilderState {
     return false;
   }
 
-  if (
-    !Array.isArray(candidate.modules) ||
-    !candidate.modules.every(
-      (moduleId) =>
-        typeof moduleId === "string" && MODULE_IDS.has(moduleId as ModuleId)
-    )
-  ) {
+  // Shape only: a module id this build no longer knows about must not throw
+  // away the whole shared configuration. `sanitizeState` drops it instead.
+  if (!isStringArray(candidate.modules)) {
     return false;
   }
 
@@ -289,15 +337,66 @@ export function decodeState(raw: string | null): BuilderState | null {
   }
 }
 
+const SELECTABLE_INTEGRATION_NAMES = new Set(
+  INTEGRATION_SERVICES.filter((service) => service.builderSelectable).map(
+    (service) => service.name,
+  ),
+);
+
+const CUSTOMIZATION_IDS = new Set(CUSTOMIZATIONS.map((item) => item.id));
+
+/**
+ * Drops anything a shared link may carry that this build no longer knows
+ * about — a module, connected service or customization that has since been
+ * renamed or removed. `decodeState` validates shape; this validates
+ * vocabulary, so a stale link still opens with everything we do recognise.
+ */
+export function sanitizeState(state: BuilderState): BuilderState {
+  return {
+    ...state,
+    modules: state.modules.filter((id) => MODULE_IDS.has(id)),
+    integrations: state.integrations.filter((name) =>
+      SELECTABLE_INTEGRATION_NAMES.has(name),
+    ),
+    customizations: state.customizations.filter((id) =>
+      CUSTOMIZATION_IDS.has(id),
+    ),
+  };
+}
+
+/** Selectable modules currently switched on, grouped for the summary rail. */
+export function selectedCountsByGroup(
+  state: BuilderState,
+): { name: string; count: number }[] {
+  const selected = new Set(state.modules);
+
+  return builderGroups().map((group) => ({
+    name: group.name,
+    count: group.modules.filter((module) => selected.has(module.id)).length,
+  }));
+}
+
+/** Total selectable modules switched on, baseline excluded. */
+export function selectedSelectableCount(state: BuilderState): number {
+  const selected = new Set(state.modules);
+
+  return SELECTABLE_MODULES.filter((module) => selected.has(module.id)).length;
+}
+
 /**
  * Human-keyed summary of the configuration for the lead email / CRM
  * payload: module and customization ids are resolved to their display
  * names/labels so the summary reads naturally without a lookup table.
  */
 export function toLeadConfiguration(s: BuilderState): object {
-  const moduleNames = s.modules
-    .map((id) => MODULES.find((m) => m.id === id)?.name)
-    .filter((name): name is string => Boolean(name));
+  const chosen = s.modules
+    .map((id) => MODULES.find((m) => m.id === id))
+    .filter((m): m is (typeof MODULES)[number] => Boolean(m));
+
+  /* Baseline modules ship with every package, so listing them beside the
+     customer's selections would inflate the count they saw while choosing. */
+  const moduleNames = chosen.filter((m) => m.selectable).map((m) => m.name);
+  const alwaysIncluded = chosen.filter((m) => !m.selectable).map((m) => m.name);
 
   const customizationLabels = s.customizations
     .map((id) => CUSTOMIZATIONS.find((c) => c.id === id)?.label)
@@ -311,6 +410,7 @@ export function toLeadConfiguration(s: BuilderState): object {
       currentTools: s.org.currentTools,
     },
     modules: moduleNames,
+    alwaysIncluded,
     integrations: s.integrations,
     customizations: customizationLabels,
     otherSystems: s.otherSystems,
