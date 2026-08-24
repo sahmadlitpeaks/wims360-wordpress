@@ -9,6 +9,7 @@ export function ImageBand() {
     <section className="relative h-[380px] overflow-hidden bg-green-deep md:h-[420px]">
       <ImageSlot
         caption="Wide practice interior — consultation room, warm light"
+        src="band-connected-record.svg"
         /* Bottom padding lifts the placeholder caption clear of the overlay copy. */
         className="absolute inset-0 h-full w-full pb-40 md:pb-44"
       />

@@ -119,6 +119,7 @@ export default function PlatformPage() {
             <Reveal delay={90}>
               <ImageSlot
                 caption="Practice portrait — practitioner reviewing a client record"
+                src="platform-record.svg"
                 overlay="top"
                 className="min-h-[320px] md:min-h-[420px]"
               />
@@ -200,6 +201,7 @@ export default function PlatformPage() {
                   <Reveal>
                     <ImageSlot
                       caption="Consultation — practitioner and client reviewing a healing plan together"
+                      src="band-connected-record.svg"
                       overlay="top"
                       className="min-h-[280px] md:min-h-[400px]"
                     />

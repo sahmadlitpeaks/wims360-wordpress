@@ -66,6 +66,14 @@ export function CtaBand({
       <div className="container-site">
         <Reveal className="grid grid-cols-1 items-end gap-12 border-t border-line pt-12 md:pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.62fr)] lg:gap-20">
           <div>
+            {/* Seven stages of the client journey resolving into one point. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/journey-motif.svg"
+              alt=""
+              aria-hidden="true"
+              className="mb-10 hidden h-[110px] w-full max-w-[560px] object-contain object-left md:block"
+            />
             <Eyebrow>Next step</Eyebrow>
             <h2 className="mt-7 font-display text-[clamp(2.6rem,6vw,4.5rem)] font-normal leading-[1.02] tracking-[-0.015em] text-ink [text-wrap:pretty]">
               {title}
