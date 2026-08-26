@@ -88,7 +88,7 @@ export function StepCustomize({
       <div>
         <label
           htmlFor="builder-notes"
-          className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep"
+          className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep"
         >
           Anything else we should know?
         </label>

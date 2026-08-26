@@ -92,7 +92,7 @@ export function StepIntegrations({
                     {service.description}
                   </span>
                   {service.examples ? (
-                    <span className="mt-3 block font-mono text-[9.5px] uppercase leading-[1.8] tracking-[0.16em] text-brass-deep">
+                    <span className="mt-3 block font-semibold text-[12px] uppercase leading-[1.8] tracking-[0.06em] text-brass-deep">
                       {service.examples.join(" · ")}
                     </span>
                   ) : null}
@@ -106,7 +106,7 @@ export function StepIntegrations({
       <div>
         <label
           htmlFor="builder-other-systems"
-          className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep"
+          className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep"
         >
           Another service?
         </label>

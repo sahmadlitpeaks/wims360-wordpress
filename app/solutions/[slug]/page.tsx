@@ -44,7 +44,7 @@ function accentLastWord(text: string, tone: "light" | "dark" = "light"): ReactNo
       {words.length ? `${words.join(" ")} ` : ""}
       <em
         className={
-          tone === "dark" ? "italic text-brass" : "italic text-green"
+          tone === "dark" ? "text-mint" : "text-teal-deep"
         }
       >
         {last}
@@ -120,7 +120,7 @@ export default async function SolutionPage({
         <div className="container-site">
           <Reveal>
             <Eyebrow tone="dark">Solutions</Eyebrow>
-            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.03rem,4.96vw,47px)] font-semibold leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
               {accentLastWord(solution.name, "dark")}
             </h1>
             <p className="mt-10 max-w-[64ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
@@ -147,7 +147,7 @@ export default async function SolutionPage({
         title={
           <>
             Here&apos;s what actually{" "}
-            <em className="italic text-green">changes</em>.
+            <em className="text-teal-deep">changes</em>.
           </>
         }
         intro={solution.narrative}
@@ -163,7 +163,7 @@ export default async function SolutionPage({
           eyebrow="Inside this solution"
           title={
             <>
-              What you&apos;ll <em className="italic text-green">run</em> in
+              What you&apos;ll <em className="text-teal-deep">run</em> in
               WIMS 360.
             </>
           }
@@ -177,10 +177,10 @@ export default async function SolutionPage({
                 delay={Math.min(index, 4) * 90}
                 className="flex flex-col bg-surface p-8 md:p-11"
               >
-                <h3 className="font-display text-[clamp(1.6rem,2.6vw,30px)] font-normal leading-[1.15] text-ink">
+                <h3 className="font-display text-[clamp(1.60rem,2.60vw,29px)] font-semibold leading-[1.15] text-ink">
                   {module.name}
                 </h3>
-                <p className="mt-3.5 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
+                <p className="mt-3.5 font-semibold text-[12px] uppercase leading-[1.7] tracking-[0.06em] text-brass">
                   {module.tagline}
                 </p>
                 <p className="mt-5 text-[14.5px] leading-[1.8] text-muted">
@@ -208,10 +208,10 @@ export default async function SolutionPage({
           intro={recommendedPackage.summary}
         >
           <Reveal className="max-w-2xl border-t border-line pt-9">
-            <p className="font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
+            <p className="font-semibold text-[12px] uppercase leading-[1.7] tracking-[0.06em] text-brass">
               {recommendedPackage.audience}
             </p>
-            <h3 className="mt-4 font-display text-[clamp(1.75rem,3vw,34px)] font-normal leading-[1.1] text-ink">
+            <h3 className="mt-4 font-display text-[clamp(1.74rem,3.00vw,34px)] font-semibold leading-[1.1] text-ink">
               {recommendedPackage.name}
             </h3>
 
@@ -256,7 +256,7 @@ export default async function SolutionPage({
               <li key={sibling.slug}>
                 <Link
                   href={`/solutions/${sibling.slug}`}
-                  className="inline-flex border-b border-line pb-2 font-mono text-[11px] uppercase tracking-[0.18em] text-green transition-colors duration-300 hover:border-brass hover:text-green-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
+                  className="inline-flex border-b border-line pb-2 font-semibold text-[12px] uppercase tracking-[0.06em] text-green transition-colors duration-300 hover:border-brass hover:text-green-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
                 >
                   {sibling.name}
                 </Link>

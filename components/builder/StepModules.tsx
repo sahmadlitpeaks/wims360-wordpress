@@ -115,7 +115,7 @@ export function StepModules({
       </p>
 
       <div className="rounded-none border border-line bg-green-soft px-6 py-5">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+        <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
           Included in every package
         </p>
         <ul className="mt-3 flex list-none flex-wrap gap-x-2 gap-y-1.5">
@@ -176,7 +176,7 @@ export function StepModules({
                       <span className="font-display text-[26px] leading-[1.15] text-ink transition-colors duration-300 group-hover:text-green">
                         {group.name}
                       </span>
-                      <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-brass-deep">
+                      <span className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
                         {count} of {ids.length} on
                       </span>
                     </span>
@@ -190,7 +190,7 @@ export function StepModules({
                 <button
                   type="button"
                   onClick={() => onSetGroup(ids, !allOn)}
-                  className="shrink-0 rounded-none border border-line px-3.5 py-2 font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted transition-colors duration-300 hover:border-brass hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
+                  className="shrink-0 rounded-none border border-line px-3.5 py-2 font-semibold text-[12px] uppercase tracking-[0.06em] text-muted transition-colors duration-300 hover:border-brass hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
                 >
                   {allOn ? `Clear ${group.name}` : `Select all ${group.name}`}
                 </button>
@@ -211,11 +211,11 @@ export function StepModules({
                         <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 px-6 py-5 md:px-7">
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                              <h3 className="font-display text-[21px] font-normal leading-[1.2] text-ink">
+                              <h3 className="font-display text-[21px] font-semibold leading-[1.2] text-ink">
                                 {module.name}
                               </h3>
                               {hint ? (
-                                <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted">
+                                <span className="font-semibold text-[12px] uppercase tracking-[0.06em] text-muted">
                                   {hint}
                                 </span>
                               ) : null}
@@ -233,7 +233,7 @@ export function StepModules({
                             className="flex shrink-0 items-center gap-3 rounded-none border border-line px-3.5 py-2.5 transition-colors duration-300 hover:border-brass focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
                           >
                             <Switch on={on} />
-                            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                            <span className="font-semibold text-[12px] uppercase tracking-[0.06em] text-muted">
                               {on ? "On" : "Off"}
                             </span>
                           </button>

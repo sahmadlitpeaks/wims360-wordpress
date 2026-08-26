@@ -29,7 +29,7 @@ export function CopilotChat() {
         style={{ background: "linear-gradient(to bottom,#fff,#FBFAF6)" }}
       >
         <ClientBadge note="Case review · 20 Apr" />
-        <span className="shrink-0 font-mono text-[9.5px] uppercase tracking-[0.16em] text-brass-deep">
+        <span className="shrink-0 font-mono text-[11.5px] uppercase tracking-[0.16em] text-brass-deep">
           Dr.T Copilot
         </span>
       </div>
@@ -45,11 +45,7 @@ export function CopilotChat() {
       <div className="border-t border-line bg-[#FBFAF6] px-[22px] py-6">
         <p className={MOCK_LABEL}>Dr.T · reading the client record</p>
         <p className="mt-3 text-[15px] leading-[1.8] text-muted">
-          Three sources move together from the second week of March. Perceived
-          stress rose in the March assessment, the April panel shows the same
-          direction of travel, and sleep duration in the wearable stream has
-          shortened over the same window. Worth reviewing together before the
-          next appointment.
+          Three sources move together from mid-March: perceived stress, the April panel, and shortening sleep. Worth reviewing before the next appointment.
         </p>
       </div>
 
@@ -59,7 +55,7 @@ export function CopilotChat() {
             aria-hidden="true"
             className="inline-block h-1 w-1 shrink-0 rounded-full bg-brass"
           />
-          <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-brass">
+          <span className="font-mono text-[11.5px] uppercase tracking-[0.18em] text-brass">
             Cited from the client record
           </span>
         </span>
@@ -68,7 +64,7 @@ export function CopilotChat() {
             <Citation key={citation}>{citation}</Citation>
           ))}
         </span>
-        <p className="mt-[18px] font-mono text-[9.5px] uppercase leading-[1.8] tracking-[0.14em] text-[rgba(242,239,230,.5)]">
+        <p className="mt-[18px] font-mono text-[11.5px] uppercase leading-[1.8] tracking-[0.14em] text-[rgba(242,239,230,.5)]">
           Draft only · nothing is saved to the record until a practitioner
           approves it
         </p>

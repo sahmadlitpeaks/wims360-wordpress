@@ -121,9 +121,9 @@ export default function AiPage() {
           <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] lg:gap-20">
             <Reveal>
               <Eyebrow tone="dark">Meet Dr.T</Eyebrow>
-              <h1 className="mt-8 font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1.02] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+              <h1 className="mt-8 font-display text-[clamp(2.03rem,4.96vw,47px)] font-semibold leading-[1.02] tracking-[-0.015em] text-paper [text-wrap:pretty]">
                 AI that sees the whole story —{" "}
-                <em className="italic text-brass">not just one report</em>.
+                <em className="text-mint">not just one report</em>.
               </h1>
               <p className="mt-10 max-w-[58ch] text-[17px] leading-[1.8] text-[rgba(242,239,230,.72)] md:text-lg md:leading-[1.75]">
                 Dr.T works across the information available within the
@@ -156,7 +156,7 @@ export default function AiPage() {
                 {HERO_NOTES.map((note) => (
                   <li
                     key={note}
-                    className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[rgba(242,239,230,.5)]"
+                    className="font-semibold text-[12px] uppercase tracking-[0.06em] text-[rgba(242,239,230,.5)]"
                   >
                     {note}
                   </li>
@@ -182,7 +182,7 @@ export default function AiPage() {
         title={
           <>
             Dr.T can help practitioners{" "}
-            <em className="italic text-green">see more</em> of the story.
+            <em className="text-teal-deep">see more</em> of the story.
           </>
         }
         intro="Nine things Dr.T can help a practitioner do. Each one is available where the client's consent and the practitioner's permissions allow it, and each one produces something a person reviews."
@@ -198,7 +198,7 @@ export default function AiPage() {
               <span className="font-display text-[24px] leading-none text-brass">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="font-display text-[clamp(1.4rem,2.3vw,27px)] font-normal leading-[1.18] text-ink">
+              <h3 className="font-display text-[clamp(1.40rem,2.31vw,26px)] font-semibold leading-[1.18] text-ink">
                 {capability.title}
               </h3>
               <p className="col-span-2 text-[14.5px] leading-[1.8] text-muted md:col-span-1">
@@ -211,14 +211,14 @@ export default function AiPage() {
 
       <Section ground="bg" contentClassName="mt-0">
         <Reveal className="max-w-[1000px] border-t border-line pt-12 md:pt-16">
-          <p className="font-display text-[clamp(2rem,4.2vw,3.5rem)] font-normal leading-[1.08] tracking-[-0.012em] text-ink [text-wrap:pretty]">
+          <p className="font-display text-[clamp(1.69rem,3.61vw,2.52rem)] font-semibold leading-[1.08] tracking-[-0.012em] text-ink [text-wrap:pretty]">
             Dr.T does not replace the practitioner. It helps the practitioner{" "}
-            <em className="italic text-green">see more of the story</em>,
+            <em className="text-teal-deep">see more of the story</em>,
             faster.
           </p>
 
           <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,0.5fr)_minmax(0,1fr)] md:gap-16">
-            <p className="font-mono text-[11px] uppercase leading-[1.9] tracking-[0.18em] text-brass-deep">
+            <p className="font-semibold text-[12px] uppercase leading-[1.9] tracking-[0.06em] text-brass-deep">
               Intelligent assistance.
               <br />
               Human oversight.
@@ -244,7 +244,7 @@ export default function AiPage() {
         title={
           <>
             The client-facing assistant is{" "}
-            <em className="italic text-green">narrower</em> on purpose.
+            <em className="text-teal-deep">narrower</em> on purpose.
           </>
         }
         intro="Clients get their own assistant in the portal and mobile app — a separate one, restricted to what the care team has chosen to share, and active only where the client's consent is active."
@@ -262,7 +262,7 @@ export default function AiPage() {
             </Reveal>
 
             <Reveal delay={90} className="mt-10">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+              <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
                 What it does
               </p>
               <ul className="mt-6 list-none border-t border-line">
@@ -278,7 +278,7 @@ export default function AiPage() {
             </Reveal>
 
             <Reveal delay={180} className="mt-12 bg-green-deep p-8 md:p-10">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
+              <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass">
                 Deliberately narrow
               </p>
               <ul className="mt-6 list-none border-t border-[rgba(176,132,68,.28)]">
@@ -316,7 +316,7 @@ export default function AiPage() {
         title={
           <>
             The rules AI-assisted features run{" "}
-            <em className="italic text-brass">inside</em>.
+            <em className="text-mint">inside</em>.
           </>
         }
         intro="These apply on every request, which is why they read the same whether the question comes from a practitioner, a compliance officer or the audit trail."
@@ -329,7 +329,7 @@ export default function AiPage() {
               delay={Math.min(index % 3, 4) * 90}
               className="-mb-px -mr-px border border-[rgba(176,132,68,.28)] p-7 md:p-8"
             >
-              <h3 className="font-display text-[23px] font-normal leading-[1.2] text-paper">
+              <h3 className="font-display text-[23px] font-semibold leading-[1.2] text-paper">
                 {rule.title}
               </h3>
               <p className="mt-4 text-[14px] leading-[1.8] text-[rgba(242,239,230,.66)]">
@@ -350,7 +350,7 @@ export default function AiPage() {
         ground="bg"
         title={
           <>
-            See Dr.T read one <em className="italic text-green">real</em>{" "}
+            See Dr.T read one <em className="text-teal-deep">real</em>{" "}
             client story.
           </>
         }

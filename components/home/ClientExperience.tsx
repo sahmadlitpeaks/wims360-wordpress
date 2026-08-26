@@ -40,7 +40,7 @@ export function ClientExperience() {
       title={
         <>
           Give clients a reason to stay{" "}
-          <em className="italic text-green">engaged</em>.
+          <em className="text-teal-deep">engaged</em>.
         </>
       }
       intro="Health continues between appointments, and so does the record. The portal is the same client story the practice works in, filtered to what the care team has chosen to share."
@@ -55,7 +55,7 @@ export function ClientExperience() {
                 delay={Math.min(index, 4) * 90}
                 className="border-b border-line py-7"
               >
-                <h3 className="font-display text-[clamp(1.35rem,2.2vw,26px)] font-normal leading-[1.2] text-ink">
+                <h3 className="font-display text-[clamp(1.35rem,2.19vw,26px)] font-semibold leading-[1.2] text-ink">
                   {benefit.title}
                 </h3>
                 <p className="mt-3.5 text-[15px] leading-[1.8] text-muted">

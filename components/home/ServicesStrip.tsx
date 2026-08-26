@@ -13,7 +13,7 @@ export function ServicesStrip() {
   return (
     <section className="border-t border-[rgba(176,132,68,.2)] bg-green-mid py-8 md:py-[34px]">
       <div className="container-site flex flex-col gap-6 md:flex-row md:items-baseline md:gap-14">
-        <p className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.2em] text-brass">
+        <p className="shrink-0 font-semibold text-[12px] uppercase tracking-[0.06em] text-brass">
           Connect what you already use
         </p>
 
@@ -21,7 +21,7 @@ export function ServicesStrip() {
           {INTEGRATION_SERVICES.map((service) => (
             <li
               key={service.id}
-              className="font-mono text-[12.5px] tracking-[0.02em] text-[rgba(242,239,230,.82)]"
+              className="font-semibold text-[12.5px] tracking-[0.02em] text-[rgba(242,239,230,.82)]"
             >
               {service.name}
             </li>
@@ -29,7 +29,7 @@ export function ServicesStrip() {
           <li>
             <Link
               href="/platform#integrations"
-              className="font-mono text-[12.5px] tracking-[0.02em] text-brass transition-colors hover:text-brass-bright"
+              className="font-semibold text-[12.5px] tracking-[0.02em] text-brass transition-colors hover:text-brass-bright"
             >
               {INTEGRATIONS_CLOSING}
             </Link>

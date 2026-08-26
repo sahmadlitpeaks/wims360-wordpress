@@ -21,9 +21,9 @@ export default function PackagesPage() {
         <div className="container-site">
           <Reveal>
             <Eyebrow tone="dark">Packages</Eyebrow>
-            <h1 className="mt-8 max-w-[22ch] font-display text-[clamp(2.75rem,6.6vw,82px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+            <h1 className="mt-8 max-w-[22ch] font-display text-[clamp(2.15rem,5.28vw,49px)] font-semibold leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
               Start with what your{" "}
-              <em className="italic text-brass">practice</em> needs.
+              <em className="text-mint">practice</em> needs.
             </h1>
             <p className="mt-10 max-w-[64ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
               Every longevity and wellness practice is different. Choose the
@@ -52,7 +52,7 @@ export default function PackagesPage() {
         title={
           <>
             Send us your configuration, get a{" "}
-            <em className="italic text-green">scoped</em> proposal.
+            <em className="text-teal-deep">scoped</em> proposal.
           </>
         }
         body="Choose the capabilities in the configurator, or just tell us what your practice runs today. Either way the answer is a written scope — modules, practitioner seats, centres and onboarding — back within one business day."

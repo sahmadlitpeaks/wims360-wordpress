@@ -8,6 +8,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        teal: "var(--teal)",
+        "teal-deep": "var(--teal-deep)",
+        "teal-ink": "var(--teal-ink)",
+        mint: "var(--mint)",
+        "mint-deep": "var(--mint-deep)",
         bg: "var(--bg)",
         surface: "var(--surface)",
         paper: "var(--paper)",
@@ -26,8 +31,8 @@ const config: Config = {
         amber: "var(--amber)",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Instrument Serif", "serif"],
-        body: ["var(--font-body)"],
+        display: ["var(--font-display)"],
+        body: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)"],
       },
     },

@@ -38,7 +38,7 @@ const EXPLORE_LINKS: { href: string; label: string; note: string }[] = [
 ];
 
 const DIRECT_LINK =
-  "font-display text-[clamp(1.75rem,3vw,34px)] leading-[1.1] text-ink transition-colors duration-300 hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-bg";
+  "font-display text-[clamp(1.74rem,3.00vw,34px)] leading-[1.1] text-ink transition-colors duration-300 hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-bg";
 
 export default async function ContactPage({
   searchParams,
@@ -54,9 +54,9 @@ export default async function ContactPage({
         <div className="container-site">
           <Reveal>
             <Eyebrow tone="dark">Contact</Eyebrow>
-            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.03rem,4.96vw,47px)] font-semibold leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
               See your practice through one complete client{" "}
-              <em className="italic text-brass">story</em>.
+              <em className="text-mint">story</em>.
             </h1>
             <p className="mt-10 max-w-[64ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
               Bring your current workflow, your clinical services and the way
@@ -64,7 +64,7 @@ export default async function ContactPage({
               connect the journey from investigation to healing, from live data
               to communication, and from client engagement to practice growth.
             </p>
-            <p className="mt-8 font-display text-[clamp(1.4rem,2.6vw,28px)] leading-[1.3] text-brass">
+            <p className="mt-8 font-display text-[clamp(1.40rem,2.60vw,28px)] leading-[1.3] text-brass">
               One platform. Every insight. Better outcomes.
             </p>
           </Reveal>
@@ -80,7 +80,7 @@ export default async function ContactPage({
 
             <div>
               <div className="border-t border-line pt-10 md:pt-12">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+                <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
                   Reach us directly
                 </p>
                 <div className="mt-7 flex flex-col items-start gap-5">
@@ -99,7 +99,7 @@ export default async function ContactPage({
               </div>
 
               <div className="mt-12 border-t border-line pt-10 md:pt-12">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+                <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
                   Rather look around first
                 </p>
                 <ul className="mt-7 list-none border-t border-line">

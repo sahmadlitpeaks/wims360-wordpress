@@ -33,7 +33,7 @@ export function Header() {
         <div className="flex flex-1 items-center justify-end md:flex-none">
           <Link
             href="/contact"
-            className="hidden flex-none items-center justify-center whitespace-nowrap border border-[rgba(176,132,68,.6)] px-[22px] py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-cream transition-colors duration-300 hover:border-brass hover:bg-brass hover:text-green-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep md:inline-flex"
+            className="hidden flex-none items-center justify-center whitespace-nowrap border border-[rgba(176,132,68,.6)] px-[22px] py-3 font-semibold text-[12px] uppercase tracking-[0.06em] text-cream transition-colors duration-300 hover:border-brass hover:bg-brass hover:text-green-deep focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep md:inline-flex"
           >
             Book a demo
           </Link>

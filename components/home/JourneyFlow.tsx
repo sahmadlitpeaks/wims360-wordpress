@@ -61,9 +61,9 @@ export function JourneyFlow() {
       <div className="container-site">
         <Reveal className="max-w-[880px]">
           <Eyebrow tone="dark">The complete journey</Eyebrow>
-          <h2 className="mt-7 font-display text-[clamp(2.2rem,4.2vw,3.75rem)] font-normal leading-[1.06] tracking-[-0.012em] text-paper [text-wrap:pretty]">
+          <h2 className="mt-7 font-display text-[clamp(1.87rem,3.61vw,2.70rem)] font-semibold leading-[1.06] tracking-[-0.012em] text-paper [text-wrap:pretty]">
             From the first history to the next{" "}
-            <em className="italic text-brass">review</em>.
+            <em className="text-mint">review</em>.
           </h2>
           <p className="mt-7 text-[17px] leading-[1.8] text-[rgba(242,239,230,.7)]">
             Every stage writes to the same client story, and every stage can be
@@ -83,10 +83,10 @@ export function JourneyFlow() {
               delay={Math.min(index % 3, 4) * 90}
               className="bg-green-deep px-6 py-7 md:px-8 md:py-9"
             >
-              <span className="font-mono text-[10px] tracking-[0.2em] text-brass">
+              <span className="font-semibold text-[12px] tracking-[0.06em] text-brass">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span className="mt-4 block font-display text-[clamp(1.2rem,2vw,24px)] leading-[1.25] text-paper [text-wrap:pretty]">
+              <span className="mt-4 block font-display text-[clamp(1.21rem,2.00vw,24px)] leading-[1.25] text-paper [text-wrap:pretty]">
                 {stop.name}
               </span>
               <span className="mt-2.5 block text-[13.5px] leading-[1.75] text-[rgba(242,239,230,.6)]">
@@ -100,7 +100,7 @@ export function JourneyFlow() {
           delay={180}
           className="mt-14 border-t border-[rgba(176,132,68,.28)] pt-10"
         >
-          <p className="font-display text-[clamp(1.6rem,3.2vw,40px)] leading-[1.25] text-brass [text-wrap:pretty]">
+          <p className="font-display text-[clamp(1.48rem,2.97vw,34px)] leading-[1.25] text-brass [text-wrap:pretty]">
             The journey never stops.
           </p>
         </Reveal>

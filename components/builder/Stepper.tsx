@@ -70,7 +70,7 @@ export function Stepper({ current, onGoTo }: StepperProps) {
               >
                 <span
                   className={cn(
-                    "flex h-5 w-5 shrink-0 items-center justify-center rounded-none font-mono text-[10px] leading-none",
+                    "flex h-5 w-5 shrink-0 items-center justify-center rounded-none font-semibold text-[12px] leading-none",
                     isCurrent && "bg-brass text-green-deep",
                     isComplete && "bg-green-deep text-cream",
                     !isCurrent && !isComplete && "border border-line text-muted",
@@ -78,7 +78,7 @@ export function Stepper({ current, onGoTo }: StepperProps) {
                 >
                   {isComplete ? <Check /> : step}
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em]">
+                <span className="font-semibold text-[12px] uppercase tracking-[0.06em]">
                   {STEP_LABELS[step]}
                 </span>
               </button>

@@ -53,7 +53,7 @@ function RailBlock({
 }) {
   return (
     <div>
-      <p className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-brass-deep">
+      <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
         {label}
       </p>
       {children}
@@ -91,7 +91,7 @@ function CopyLinkButton() {
       <button
         type="button"
         onClick={copy}
-        className="w-full rounded-none border border-line bg-surface px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:border-brass hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
+        className="w-full rounded-none border border-line bg-surface px-4 py-3 font-semibold text-[12px] uppercase tracking-[0.06em] text-ink transition-colors duration-300 hover:border-brass hover:text-green focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
       >
         {copied ? "Link copied" : "Copy shareable link"}
       </button>
@@ -161,7 +161,7 @@ function RailContents({
               }
             >
               {group.name}{" "}
-              <span className="font-mono text-[12px] text-brass-deep">
+              <span className="font-semibold text-[12px] text-brass-deep">
                 {group.count}
               </span>
             </li>
@@ -211,7 +211,7 @@ export function SummaryRail({ state, startPackageName }: SummaryRailProps) {
         className="hidden lg:sticky lg:top-24 lg:block lg:self-start"
       >
         <div className="rounded-none border border-line bg-surface p-7">
-          <p className="font-display text-[24px] font-normal leading-[1.15] text-ink">
+          <p className="font-display text-[24px] font-semibold leading-[1.15] text-ink">
             Your configuration
           </p>
           <div className="mt-6">
@@ -238,12 +238,12 @@ export function SummaryRail({ state, startPackageName }: SummaryRailProps) {
             className="flex w-full items-center justify-between gap-4 text-left focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass"
           >
             <span className="min-w-0 flex-1">
-              <span className="block font-mono text-[9.5px] uppercase tracking-[0.2em] text-brass-deep">
+              <span className="block font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
                 Your configuration
               </span>
               <span className="block truncate text-sm text-ink">{counts}</span>
             </span>
-            <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.18em] text-green">
+            <span className="shrink-0 font-semibold text-[12px] uppercase tracking-[0.06em] text-green">
               {open ? "Hide" : "Show"}
             </span>
           </button>

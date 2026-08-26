@@ -3,7 +3,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { PACKAGES } from "@/content/packages";
 
-const PREVIEW_COUNT = 4;
+const PREVIEW_COUNT = 3;
 
 /** Precision sits on white so it reads as the emphasised column. */
 const CARD_GROUND: Record<string, string> = {
@@ -26,7 +26,7 @@ export function PackagesTeaser() {
       title={
         <>
           Start where your practice{" "}
-          <em className="italic text-green">actually</em> is.
+          <em className="text-teal-deep">actually</em> is.
         </>
       }
       intro="Three packages, or a configuration of your own. Every package sits on the same connected record and the same security baseline — the difference is which modules are switched on."
@@ -39,10 +39,10 @@ export function PackagesTeaser() {
             delay={Math.min(index, 4) * 90}
             className={`${CARD_CLASS} ${CARD_GROUND[pkg.id]}`}
           >
-            <h3 className="font-display text-[34px] font-normal leading-[1.1] text-ink">
+            <h3 className="font-display text-[34px] font-semibold leading-[1.1] text-ink">
               {pkg.name}
             </h3>
-            <p className="mt-3.5 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
+            <p className="mt-3.5 font-semibold text-[12px] uppercase leading-[1.7] tracking-[0.06em] text-brass">
               {pkg.audience}
             </p>
             <p className="mt-6 text-[14.5px] leading-[1.8] text-muted">
@@ -65,7 +65,7 @@ export function PackagesTeaser() {
 
             <Link
               href="/packages"
-              className="mt-auto inline-flex pt-8 font-mono text-[10px] uppercase tracking-[0.18em] text-green transition-colors hover:text-brass-deep"
+              className="mt-auto inline-flex pt-8 font-semibold text-[12px] uppercase tracking-[0.06em] text-green transition-colors hover:text-brass-deep"
             >
               See what&apos;s included
             </Link>
@@ -77,10 +77,10 @@ export function PackagesTeaser() {
           delay={Math.min(PACKAGES.length, 4) * 90}
           className={`${CARD_CLASS} bg-green-deep text-cream`}
         >
-          <h3 className="font-display text-[34px] font-normal leading-[1.1] text-paper">
+          <h3 className="font-display text-[34px] font-semibold leading-[1.1] text-paper">
             Build your own
           </h3>
-          <p className="mt-3.5 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
+          <p className="mt-3.5 font-semibold text-[12px] uppercase leading-[1.7] tracking-[0.06em] text-brass">
             Configure WIMS 360 around your practice
           </p>
           <p className="mt-6 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.7)]">
@@ -90,7 +90,7 @@ export function PackagesTeaser() {
           </p>
           <Link
             href="/build"
-            className="mt-auto inline-flex pt-8 font-mono text-[10px] uppercase tracking-[0.18em] text-brass transition-colors hover:text-paper"
+            className="mt-auto inline-flex pt-8 font-semibold text-[12px] uppercase tracking-[0.06em] text-brass transition-colors hover:text-paper"
           >
             Request a configuration review
           </Link>

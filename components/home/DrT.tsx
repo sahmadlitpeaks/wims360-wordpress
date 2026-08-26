@@ -5,15 +5,9 @@ import { Reveal } from "@/components/ui/Reveal";
 
 /** What Dr.T can help a practitioner do, from the approved capability list. */
 const CAPABILITIES = [
-  "Analyse individual reports",
-  "Compare results over time",
-  "Review broader health information",
-  "Generate health insights",
-  "Identify patterns across multiple sources",
-  "Assist with case review",
-  "Draft recommendations for practitioner review",
-  "Support personalised healing plans",
-  "Work within a client-specific clinical context",
+  "Analyse and compare reports across the whole journey",
+  "Surface patterns and possible contributing factors",
+  "Draft insights and plans for practitioner review",
 ];
 
 /**
@@ -40,9 +34,9 @@ export function DrT() {
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)] lg:gap-20">
           <Reveal>
             <Eyebrow tone="dark">Dr.T</Eyebrow>
-            <h2 className="mt-7 font-display text-[clamp(2.2rem,4.2vw,3.75rem)] font-normal leading-[1.06] tracking-[-0.012em] text-paper [text-wrap:pretty]">
+            <h2 className="mt-7 font-display text-[clamp(1.87rem,3.61vw,2.70rem)] font-semibold leading-[1.06] tracking-[-0.012em] text-paper [text-wrap:pretty]">
               AI that sees the whole story —{" "}
-              <em className="italic text-brass">not just one report</em>.
+              <em className="text-mint">not just one report</em>.
             </h2>
             <p className="mt-7 text-[17px] leading-[1.85] text-[rgba(242,239,230,.7)]">
               Dr.T works across the information available within the
@@ -62,11 +56,11 @@ export function DrT() {
               ))}
             </ul>
 
-            <p className="mt-11 font-display text-[clamp(1.3rem,2.3vw,29px)] leading-[1.4] text-paper [text-wrap:pretty]">
+            <p className="mt-11 font-display text-[clamp(1.29rem,2.31vw,29px)] leading-[1.4] text-paper [text-wrap:pretty]">
               Dr.T does not replace the practitioner. It helps the practitioner
               see more of the story, faster.
             </p>
-            <p className="mt-6 font-mono text-[10.5px] uppercase leading-[1.9] tracking-[0.18em] text-brass">
+            <p className="mt-6 font-semibold text-[12px] uppercase leading-[1.9] tracking-[0.06em] text-brass">
               Intelligent assistance. Human oversight.
             </p>
             <p className="mt-4 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.6)]">

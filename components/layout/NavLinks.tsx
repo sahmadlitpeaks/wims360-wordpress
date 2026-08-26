@@ -9,7 +9,7 @@ export type NavLinksProps = {
 };
 
 const BASE =
-  "font-mono text-[11px] uppercase tracking-[0.16em] whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep";
+  "font-semibold text-[12px] uppercase tracking-[0.06em] whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep";
 
 /**
  * Primary nav links with the artboard's active treatment: cream text over a

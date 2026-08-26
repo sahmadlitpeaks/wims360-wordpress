@@ -76,7 +76,7 @@ export function ComparisonTable() {
       eyebrow="Compare"
       title={
         <>
-          Every capability, <em className="italic text-green">package</em> by
+          Every capability, <em className="text-teal-deep">package</em> by
           package.
         </>
       }
@@ -95,7 +95,7 @@ export function ComparisonTable() {
             <tr>
               <th
                 scope="col"
-                className="sticky top-[76px] z-10 w-[46%] border-b border-ink bg-bg pb-4 pr-6 align-bottom font-mono text-[10px] font-normal uppercase tracking-[0.2em] text-muted"
+                className="sticky top-[76px] z-10 w-[46%] border-b border-ink bg-bg pb-4 pr-6 align-bottom font-semibold text-[12px] font-normal uppercase tracking-[0.06em] text-muted"
               >
                 Feature
               </th>
@@ -103,7 +103,7 @@ export function ComparisonTable() {
                 <th
                   key={pkg.id}
                   scope="col"
-                  className="sticky top-[76px] z-10 w-[132px] border-b border-ink bg-bg pb-4 text-center align-bottom font-display text-[22px] font-normal leading-[1.1] text-ink"
+                  className="sticky top-[76px] z-10 w-[132px] border-b border-ink bg-bg pb-4 text-center align-bottom font-display text-[22px] font-semibold leading-[1.1] text-ink"
                 >
                   {pkg.name}
                 </th>
@@ -117,7 +117,7 @@ export function ComparisonTable() {
                 <th
                   scope="colgroup"
                   colSpan={COLUMN_COUNT}
-                  className="pb-3.5 pt-10 text-left font-mono text-[10px] font-normal uppercase tracking-[0.2em] text-brass"
+                  className="pb-3.5 pt-10 text-left font-semibold text-[12px] font-normal uppercase tracking-[0.06em] text-brass"
                 >
                   {group.group}
                 </th>
@@ -137,7 +137,7 @@ export function ComparisonTable() {
                     return (
                       <td
                         key={pkg.id}
-                        className="border-t border-line px-2 py-[18px] text-center font-mono text-[12.5px] leading-[1.5] text-muted"
+                        className="border-t border-line px-2 py-[18px] text-center font-semibold text-[12.5px] leading-[1.5] text-muted"
                       >
                         {typeof value === "string" ? (
                           value

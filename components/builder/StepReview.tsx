@@ -29,7 +29,7 @@ const CONTROL_CLASS =
   "mt-3 w-full rounded-none border border-line bg-surface px-4 py-3 text-sm text-ink transition-colors duration-300 placeholder:text-muted focus:border-green focus:outline-none";
 
 const LABEL_CLASS =
-  "block font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep";
+  "block font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep";
 
 /** The selectable modules that are on, grouped by pillar for the review. */
 function selectedByGroup(
@@ -56,7 +56,7 @@ function customizationLabels(state: BuilderState): string[] {
 function Block({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="border-t border-line pt-5">
-      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+      <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
         {label}
       </p>
       <div className="mt-2.5 text-[14.5px] leading-[1.75] text-ink">
@@ -106,7 +106,7 @@ export function ConfigurationSummary({ state }: { state: BuilderState }) {
           <ul className="flex list-none flex-col gap-3">
             {groups.map((group) => (
               <li key={group.name}>
-                <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-brass">
+                <span className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass">
                   {group.name}
                 </span>
                 <span className="mt-1 block">{group.modules.join(" · ")}</span>
@@ -260,7 +260,7 @@ export function StepReview({
   return (
     <div className="flex flex-col gap-10">
       <div>
-        <h2 className="font-display text-[clamp(1.9rem,3.6vw,42px)] font-normal leading-[1.08] text-ink">
+        <h2 className="font-display text-[clamp(1.75rem,3.35vw,37px)] font-semibold leading-[1.08] text-ink">
           Your WIMS 360
         </h2>
         <p className="mt-5 max-w-2xl text-[15px] leading-[1.8] text-muted">
@@ -275,7 +275,7 @@ export function StepReview({
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="max-w-xl">
-        <h3 className="font-display text-[26px] font-normal leading-[1.15] text-ink">
+        <h3 className="font-display text-[26px] font-semibold leading-[1.15] text-ink">
           Where should the proposal go?
         </h3>
 

@@ -113,7 +113,7 @@ function Group({
 }) {
   return (
     <fieldset>
-      <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+      <legend className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
         {legend}
       </legend>
       {hint ? (
@@ -206,7 +206,7 @@ export function StepOrg({ org, onChange, onApplyPackage }: StepOrgProps) {
       </Group>
 
       <fieldset>
-        <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+        <legend className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
           Tools you use today (optional)
         </legend>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
@@ -258,7 +258,7 @@ export function StepOrg({ org, onChange, onApplyPackage }: StepOrgProps) {
 
       {complete && suggested ? (
         <div className="rounded-none border border-brass bg-green-soft p-6 md:p-8">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+          <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
             Advisory
           </p>
           <p className="mt-4 text-[15px] leading-[1.8] text-green-deep">

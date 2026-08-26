@@ -23,10 +23,10 @@ export function ImageBand() {
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-0">
         <div className="container-site pb-10 md:pb-14">
-          <p className="max-w-[760px] font-display text-[clamp(1.6rem,3.6vw,38px)] leading-[1.24] text-paper [text-wrap:pretty]">
+          <p className="max-w-[760px] font-display text-[clamp(1.48rem,3.35vw,33px)] leading-[1.24] text-paper [text-wrap:pretty]">
             Everything comes together around one complete client story.
           </p>
-          <p className="mt-[18px] font-mono text-[10.5px] uppercase leading-[1.7] tracking-[0.2em] text-brass">
+          <p className="mt-[18px] font-semibold text-[12px] uppercase leading-[1.7] tracking-[0.06em] text-brass">
             Modules switch on per package — the connected record underneath
             stays the same
           </p>

@@ -50,9 +50,9 @@ export default async function BuildPage({
         <div className="container-site">
           <Reveal>
             <Eyebrow tone="dark">Build your own</Eyebrow>
-            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(2.4rem,5.6vw,68px)] font-normal leading-[1.02] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+            <h1 className="mt-8 max-w-[20ch] font-display text-[clamp(1.87rem,4.48vw,41px)] font-semibold leading-[1.02] tracking-[-0.015em] text-paper [text-wrap:pretty]">
               Configure WIMS 360 around your{" "}
-              <em className="italic text-brass">practice</em>.
+              <em className="text-mint">practice</em>.
             </h1>
             <p className="mt-10 max-w-[62ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
               Five short steps: tell us the shape of your organisation, switch
