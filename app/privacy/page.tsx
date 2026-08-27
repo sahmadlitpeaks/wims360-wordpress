@@ -53,10 +53,10 @@ export default function PrivacyPage() {
       <div className="container-site">
         <Reveal className="max-w-prose">
           <Eyebrow>Legal</Eyebrow>
-          <h1 className="mt-7 font-display text-[clamp(2.4rem,5vw,3.5rem)] font-normal leading-[1.06] tracking-[-0.012em] text-ink [text-wrap:pretty]">
+          <h1 className="mt-7 font-display text-[clamp(2.03rem,4.30vw,2.52rem)] font-semibold leading-[1.06] tracking-[-0.012em] text-ink [text-wrap:pretty]">
             Privacy Policy
           </h1>
-          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+          <p className="mt-6 font-semibold text-[12px] uppercase tracking-[0.06em] text-muted">
             Last updated: 20 August 2026
           </p>
 
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
           <div className="mt-14">
             {SECTIONS.map((item) => (
               <div key={item.heading} className="border-t border-line py-9">
-                <h2 className="font-display text-[clamp(1.5rem,2.6vw,30px)] font-normal leading-[1.12] text-ink">
+                <h2 className="font-display text-[clamp(1.50rem,2.60vw,29px)] font-semibold leading-[1.12] text-ink">
                   {item.heading}
                 </h2>
                 <p className="mt-5 text-[15px] leading-[1.85] text-muted">

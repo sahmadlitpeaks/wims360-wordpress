@@ -29,7 +29,7 @@ export function Faq() {
       eyebrow="Questions"
       title={
         <>
-          What practices ask <em className="italic text-green">before</em>{" "}
+          What practices ask <em className="text-teal-deep">before</em>{" "}
           signing.
         </>
       }
@@ -53,7 +53,7 @@ export function Faq() {
                 >
                   <span
                     className={cn(
-                      "font-display text-[clamp(1.4rem,2.4vw,28px)] font-normal leading-[1.2] transition-colors duration-300",
+                      "font-display text-[clamp(1.40rem,2.40vw,28px)] font-normal leading-[1.2] transition-colors duration-300",
                       open ? "text-green" : "text-ink group-hover:text-green",
                     )}
                   >
@@ -61,7 +61,7 @@ export function Faq() {
                   </span>
                   <span
                     aria-hidden="true"
-                    className="mt-2 shrink-0 font-mono text-[15px] leading-none text-brass"
+                    className="mt-2 shrink-0 font-semibold text-[15px] leading-none text-brass"
                   >
                     {open ? "−" : "+"}
                   </span>

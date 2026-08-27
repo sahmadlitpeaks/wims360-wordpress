@@ -19,7 +19,7 @@ export function Diamond() {
       title={
         <>
           Turn complex information into a{" "}
-          <em className="italic text-green">clearer</em> picture.
+          <em className="text-teal-deep">clearer</em> picture.
         </>
       }
       intro="Seven dimensions give the care team a consistent way to look at a client: diet, sleep, stress, digestion, metabolism, toxicity and individuality."
@@ -39,7 +39,7 @@ export function Diamond() {
             to each other and what may need attention next.
           </p>
 
-          <p className="mt-10 border-t border-line pt-8 font-display text-[clamp(1.3rem,2.3vw,29px)] leading-[1.4] text-green [text-wrap:pretty]">
+          <p className="mt-10 border-t border-line pt-8 font-display text-[clamp(1.29rem,2.31vw,29px)] leading-[1.4] text-green [text-wrap:pretty]">
             Understand the whole person, not the last result to arrive.
           </p>
         </Reveal>

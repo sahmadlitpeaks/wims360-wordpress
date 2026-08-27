@@ -30,7 +30,7 @@ const CARD_GROUND: Record<PackageId, string> = {
 const CARD_CLASS = "flex flex-col p-8 md:px-9 md:py-12";
 
 const CARD_LINK =
-  "inline-flex font-mono text-[10px] uppercase tracking-[0.18em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4";
+  "inline-flex font-semibold text-[12px] uppercase tracking-[0.06em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4";
 
 /**
  * The three packages plus the dark "Build your own" column, as one hairline
@@ -49,10 +49,10 @@ export function PackageCards() {
               delay={Math.min(index, 4) * 90}
               className={cn(CARD_CLASS, CARD_GROUND[pkg.id])}
             >
-              <h2 className="font-display text-[clamp(2rem,3.4vw,40px)] font-normal leading-[1.05] text-ink">
+              <h2 className="font-display text-[clamp(1.85rem,3.16vw,34px)] font-semibold leading-[1.05] text-ink">
                 {pkg.name}
               </h2>
-              <p className="mt-4 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
+              <p className="mt-4 font-semibold text-[12px] uppercase leading-[1.7] tracking-[0.06em] text-brass">
                 {pkg.audience}
               </p>
               <p className="mt-6 font-display text-[19px] leading-[1.3] text-green">
@@ -101,10 +101,10 @@ export function PackageCards() {
             delay={Math.min(PACKAGES.length, 4) * 90}
             className={cn(CARD_CLASS, "bg-green-deep text-cream")}
           >
-            <h2 className="font-display text-[clamp(2rem,3.4vw,40px)] font-normal leading-[1.05] text-paper">
+            <h2 className="font-display text-[clamp(1.85rem,3.16vw,34px)] font-semibold leading-[1.05] text-paper">
               Build Your Own
             </h2>
-            <p className="mt-4 font-mono text-[9.5px] uppercase leading-[1.7] tracking-[0.18em] text-brass">
+            <p className="mt-4 font-semibold text-[12px] uppercase leading-[1.7] tracking-[0.06em] text-brass">
               For practices that don&apos;t fit a package
             </p>
             <p className="mt-6 font-display text-[19px] leading-[1.3] text-brass">

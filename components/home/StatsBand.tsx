@@ -20,10 +20,10 @@ export function StatsBand() {
               <div className={index > 0 ? "lg:pl-10" : undefined}>
                 <dt className="sr-only">{stat.label}</dt>
                 <dd className="m-0">
-                  <span className="block font-display text-[clamp(3rem,6vw,76px)] leading-[.92] text-paper">
+                  <span className="block font-display text-[clamp(2.34rem,4.80vw,46px)] leading-[.92] text-paper">
                     {stat.value}
                   </span>
-                  <span className="mt-[22px] block font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
+                  <span className="mt-[22px] block font-semibold text-[12px] uppercase tracking-[0.06em] text-brass">
                     {stat.label}
                   </span>
                   {stat.detail ? (

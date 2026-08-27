@@ -18,7 +18,7 @@ export function RolesGrid() {
       title={
         <>
           Everyone sees the part of the journey they{" "}
-          <em className="italic text-green">need</em>.
+          <em className="text-teal-deep">need</em>.
         </>
       }
       intro="A role is a permission set rather than a job title. One client story, different views — and access to client information is recorded with the actor and the timestamp. Roles can be configured around the way your practice works."

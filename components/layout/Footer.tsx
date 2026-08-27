@@ -25,7 +25,7 @@ const LINK_CLASS =
   "text-[14.5px] text-[rgba(242,239,230,.72)] transition-colors hover:text-cream focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep";
 
 const COLUMN_HEADING_CLASS =
-  "font-mono text-[10px] uppercase tracking-[0.2em] text-brass";
+  "font-semibold text-[12px] uppercase tracking-[0.06em] text-brass";
 
 /** Site footer per the Site Footer artboard: green-deep, brass column labels. */
 export function Footer() {
@@ -90,7 +90,7 @@ export function Footer() {
           <p className="text-[13.5px] text-[rgba(242,239,230,.5)]">
             &copy; 2026 WIMS 360. All rights reserved.
           </p>
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[rgba(242,239,230,.5)]">
+          <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-[rgba(242,239,230,.5)]">
             Dubai, United Arab Emirates
           </p>
         </div>

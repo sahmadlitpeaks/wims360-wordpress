@@ -1,22 +1,19 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Poppins, IBM_Plex_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
-const fontDisplay = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const fontBody = IBM_Plex_Sans({
+/**
+ * Poppins is the type Precision Wellness runs on, so the two brands read as a
+ * family. Display headings prefer "The Seasons" (their Adobe Fonts face) and
+ * fall back to Poppins until that kit is licensed for this domain.
+ */
+const fontBody = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
   display: "swap",
+  variable: "--font-body",
 });
 
 const fontMono = IBM_Plex_Mono({
@@ -52,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-bg text-ink font-body`}
+        className={`${fontBody.variable} ${fontMono.variable} bg-bg text-ink font-body`}
       >
         {/*
           Reveal ships its hidden state in the server HTML so there is no flash
@@ -64,7 +61,7 @@ export default function RootLayout({
         </noscript>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-green-deep focus:px-4 focus:py-2 focus:font-mono focus:text-[11px] focus:uppercase focus:tracking-[0.18em] focus:text-cream"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-green-deep focus:px-4 focus:py-2 focus:font-semibold focus:text-[12px] focus:uppercase focus:tracking-[0.06em] focus:text-cream"
         >
           Skip to content
         </a>

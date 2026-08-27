@@ -74,12 +74,12 @@ export function DashboardMock() {
               <span className="font-display text-[38px] leading-[.9] text-ink">
                 {cell.value}
               </span>
-              <span className="font-mono text-[10.5px] text-muted">
+              <span className="font-mono text-[11.5px] text-muted">
                 {cell.unit}
               </span>
             </p>
             <p
-              className={`mt-2.5 font-mono text-[10.5px] tracking-[0.04em] ${
+              className={`mt-2.5 font-mono text-[11.5px] tracking-[0.04em] ${
                 cell.tone === "brass" ? "text-brass-deep" : "text-green"
               }`}
             >
@@ -100,7 +100,7 @@ export function DashboardMock() {
       <div className="border-t border-line px-[22px] pb-[22px] pt-5">
         <div className="flex items-center justify-between gap-3">
           <span className={MOCK_LABEL}>HRV trend · 30 days</span>
-          <span className="shrink-0 font-mono text-[10.5px] text-muted">
+          <span className="shrink-0 font-mono text-[11.5px] text-muted">
             22 Mar — 20 Apr
           </span>
         </div>

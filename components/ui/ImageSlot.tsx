@@ -82,7 +82,7 @@ export function ImageSlot({
         />
       ) : null}
       {src ? null : (
-        <span className="relative z-10 max-w-[26ch] px-8 text-center font-mono text-[10.5px] uppercase leading-[1.9] tracking-[0.18em] text-[rgba(242,239,230,.5)]">
+        <span className="relative z-10 max-w-[26ch] px-8 text-center font-semibold text-[12px] uppercase leading-[1.9] tracking-[0.06em] text-[rgba(242,239,230,.5)]">
           {caption}
         </span>
       )}

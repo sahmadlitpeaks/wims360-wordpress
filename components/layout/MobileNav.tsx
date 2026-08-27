@@ -99,7 +99,7 @@ export function MobileNav({ items }: MobileNavProps) {
                 <Link
                   href={item.href}
                   onClick={close}
-                  className="block border-b border-[rgba(176,132,68,.18)] py-4 font-mono text-[12px] uppercase tracking-[0.18em] text-cream transition-colors hover:text-brass"
+                  className="block border-b border-[rgba(176,132,68,.18)] py-4 font-semibold text-[12px] uppercase tracking-[0.06em] text-cream transition-colors hover:text-brass"
                 >
                   {item.label}
                 </Link>
@@ -111,14 +111,14 @@ export function MobileNav({ items }: MobileNavProps) {
             <Link
               href="/contact"
               onClick={close}
-              className="inline-flex w-full items-center justify-center bg-brass px-[34px] py-[18px] font-mono text-[11px] uppercase tracking-[0.18em] text-green-deep transition-colors hover:bg-brass-light"
+              className="inline-flex w-full items-center justify-center bg-brass px-[34px] py-[18px] font-semibold text-[12px] uppercase tracking-[0.06em] text-green-deep transition-colors hover:bg-brass-light"
             >
               Book a demo
             </Link>
             <Link
               href="/packages"
               onClick={close}
-              className="border-b border-[rgba(176,132,68,.5)] pb-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[rgba(242,239,230,.72)] transition-colors hover:border-brass hover:text-cream"
+              className="border-b border-[rgba(176,132,68,.5)] pb-2 font-semibold text-[12px] uppercase tracking-[0.06em] text-[rgba(242,239,230,.72)] transition-colors hover:border-brass hover:text-cream"
             >
               View packages
             </Link>

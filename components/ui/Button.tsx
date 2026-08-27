@@ -35,7 +35,7 @@ export type ButtonProps = {
  * case. Shared across every variant.
  */
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-none font-mono text-[11px] uppercase tracking-[0.18em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4";
+  "inline-flex items-center justify-center gap-2 rounded-none text-[14px] font-semibold tracking-[0.01em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4";
 
 const VARIANTS: Record<ButtonVariant, string> = {
   primary:

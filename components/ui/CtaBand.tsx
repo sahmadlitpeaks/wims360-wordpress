@@ -10,7 +10,7 @@ export type CtaLink = {
 };
 
 export type CtaBandProps = {
-  /** ReactNode so callers can embed the italic serif accent word. */
+  /** ReactNode so callers can colour-accent part of the headline. */
   title?: ReactNode;
   body?: ReactNode;
   primary?: CtaLink;
@@ -30,7 +30,7 @@ const GROUNDS: Record<NonNullable<CtaBandProps["ground"]>, string> = {
 
 export const DEFAULT_CTA_TITLE: ReactNode = (
   <>
-    See WIMS 360 with your <em className="italic text-green">own</em> workflow.
+    See WIMS 360 with your <em className="text-teal-deep">own</em> workflow.
   </>
 );
 
@@ -75,7 +75,7 @@ export function CtaBand({
               className="mb-10 hidden h-[110px] w-full max-w-[560px] object-contain object-left md:block"
             />
             <Eyebrow>Next step</Eyebrow>
-            <h2 className="mt-7 font-display text-[clamp(2.6rem,6vw,4.5rem)] font-normal leading-[1.02] tracking-[-0.015em] text-ink [text-wrap:pretty]">
+            <h2 className="mt-7 font-display text-[clamp(1.7rem,3.1vw,2.3rem)] font-semibold leading-[1.02] tracking-[-0.015em] text-ink [text-wrap:pretty]">
               {title}
             </h2>
           </div>

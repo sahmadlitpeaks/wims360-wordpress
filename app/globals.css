@@ -3,31 +3,51 @@
 @tailwind utilities;
 
 :root {
-  --bg: #F2EFE6;
+  /* ---------------------------------------------------------------------
+     Palette derived from the WIMS 360 mark: teal #00B1C9 and mint #2ABF9C.
+     Neutrals carry a slight cool bias so they sit with the brand rather than
+     reading as generic grey. Token NAMES are historical (green/brass); the
+     VALUES are the brand's. Prefer the semantic aliases in new code.
+     --------------------------------------------------------------------- */
+  --bg: #F5F8FA;          /* cool off-white page ground */
   --surface: #FFFFFF;
-  --paper: #F7F5EE;
-  --cream: #F2EFE6;
-  --ink: #141E1A;
-  --muted: #5A6B62;
-  --line: #DCD8CB;
-  --green: #0E6B4E;
-  --green-mid: #0C4633;
-  --green-deep: #07291E;
-  --green-soft: #E4EFE8;
-  --brass: #B08444;
-  --brass-deep: #96661D;
-  --brass-light: #C79A58;
-  --brass-bright: #D6AE72;
-  /* Legacy alias — same hex as --brass-deep. Kept so existing `amber` utilities work. */
-  --amber: #96661D;
+  --paper: #EEF6F8;       /* light text/ground on dark */
+  --cream: #E8F2F4;
+  --ink: #0A1E24;         /* deep, cool near-black */
+  --muted: #55686F;
+  --line: #E2E9EB;
+
+  --green: #05707F;       /* primary teal, dark enough for text on light */
+  --green-mid: #0A4A56;
+  --green-deep: #062A31;  /* dark ground */
+  --green-soft: #E2F4F7;
+
+  --brass: #2ABF9C;       /* mint accent, for dark grounds */
+  --brass-deep: #12836B;  /* mint dark enough for text on light */
+  --brass-light: #4FD3B4;
+  --brass-bright: #7EE3CA;
+  --amber: #12836B;
+
+  /* Semantic aliases — use these going forward. */
+  --teal: #00B1C9;
+  --teal-deep: #05707F;
+  --teal-ink: #062A31;
+  --mint: #2ABF9C;
+  --mint-deep: #12836B;
+
+  /* Display stack. "the-seasons" is Precision Wellness's Adobe Fonts face; add
+     the Typekit <link> for this domain and headings pick it up automatically.
+     Until then Poppins carries them, so nothing renders in a system fallback. */
+  --font-display: "the-seasons", var(--font-body), Georgia, serif;
 }
 
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: .2em;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--brass-deep);
+  color: var(--teal-deep);
 }
 
 /* The same label on a green-deep ground. */

@@ -51,7 +51,7 @@ export function HowPricingWorks() {
       eyebrow="How pricing works"
       title={
         <>
-          Five inputs, <em className="italic text-green">no</em> guesswork.
+          Five inputs, <em className="text-teal-deep">no</em> guesswork.
         </>
       }
       intro="A WIMS 360 proposal is assembled from the same five inputs every time. Tell us where your practice sits on each and the scope is legible — you can see exactly what you are being quoted for, and what you are not."
@@ -67,7 +67,7 @@ export function HowPricingWorks() {
             <span className="font-display text-[34px] leading-none text-brass">
               {factor.index}
             </span>
-            <h3 className="font-display text-[clamp(1.5rem,2.4vw,30px)] font-normal leading-[1.12] text-ink">
+            <h3 className="font-display text-[clamp(1.50rem,2.40vw,29px)] font-semibold leading-[1.12] text-ink">
               {factor.title}
             </h3>
             <p className="col-span-2 text-[15px] leading-[1.8] text-muted md:col-span-1">
@@ -77,7 +77,7 @@ export function HowPricingWorks() {
         ))}
       </ul>
 
-      <p className="mt-12 max-w-[44ch] font-display text-[clamp(1.5rem,2.6vw,30px)] leading-[1.35] text-green md:mt-14">
+      <p className="mt-12 max-w-[44ch] font-display text-[clamp(1.50rem,2.60vw,29px)] leading-[1.35] text-green md:mt-14">
         No public price list — every proposal is scoped to your configuration
         and comes back within one business day.
       </p>

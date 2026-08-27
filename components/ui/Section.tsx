@@ -9,7 +9,7 @@ export type SectionGround = "bg" | "surface" | "dark";
 export type SectionProps = {
   id?: string;
   eyebrow?: string;
-  /** ReactNode so pages can embed the italic serif accent word. */
+  /** ReactNode so pages can colour-accent part of the headline. */
   title?: ReactNode;
   intro?: ReactNode;
   children?: ReactNode;
@@ -72,7 +72,7 @@ export function Section({
             {title ? (
               <h2
                 className={cn(
-                  "font-display text-[clamp(2.2rem,4.2vw,3.75rem)] font-normal leading-[1.06] tracking-[-0.012em] [text-wrap:pretty]",
+                  "font-display text-[clamp(1.6rem,2.9vw,2.1rem)] font-semibold leading-[1.06] tracking-[-0.012em] [text-wrap:pretty]",
                   dark ? "text-paper" : "text-ink",
                   eyebrow && "mt-7",
                 )}

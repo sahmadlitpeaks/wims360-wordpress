@@ -10,7 +10,7 @@ import { cn } from "@/lib/cn";
 
 /** The mono micro-label used for every field name inside a mock. */
 export const MOCK_LABEL =
-  "font-mono text-[9.5px] uppercase tracking-[0.16em] text-muted";
+  "font-mono text-[11.5px] uppercase tracking-[0.16em] text-muted";
 
 const FRAME_SHADOW =
   "shadow-[0_40px_80px_-32px_rgba(20,30,26,.28),0_8px_20px_-10px_rgba(20,30,26,.12)]";
@@ -66,7 +66,7 @@ export function StatusDot({ children }: { children: ReactNode }) {
         aria-hidden="true"
         className="el-pulse inline-block h-[5px] w-[5px] rounded-full bg-green"
       />
-      <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-green">
+      <span className="font-mono text-[11.5px] uppercase tracking-[0.16em] text-green">
         {children}
       </span>
     </span>
@@ -100,7 +100,7 @@ export function ReviewFooter({
           aria-hidden="true"
           className="inline-block h-1 w-1 shrink-0 rounded-full bg-brass"
         />
-        <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-brass">
+        <span className="font-mono text-[11.5px] uppercase tracking-[0.18em] text-brass">
           {kicker}
         </span>
       </span>
@@ -109,16 +109,16 @@ export function ReviewFooter({
       </p>
       {actions ? (
         <span className="mt-[18px] flex flex-wrap gap-2.5">
-          <span className="border border-brass bg-brass px-[18px] py-2 font-mono text-[9.5px] uppercase tracking-[0.16em] text-green-deep">
+          <span className="border border-brass bg-brass px-[18px] py-2 font-mono text-[11.5px] uppercase tracking-[0.16em] text-green-deep">
             Approve
           </span>
-          <span className="border border-[rgba(242,239,230,.28)] px-[18px] py-2 font-mono text-[9.5px] uppercase tracking-[0.16em] text-[rgba(242,239,230,.8)]">
+          <span className="border border-[rgba(242,239,230,.28)] px-[18px] py-2 font-mono text-[11.5px] uppercase tracking-[0.16em] text-[rgba(242,239,230,.8)]">
             Edit draft
           </span>
         </span>
       ) : null}
       {note ? (
-        <p className="mt-4 font-mono text-[9.5px] uppercase leading-[1.8] tracking-[0.14em] text-[rgba(242,239,230,.5)]">
+        <p className="mt-4 font-mono text-[11.5px] uppercase leading-[1.8] tracking-[0.14em] text-[rgba(242,239,230,.5)]">
           {note}
         </p>
       ) : null}

@@ -38,7 +38,7 @@ export function Capabilities() {
       title={
         <>
           Everything the platform can{" "}
-          <em className="italic text-green">do</em>, in one view.
+          <em className="text-teal-deep">do</em>, in one view.
         </>
       }
       intro={`${SELECTABLE_MODULES.length} modules you can switch on, plus the platform baseline that ships in every package. Each one writes to the same client record.`}
@@ -50,10 +50,10 @@ export function Capabilities() {
           return (
             <div key={group.pillar}>
               <Reveal className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-line pt-6">
-                <h3 className="font-display text-[clamp(1.5rem,2.6vw,32px)] font-normal leading-[1.15] text-ink">
+                <h3 className="font-display text-[clamp(1.50rem,2.60vw,32px)] font-semibold leading-[1.15] text-ink">
                   {group.name}
                 </h3>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+                <span className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
                   {modules.length} modules
                 </span>
               </Reveal>
@@ -66,7 +66,7 @@ export function Capabilities() {
                     delay={Math.min(index % 3, 4) * 90}
                     className="bg-surface p-6 md:p-7"
                   >
-                    <h4 className="font-display text-[20px] font-normal leading-[1.25] text-ink">
+                    <h4 className="font-display text-[20px] font-semibold leading-[1.25] text-ink">
                       {module.name}
                     </h4>
                     <p className="mt-2.5 text-[13.5px] leading-[1.75] text-muted">
@@ -80,7 +80,7 @@ export function Capabilities() {
         })}
 
         <Reveal className="bg-green-deep p-8 md:p-12">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
+          <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass">
             Included in every package
           </p>
           <ul className="mt-7 grid list-none grid-cols-1 gap-x-10 border-t border-[rgba(176,132,68,.28)] sm:grid-cols-2 lg:grid-cols-3">

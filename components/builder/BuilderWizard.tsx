@@ -140,7 +140,7 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
     return (
       <div className="max-w-2xl border-t border-line pt-10 md:pt-12">
         <Eyebrow>Configuration sent</Eyebrow>
-        <h2 className="mt-6 font-display text-[clamp(2rem,4vw,52px)] font-normal leading-[1.06] text-ink [text-wrap:pretty]">
+        <h2 className="mt-6 font-display text-[clamp(1.69rem,3.44vw,37px)] font-semibold leading-[1.06] text-ink [text-wrap:pretty]">
           Thank you — this is what we&apos;ll scope against.
         </h2>
         <p className="mt-7 text-[16.5px] leading-[1.85] text-muted">
@@ -170,7 +170,7 @@ export function BuilderWizard({ startPackage, encoded }: BuilderWizardProps) {
 
       <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
         <div className="min-w-0">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+          <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
             Step {state.step} of 5 — {STEP_LABELS[state.step]}
           </p>
 

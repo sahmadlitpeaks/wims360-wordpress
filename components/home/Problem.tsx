@@ -30,7 +30,7 @@ export function Problem() {
       title={
         <>
           Your client&apos;s health story is{" "}
-          <em className="italic text-green">bigger</em> than any single report.
+          <em className="text-teal-deep">bigger</em> than any single report.
         </>
       }
       intro="Modern longevity and wellness practices collect enormous amounts of information."
@@ -42,10 +42,10 @@ export function Problem() {
               key={type}
               className="grid grid-cols-[36px_minmax(0,1fr)] items-baseline gap-4 border-b border-line py-[15px] sm:grid-cols-[46px_minmax(0,1fr)]"
             >
-              <span className="font-mono text-[10px] tracking-[0.14em] text-brass">
+              <span className="font-semibold text-[12px] tracking-[0.14em] text-brass">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span className="font-display text-[clamp(1.25rem,2.2vw,26px)] leading-[1.3] text-ink">
+              <span className="font-display text-[clamp(1.26rem,2.19vw,26px)] leading-[1.3] text-ink">
                 {type}
               </span>
             </li>
@@ -54,10 +54,9 @@ export function Problem() {
 
         <Reveal delay={90} className="lg:pt-4">
           <p className="text-[17px] leading-[1.85] text-muted">
-            When those pieces live in different systems, the complete story
-            becomes difficult to see. A finding recorded in one place cannot be
-            read against a finding recorded in another, and the work of
-            assembling the picture falls to whoever has the time.
+            When those pieces live in different systems, nobody can read one
+            finding against another — and assembling the picture falls to
+            whoever has time.
           </p>
           <p className="mt-6 text-[17px] leading-[1.85] text-muted">
             WIMS 360 connects the journey so your team can spend less time
@@ -65,7 +64,7 @@ export function Problem() {
             client and delivering personalised care.
           </p>
 
-          <p className="mt-10 border-t border-line pt-8 font-display text-[clamp(1.35rem,2.4vw,30px)] leading-[1.35] text-green [text-wrap:pretty]">
+          <p className="mt-10 border-t border-line pt-8 font-display text-[clamp(1.35rem,2.40vw,29px)] leading-[1.35] text-green [text-wrap:pretty]">
             Stop managing fragments. Start managing the journey.
           </p>
         </Reveal>

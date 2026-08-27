@@ -35,32 +35,32 @@ const PILLAR_GROUND: Record<PillarId, "surface" | "bg"> = {
 };
 
 /**
- * The approved section headline for each pillar, with the single italic
+ * The approved section headline for each pillar, with the accented
  * accent word the Estate system allows.
  */
 const PILLAR_HEADLINE: Record<PillarId, ReactNode> = {
   investigations: (
     <>
       One place for the information that builds the client&rsquo;s{" "}
-      <em className="italic text-green">story</em>.
+      <em className="text-teal-deep">story</em>.
     </>
   ),
   healing: (
     <>
       From findings to a personalised healing{" "}
-      <em className="italic text-green">journey</em>.
+      <em className="text-teal-deep">journey</em>.
     </>
   ),
   live: (
     <>
-      See what happens <em className="italic text-green">between</em>{" "}
+      See what happens <em className="text-teal-deep">between</em>{" "}
       appointments.
     </>
   ),
   communication: (
     <>
       Stay connected before, during and after every{" "}
-      <em className="italic text-green">appointment</em>.
+      <em className="text-teal-deep">appointment</em>.
     </>
   ),
 };
@@ -86,9 +86,9 @@ export default function PlatformPage() {
           <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.72fr)] lg:gap-20">
             <Reveal>
               <Eyebrow tone="dark">The platform</Eyebrow>
-              <h1 className="mt-8 max-w-[18ch] font-display text-[clamp(2.75rem,6.6vw,82px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+              <h1 className="mt-8 max-w-[18ch] font-display text-[clamp(2.15rem,5.28vw,49px)] font-semibold leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
                 One client. One connected{" "}
-                <em className="italic text-brass">journey</em>.
+                <em className="text-mint">journey</em>.
               </h1>
               <p className="mt-10 max-w-[62ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
                 WIMS 360 brings investigations, healing, live health data,
@@ -132,7 +132,7 @@ export default function PlatformPage() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="inline-flex font-mono text-[10px] uppercase tracking-[0.18em] text-[rgba(242,239,230,.6)] transition-colors duration-300 hover:text-brass focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep"
+                        className="inline-flex font-semibold text-[12px] uppercase tracking-[0.06em] text-[rgba(242,239,230,.6)] transition-colors duration-300 hover:text-brass focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brass focus-visible:ring-offset-4 focus-visible:ring-offset-green-deep"
                       >
                         {link.label}
                       </Link>
@@ -176,7 +176,7 @@ export default function PlatformPage() {
                 </Reveal>
 
                 <Reveal delay={90} className="lg:pt-1.5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">
+                  <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
                     {pillar.promise}
                   </p>
                   <ul className="mt-6 flex list-none flex-wrap gap-2">
@@ -186,7 +186,7 @@ export default function PlatformPage() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-7 font-mono text-[10px] uppercase leading-[1.9] tracking-[0.18em] text-muted">
+                  <p className="mt-7 font-semibold text-[12px] uppercase leading-[1.9] tracking-[0.06em] text-muted">
                     {modules.length} modules in this pillar
                   </p>
                 </Reveal>
@@ -224,7 +224,7 @@ export default function PlatformPage() {
         title={
           <>
             AI that sees the whole story —{" "}
-            <em className="italic text-brass">not just one report</em>.
+            <em className="text-mint">not just one report</em>.
           </>
         }
         intro="Intelligence runs across the entire journey rather than sitting beside it. Dr.T works for the care team; the Wellness Companion works for the client, and does deliberately less."
@@ -237,7 +237,7 @@ export default function PlatformPage() {
             would not show. Dr.T does not replace the practitioner. It helps the
             practitioner see more of the story, faster.
           </p>
-          <p className="mt-6 font-mono text-[10.5px] uppercase leading-[1.9] tracking-[0.18em] text-brass">
+          <p className="mt-6 font-semibold text-[12px] uppercase leading-[1.9] tracking-[0.06em] text-brass">
             Intelligent assistance. Human oversight.
           </p>
           <p className="mt-4 text-[14.5px] leading-[1.8] text-[rgba(242,239,230,.6)]">
@@ -270,7 +270,7 @@ export default function PlatformPage() {
         title={
           <>
             Six things that are in{" "}
-            <em className="italic text-green">every</em> package.
+            <em className="text-teal-deep">every</em> package.
           </>
         }
         intro="These are not modules a practice chooses between. They are the ground every other module stands on, which is why a wearable reading, a laboratory marker and a consent record all behave the same way."
@@ -298,7 +298,7 @@ export default function PlatformPage() {
         title={
           <>
             Connect the services your practice{" "}
-            <em className="italic text-green">already</em> uses.
+            <em className="text-teal-deep">already</em> uses.
           </>
         }
         intro="Connections are described by the service they provide rather than the supplier behind them, so a practice can keep the tools it already runs and change one without changing the platform."
@@ -311,7 +311,7 @@ export default function PlatformPage() {
               delay={Math.min(index % 3, 4) * 90}
               className="-mb-px -mr-px flex flex-col border border-line p-7 md:p-8"
             >
-              <h3 className="font-display text-[24px] font-normal leading-[1.18] text-ink">
+              <h3 className="font-display text-[24px] font-semibold leading-[1.18] text-ink">
                 {service.name}
               </h3>
               <p className="mt-4 text-[14px] leading-[1.8] text-muted">
@@ -319,7 +319,7 @@ export default function PlatformPage() {
               </p>
               {service.examples ? (
                 <div className="mt-6 border-t border-line pt-5">
-                  <p className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-brass-deep">
+                  <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
                     Supported today
                   </p>
                   <ul className="mt-3.5 flex list-none flex-wrap gap-2">
@@ -336,9 +336,9 @@ export default function PlatformPage() {
         </ul>
 
         <Reveal className="mt-16 border-t border-line pt-12">
-          <p className="max-w-[20ch] font-display text-[clamp(2rem,3.8vw,3.25rem)] font-normal leading-[1.08] tracking-[-0.012em] text-ink [text-wrap:pretty]">
+          <p className="max-w-[20ch] font-display text-[clamp(1.69rem,3.27vw,2.34rem)] font-semibold leading-[1.08] tracking-[-0.012em] text-ink [text-wrap:pretty]">
             One platform. Your{" "}
-            <em className="italic text-green">ecosystem</em>.
+            <em className="text-teal-deep">ecosystem</em>.
           </p>
           <p className="mt-7 max-w-[62ch] text-[15.5px] leading-[1.85] text-muted">
             Wearables and connected health, laboratory systems, SMS, email,

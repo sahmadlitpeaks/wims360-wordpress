@@ -13,7 +13,7 @@ const CONTROL_CLASS =
   "mt-3.5 w-full rounded-none border-0 border-b border-line bg-transparent px-0 py-3 text-[18px] leading-[1.5] text-ink transition-colors duration-300 placeholder:text-muted focus:border-green focus:outline-none md:text-[20px]";
 
 const LABEL_CLASS =
-  "block font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep";
+  "block font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep";
 
 type OrgTypeValue =
   | "wellness-clinic"
@@ -190,10 +190,10 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
   if (status === "ok") {
     return (
       <div className="border-t border-line pt-10 md:pt-12">
-        <p className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-brass-deep">
+        <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass-deep">
           Message sent
         </p>
-        <h2 className="mt-6 font-display text-[clamp(2rem,4vw,52px)] font-normal leading-[1.06] text-ink [text-wrap:pretty]">
+        <h2 className="mt-6 font-display text-[clamp(1.69rem,3.44vw,37px)] font-semibold leading-[1.06] text-ink [text-wrap:pretty]">
           Thanks — we&apos;ll reply within one business day.
         </h2>
         <p className="mt-7 max-w-[54ch] text-[16.5px] leading-[1.85] text-muted">
@@ -202,7 +202,7 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
           journey from investigation to healing, from live data to
           communication, and from client engagement to practice growth.
         </p>
-        <p className="mt-7 font-display text-[clamp(1.3rem,2.4vw,26px)] leading-[1.3] text-green">
+        <p className="mt-7 font-display text-[clamp(1.29rem,2.40vw,26px)] leading-[1.3] text-green">
           One platform. Every insight. Better outcomes.
         </p>
       </div>
@@ -303,7 +303,7 @@ export function DemoForm({ packageId = null }: DemoFormProps) {
         <Button type="submit" variant="dark" size="lg" disabled={submitting}>
           {submitting ? "Sending…" : "Book a demo"}
         </Button>
-        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+        <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-muted">
           We reply within one business day.
         </p>
       </div>

@@ -53,8 +53,8 @@ export default function SecurityPage() {
         <div className="container-site">
           <Reveal>
             <Eyebrow tone="dark">Security</Eyebrow>
-            <h1 className="mt-8 max-w-[18ch] font-display text-[clamp(2.6rem,6.2vw,78px)] font-normal leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
-              Built into the <em className="italic text-brass">platform</em>.
+            <h1 className="mt-8 max-w-[18ch] font-display text-[clamp(2.03rem,4.96vw,47px)] font-semibold leading-[1] tracking-[-0.015em] text-paper [text-wrap:pretty]">
+              Built into the <em className="text-mint">platform</em>.
             </h1>
             <p className="mt-10 max-w-[64ch] text-[17px] leading-[1.75] text-[rgba(242,239,230,.7)] md:text-lg">
               WIMS 360 is designed so security, permissions and consent are part
@@ -105,10 +105,10 @@ export default function SecurityPage() {
                   index === 0 ? "md:pr-11" : "md:pl-11",
                 )}
               >
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass">
+                <p className="font-semibold text-[12px] uppercase tracking-[0.06em] text-brass">
                   {party.label}
                 </p>
-                <h2 className="mt-[18px] font-display text-[clamp(1.8rem,3.2vw,38px)] font-normal leading-[1.08] text-paper">
+                <h2 className="mt-[18px] font-display text-[clamp(1.66rem,2.97vw,33px)] font-semibold leading-[1.08] text-paper">
                   {party.role}
                 </h2>
                 <p className="mt-[18px] text-[15.5px] leading-[1.85] text-[rgba(242,239,230,.66)]">
@@ -129,7 +129,7 @@ export default function SecurityPage() {
         title={
           <>
             Seven things the platform holds{" "}
-            <em className="italic text-green">everywhere</em>.
+            <em className="text-teal-deep">everywhere</em>.
           </>
         }
         intro="Each one is enforced by the product rather than maintained beside it, so it holds the same way in the first module a practice switches on as in the last."
@@ -146,7 +146,7 @@ export default function SecurityPage() {
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div className="col-span-1">
-                <h3 className="font-display text-[clamp(1.6rem,2.6vw,32px)] font-normal leading-[1.1] text-ink">
+                <h3 className="font-display text-[clamp(1.60rem,2.60vw,32px)] font-semibold leading-[1.1] text-ink">
                   {practice.title}
                 </h3>
                 <p className="mt-[18px] text-[15px] leading-[1.8] text-muted">
@@ -177,7 +177,7 @@ export default function SecurityPage() {
         title={
           <>
             Intelligence on the{" "}
-            <em className="italic text-brass">same</em> terms.
+            <em className="text-mint">same</em> terms.
           </>
         }
         intro="Dr.T and the Wellness Companion are governed through explicit client consent and the appropriate organisational controls. Every AI-generated clinical action remains subject to the relevant permissions, consent and professional review — a practice can also run WIMS 360 with no AI at all."
@@ -187,7 +187,7 @@ export default function SecurityPage() {
             href="/ai#governance"
             variant="ghost"
             onDark
-            className="border-[rgba(176,132,68,.5)] text-[10.5px] text-brass hover:border-paper hover:text-paper"
+            className="border-[rgba(176,132,68,.5)] text-[12px] text-brass hover:border-paper hover:text-paper"
           >
             Read how Dr.T is governed
           </Button>
@@ -199,9 +199,9 @@ export default function SecurityPage() {
           <Reveal className="grid grid-cols-1 items-end gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-20">
             <div>
               <Eyebrow>Documentation</Eyebrow>
-              <h2 className="mt-7 font-display text-[clamp(2.2rem,4.2vw,3.75rem)] font-normal leading-[1.06] tracking-[-0.012em] text-ink [text-wrap:pretty]">
+              <h2 className="mt-7 font-display text-[clamp(1.87rem,3.61vw,2.70rem)] font-semibold leading-[1.06] tracking-[-0.012em] text-ink [text-wrap:pretty]">
                 Deeper documentation is available{" "}
-                <em className="italic text-green">under NDA</em>.
+                <em className="text-teal-deep">under NDA</em>.
               </h2>
             </div>
             <div>
@@ -253,7 +253,7 @@ export default function SecurityPage() {
         title={
           <>
             Bring your security lead to a{" "}
-            <em className="italic text-green">live</em> walkthrough.
+            <em className="text-teal-deep">live</em> walkthrough.
           </>
         }
         body="We'll walk your security or compliance lead through the audit trail, the consent records and the permission model directly in the product."

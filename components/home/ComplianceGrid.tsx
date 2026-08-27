@@ -18,7 +18,7 @@ export function ComplianceGrid() {
       eyebrow="Security & privacy"
       title={
         <>
-          Built into the <em className="italic text-green">platform</em>.
+          Built into the <em className="text-teal-deep">platform</em>.
         </>
       }
       intro="Client health information is handled under versioned consent, role-based access and a recorded audit trail. These practices hold across every module because they live in the platform rather than in a policy document."
@@ -44,7 +44,7 @@ export function ComplianceGrid() {
               delay={Math.min(index % 3, 4) * 90}
               className="flex h-full flex-col p-8 md:p-11"
             >
-              <h3 className="font-display text-[28px] font-normal leading-[1.15] text-ink">
+              <h3 className="font-display text-[28px] font-semibold leading-[1.15] text-ink">
                 {practice.title}
               </h3>
               <p className="mt-4 text-[14.5px] leading-[1.8] text-muted">
